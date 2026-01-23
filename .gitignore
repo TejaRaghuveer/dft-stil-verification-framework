@@ -1,0 +1,48 @@
+# Build artifacts
+simv
+simv.daidir
+csrc/
+ucli.key
+vc_hdrs.h
+work/
+transcript
+vsim.wlf
+xcelium.d/
+xrun.log
+xrun.history
+
+# Waveforms
+*.vcd
+*.fsdb
+*.vpd
+
+# Logs
+*.log
+
+# Generated files
+output.stil
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,67 @@
+{
+  "test_config": {
+    "description": "Default test configuration for DFT-STIL verification",
+    
+    "agents": {
+      "jtag": {
+        "active": true,
+        "clock_period_ns": 100,
+        "reset_cycles": 10,
+        "enable_coverage": true
+      },
+      "clock": {
+        "active": true,
+        "period_ns": 10,
+        "duty_cycle": 50,
+        "enable_random_jitter": false
+      },
+      "reset": {
+        "active": true,
+        "assert_cycles": 100,
+        "deassert_delay_ns": 50,
+        "async": false
+      },
+      "pad": {
+        "active": true,
+        "num_pads": 32,
+        "enable_boundary_scan": true,
+        "enable_io_test": true
+      }
+    },
+    
+    "stil": {
+      "input_file": "examples/example_pattern.stil",
+      "output_file": "output.stil",
+      "enable_generation": true,
+      "enable_validation": true,
+      "pattern_timeout_ns": 1000000
+    },
+    
+    "patterns": {
+      "num_test_patterns": 100,
+      "enable_random_patterns": false,
+      "enable_deterministic_patterns": true,
+      "pattern_repeat_count": 1
+    },
+    
+    "coverage": {
+      "enable_functional_coverage": true,
+      "enable_code_coverage": false,
+      "coverage_goal": 95.0
+    },
+    
+    "debug": {
+      "verbosity": "UVM_MEDIUM",
+      "enable_waveform_dump": true,
+      "waveform_file": "tb_top.fsdb",
+      "enable_transaction_logging": true
+    },
+    
+    "gpu_shader": {
+      "num_shader_cores": 4,
+      "num_threads_per_core": 64,
+      "enable_shader_dft_test": true,
+      "enable_scan_chain_verification": true
+    }
+  }
+}

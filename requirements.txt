@@ -1,0 +1,4 @@
+# Python Requirements for DFT-STIL Verification Framework
+# Install with: pip install -r requirements.txt
+
+pyyaml>=5.4.1

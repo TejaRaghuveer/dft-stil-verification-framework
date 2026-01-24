@@ -78,7 +78,7 @@ class ATPGParser:
             
             for assignment in assignments:
                 if '=' in assignment:
-                    pin, value = assignment.split('=')
+                    pin, value = assignment.split('=', 1)  # Limit split to first '=' only
                     # Determine if input or output based on pin name convention
                     if pin.startswith('PO_') or pin.startswith('OUT_'):
                         outputs[pin] = value

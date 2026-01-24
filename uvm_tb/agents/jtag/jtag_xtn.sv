@@ -279,7 +279,7 @@ class jtag_xtn extends uvm_sequence_item;
         this.tms_vector = new[rhs_.tms_vector.size()];
         foreach (rhs_.tms_vector[i]) this.tms_vector[i] = rhs_.tms_vector[i];
         
-        this.tdi_vector = new[rhs_.tms_vector.size()];
+        this.tdi_vector = new[rhs_.tdi_vector.size()];
         foreach (rhs_.tdi_vector[i]) this.tdi_vector[i] = rhs_.tdi_vector[i];
         
         if (rhs_.expected_tdo.size() > 0) begin

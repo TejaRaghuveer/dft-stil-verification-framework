@@ -146,26 +146,26 @@ class FileStructureValidator:
         
         if not config_path.exists():
             return False, [f"Config file not found: {config_file}"]
-            
-            try:
-                with open(config_path, 'r') as f:
-                    if config_file.endswith('.json'):
-                        json.load(f)
-                    elif config_file.endswith(('.yaml', '.yml')):
-                        if HAS_YAML:
-                            yaml.safe_load(f)
-                        else:
-                            errors.append(f"YAML support not available. Install pyyaml: pip install pyyaml")
+        
+        try:
+            with open(config_path, 'r') as f:
+                if config_file.endswith('.json'):
+                    json.load(f)
+                elif config_file.endswith(('.yaml', '.yml')):
+                    if HAS_YAML:
+                        yaml.safe_load(f)
                     else:
-                        errors.append(f"Unsupported config file format: {config_file}")
-            except json.JSONDecodeError as e:
-                errors.append(f"Invalid JSON in config file: {e}")
-            except NameError:
-                if not HAS_YAML:
-                    errors.append(f"YAML support not available. Install pyyaml: pip install pyyaml")
-            except Exception as e:
-                errors.append(f"Error reading config file: {e}")
-            
+                        errors.append(f"YAML support not available. Install pyyaml: pip install pyyaml")
+                else:
+                    errors.append(f"Unsupported config file format: {config_file}")
+        except json.JSONDecodeError as e:
+            errors.append(f"Invalid JSON in config file: {e}")
+        except NameError:
+            if not HAS_YAML:
+                errors.append(f"YAML support not available. Install pyyaml: pip install pyyaml")
+        except Exception as e:
+            errors.append(f"Error reading config file: {e}")
+        
         return len(errors) == 0, errors
         
     def validate_all(self) -> Tuple[bool, Dict[str, List[str]]]:

@@ -83,7 +83,8 @@ module tb_top;
     );
     
     reset_if reset_if_inst (
-        .rst_n(rst_n)
+        .rst_n(rst_n),
+        .clk(clk)
     );
     
     pad_if pad_if_inst (

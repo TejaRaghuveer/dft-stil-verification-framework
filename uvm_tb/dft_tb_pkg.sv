@@ -22,8 +22,16 @@ package dft_tb_pkg;
     
     // Transactions
     `include "uvm_tb/agents/jtag/jtag_transaction.sv"
+    `include "uvm_tb/agents/jtag/jtag_xtn.sv"  // Enhanced transaction class
     
-    // Agents
+    // Enhanced JTAG Agent Components (IEEE 1149.1)
+    `include "uvm_tb/agents/jtag/jtag_sequences.sv"  // JTAG sequences
+    `include "uvm_tb/agents/jtag/jtag_driver_enhanced.sv"  // Enhanced driver
+    `include "uvm_tb/agents/jtag/jtag_monitor_enhanced.sv"  // Enhanced monitor
+    `include "uvm_tb/agents/jtag/jtag_coverage.sv"  // Coverage collector
+    `include "uvm_tb/agents/jtag/jtag_agent_enhanced.sv"  // Enhanced agent
+    
+    // Original JTAG Agent Components (for backward compatibility)
     `include "uvm_tb/agents/jtag/jtag_driver.sv"
     `include "uvm_tb/agents/jtag/jtag_monitor.sv"
     `include "uvm_tb/agents/jtag/jtag_agent.sv"

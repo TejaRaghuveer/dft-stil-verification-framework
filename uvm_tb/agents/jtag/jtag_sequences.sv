@@ -309,8 +309,14 @@ class scan_shift_sequence extends jtag_base_sequence;
         `uvm_info("JTAG_SEQ", $sformatf("Scan Shift: %s, length=%0d, data=0x%0h", 
                   is_ir ? "IR" : "DR", shift_length, shift_data), UVM_MEDIUM)
         
-        // Total cycles: enter shift state + shift cycles + exit
-        total_cycles = 3 + shift_length;  // Entry(2) + Shift(N) + Exit(1)
+        // Calculate total cycles based on shift type
+        // IR Shift: RTI(1) + SelDR(1) + SelIR(1) + CapIR(1) + ShiftIR(N) + Exit1IR(1) = shift_length + 5
+        // DR Shift: RTI(1) + SelDR(1) + CapDR(1) + ShiftDR(N) + Exit1DR(1) = shift_length + 4
+        if (is_ir) begin
+            total_cycles = shift_length + 5;  // 4 entry + N shift + 1 exit
+        end else begin
+            total_cycles = shift_length + 4;  // 3 entry + N shift + 1 exit
+        end
         
         txn = jtag_xtn::type_id::create("scan_shift_txn");
         txn.sequence_type = SCAN_SHIFT;

@@ -97,7 +97,15 @@ class jtag_xtn extends uvm_sequence_item;
     
     // Constraint: TDI vector length must match DR/IR length for shift operations
     constraint tdi_vector_length_c {
-        if (sequence_type == LOAD_IR || sequence_type == SCAN_SHIFT) {
+        if (sequence_type == LOAD_IR) {
+            // For LOAD_IR, TDI vector must match IR length
+            tdi_vector.size() == ir_length;
+        } else if (sequence_type == LOAD_DR) {
+            // For LOAD_DR, TDI vector must match DR length
+            tdi_vector.size() == dr_length;
+        } else if (sequence_type == SCAN_SHIFT) {
+            // For SCAN_SHIFT, TDI vector must match either DR or IR length
+            // (actual length determined by is_ir flag in sequence)
             tdi_vector.size() == dr_length || tdi_vector.size() == ir_length;
         }
     }

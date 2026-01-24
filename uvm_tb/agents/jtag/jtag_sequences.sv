@@ -310,12 +310,14 @@ class scan_shift_sequence extends jtag_base_sequence;
                   is_ir ? "IR" : "DR", shift_length, shift_data), UVM_MEDIUM)
         
         // Calculate total cycles based on shift type
-        // IR Shift: RTI(1) + SelDR(1) + SelIR(1) + CapIR(1) + ShiftIR(N) + Exit1IR(1) = shift_length + 5
-        // DR Shift: RTI(1) + SelDR(1) + CapDR(1) + ShiftDR(N) + Exit1DR(1) = shift_length + 4
+        // IR Shift: RTI(1) + SelDR(1) + SelIR(1) + CapIR(1) + ShiftIR(N) = shift_length + 4
+        //   Note: Last shift cycle with TMS=1 serves as exit (no separate exit cycle needed)
+        // DR Shift: RTI(1) + SelDR(1) + CapDR(1) + ShiftDR(N) = shift_length + 3
+        //   Note: Last shift cycle with TMS=1 serves as exit (no separate exit cycle needed)
         if (is_ir) begin
-            total_cycles = shift_length + 5;  // 4 entry + N shift + 1 exit
+            total_cycles = shift_length + 4;  // 4 entry + N shift (last shift is exit)
         end else begin
-            total_cycles = shift_length + 4;  // 3 entry + N shift + 1 exit
+            total_cycles = shift_length + 3;  // 3 entry + N shift (last shift is exit)
         end
         
         txn = jtag_xtn::type_id::create("scan_shift_txn");

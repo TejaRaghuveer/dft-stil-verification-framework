@@ -107,6 +107,12 @@ class jtag_xtn extends uvm_sequence_item;
             // For SCAN_SHIFT, TDI vector must match either DR or IR length
             // (actual length determined by is_ir flag in sequence)
             tdi_vector.size() == dr_length || tdi_vector.size() == ir_length;
+        } else if (sequence_type == BYPASS) {
+            // For BYPASS, TDI vector is typically empty or minimal (1 bit for bypass register)
+            tdi_vector.size() == 0 || tdi_vector.size() == 1;
+        } else if (sequence_type == TDI_TDO_CHECK) {
+            // For TDI_TDO_CHECK, TDI vector length should match expected TDO length
+            tdi_vector.size() == expected_tdo.size() || expected_tdo.size() == 0;
         }
     }
     

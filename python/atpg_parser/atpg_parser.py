@@ -126,7 +126,7 @@ class ATPGParser:
                 
             # Pin assignments
             elif in_pattern and '=' in line:
-                parts = line.split('=')
+                parts = line.split('=', 1)  # Limit split to first '=' only
                 if len(parts) == 2:
                     pin = parts[0].strip()
                     value = parts[1].strip()

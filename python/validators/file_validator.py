@@ -160,9 +160,6 @@ class FileStructureValidator:
                     errors.append(f"Unsupported config file format: {config_file}")
         except json.JSONDecodeError as e:
             errors.append(f"Invalid JSON in config file: {e}")
-        except NameError:
-            if not HAS_YAML:
-                errors.append(f"YAML support not available. Install pyyaml: pip install pyyaml")
         except Exception as e:
             errors.append(f"Error reading config file: {e}")
         

@@ -123,6 +123,7 @@ class jtag_xtn extends uvm_sequence_item;
         super.new(name);
         tdo_match = 0;
         tdo_mismatch_count = 0;
+        cycle_count = 1;  // Default to 1 cycle if not explicitly set
         start_state = TEST_LOGIC_RESET;
         current_state = TEST_LOGIC_RESET;
     endfunction

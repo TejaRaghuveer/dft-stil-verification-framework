@@ -269,11 +269,3 @@ For more details, see [User Guide](docs/USER_GUIDE.md).
 ## 📄 License
 
 This framework is provided as-is for DFT verification purposes.
-
----
-
-<div align="center">
-
-**Version 1.0** | Built with ❤️ for DFT Verification
-
-</div>

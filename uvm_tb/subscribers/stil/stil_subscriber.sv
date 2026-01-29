@@ -45,7 +45,7 @@ class stil_subscriber extends uvm_subscriber#(jtag_transaction);
     function void start_of_simulation_phase(uvm_phase phase);
         super.start_of_simulation_phase(phase);
         
-        if (cfg.stil_enable_generation) begin
+        if (cfg != null && cfg.stil_enable_generation) begin
             open_stil_file();
             write_stil_header();
         end
@@ -53,7 +53,7 @@ class stil_subscriber extends uvm_subscriber#(jtag_transaction);
     
     // Write phase - called when simulation ends
     function void write(jtag_transaction t);
-        if (cfg.stil_enable_generation) begin
+        if (cfg != null && cfg.stil_enable_generation) begin
             pattern_queue.push_back(t);
             pattern_count++;
             
@@ -66,7 +66,7 @@ class stil_subscriber extends uvm_subscriber#(jtag_transaction);
     function void extract_phase(uvm_phase phase);
         super.extract_phase(phase);
         
-        if (cfg.stil_enable_generation) begin
+        if (cfg != null && cfg.stil_enable_generation) begin
             write_stil_footer();
             close_stil_file();
             `uvm_info("STIL_SUB", $sformatf("Generated %0d STIL patterns", pattern_count), UVM_MEDIUM)
@@ -75,7 +75,12 @@ class stil_subscriber extends uvm_subscriber#(jtag_transaction);
     
     // Open STIL output file
     function void open_stil_file();
-        string filename = cfg.stil_output_file;
+        string filename;
+        if (cfg != null) begin
+            filename = cfg.stil_output_file;
+        end else begin
+            filename = "output.stil";  // Default filename
+        end
         stil_file_handle = $fopen(filename, "w");
         if (stil_file_handle == 0) begin
             `uvm_fatal("STIL_SUB", $sformatf("Failed to open STIL file: %s", filename))
@@ -101,7 +106,8 @@ class stil_subscriber extends uvm_subscriber#(jtag_transaction);
         // Timing section
         $fwrite(stil_file_handle, "Timing {\n");
         $fwrite(stil_file_handle, $sformatf("    WaveformTable \"default_wft\" {\n"));
-        $fwrite(stil_file_handle, $sformatf("        Period %0dns;\n", cfg.jtag_clock_period_ns));
+        int period_ns = (cfg != null) ? cfg.jtag_clock_period_ns : 100;  // Default 100ns if cfg is null
+        $fwrite(stil_file_handle, $sformatf("        Period %0dns;\n", period_ns));
         $fwrite(stil_file_handle, "    }\n");
         $fwrite(stil_file_handle, "}\n\n");
     endfunction

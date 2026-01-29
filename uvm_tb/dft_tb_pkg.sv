@@ -31,7 +31,22 @@ package dft_tb_pkg;
     `include "uvm_tb/agents/jtag/jtag_coverage.sv"  // Coverage collector
     `include "uvm_tb/agents/jtag/jtag_agent_enhanced.sv"  // Enhanced agent
     
-    // Original JTAG Agent Components (for backward compatibility)
+    // Enhanced Clock Agent Components
+    `include "uvm_tb/agents/clock/clock_xtn.sv"
+    `include "uvm_tb/agents/clock/clock_sequences.sv"
+    `include "uvm_tb/agents/clock/clock_driver_enhanced.sv"
+    `include "uvm_tb/agents/clock/clock_monitor_enhanced.sv"
+    
+    // Enhanced Reset Agent Components
+    `include "uvm_tb/agents/reset/reset_xtn.sv"
+    `include "uvm_tb/agents/reset/reset_sequences.sv"
+    `include "uvm_tb/agents/reset/reset_driver_enhanced.sv"
+    `include "uvm_tb/agents/reset/reset_monitor_enhanced.sv"
+    
+    // Unified Control Agent
+    `include "uvm_tb/agents/control/control_agent.sv"
+    
+    // Original Agent Components (for backward compatibility)
     `include "uvm_tb/agents/jtag/jtag_driver.sv"
     `include "uvm_tb/agents/jtag/jtag_monitor.sv"
     `include "uvm_tb/agents/jtag/jtag_agent.sv"

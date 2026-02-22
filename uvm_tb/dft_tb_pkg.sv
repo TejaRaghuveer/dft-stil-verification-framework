@@ -20,6 +20,15 @@ package dft_tb_pkg;
     `include "uvm_tb/agents/reset/reset_interface.sv"
     `include "uvm_tb/agents/pad/pad_interface.sv"
     
+    // Pad transactions and enums
+    `include "uvm_tb/agents/pad/pad_xtn.sv"
+    `include "uvm_tb/agents/pad/pad_utils.sv"
+    `include "uvm_tb/agents/pad/pad_config.sv"
+    `include "uvm_tb/agents/pad/pad_driver_enhanced.sv"
+    `include "uvm_tb/agents/pad/pad_monitor_enhanced.sv"
+    `include "uvm_tb/agents/pad/response_collector.sv"
+    `include "uvm_tb/agents/pad/pad_agent_enhanced.sv"
+    
     // Transactions
     `include "uvm_tb/agents/jtag/jtag_transaction.sv"
     `include "uvm_tb/agents/jtag/jtag_xtn.sv"  // Enhanced transaction class

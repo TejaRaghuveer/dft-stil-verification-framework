@@ -42,19 +42,25 @@ class clock_driver extends uvm_driver#(uvm_sequence_item);
     task generate_clock();
         real high_time, low_time;
         real jitter;
+        int period_ns;
+        int duty_cycle;
+        bit enable_jitter;
         
-        // Calculate timing based on period and duty cycle
-        high_time = (cfg.clock_period_ns * cfg.clock_duty_cycle) / 100.0;
-        low_time = cfg.clock_period_ns - high_time;
+        period_ns = (cfg != null) ? cfg.clock_period_ns : 10;
+        duty_cycle = (cfg != null) ? cfg.clock_duty_cycle : 50;
+        enable_jitter = (cfg != null) && cfg.clock_enable_random_jitter;
+        
+        high_time = (period_ns * duty_cycle) / 100.0;
+        low_time = period_ns - high_time;
         
         `uvm_info("CLK_DRV", $sformatf("Generating clock: Period=%0dns, Duty=%0d%%", 
-                  cfg.clock_period_ns, cfg.clock_duty_cycle), UVM_MEDIUM)
+                  period_ns, duty_cycle), UVM_MEDIUM)
         
         vif.clk <= 0;
         
         forever begin
             // Low phase
-            if (cfg.clock_enable_random_jitter) begin
+            if (enable_jitter) begin
                 jitter = ($urandom_range(-10, 10)) / 10.0;  // ±1ns jitter
                 #(low_time + jitter);
             end else begin
@@ -64,7 +70,7 @@ class clock_driver extends uvm_driver#(uvm_sequence_item);
             vif.clk <= 1;
             
             // High phase
-            if (cfg.clock_enable_random_jitter) begin
+            if (enable_jitter) begin
                 jitter = ($urandom_range(-10, 10)) / 10.0;
                 #(high_time + jitter);
             end else begin

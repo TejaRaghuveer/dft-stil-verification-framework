@@ -88,6 +88,7 @@ module tb_top;
     );
     
     pad_if pad_if_inst (
+        .clk(clk),
         .pad_in(pad_in),
         .pad_out(pad_out),
         .pad_oe(pad_oe)
@@ -96,10 +97,10 @@ module tb_top;
     // UVM Initial Block
     initial begin
         // Set interfaces in config database
-        uvm_config_db#(virtual jtag_if)::set(null, "uvm_test_top.env.jtag_agent", "vif", jtag_if_inst);
-        uvm_config_db#(virtual clock_if)::set(null, "uvm_test_top.env.clock_agent", "vif", clock_if_inst);
-        uvm_config_db#(virtual reset_if)::set(null, "uvm_test_top.env.reset_agent", "vif", reset_if_inst);
-        uvm_config_db#(virtual pad_if)::set(null, "uvm_test_top.env.pad_agent", "vif", pad_if_inst);
+        uvm_config_db#(virtual jtag_if)::set(null, "uvm_test_top.env.jtag_agent_inst", "vif", jtag_if_inst);
+        uvm_config_db#(virtual clock_if)::set(null, "uvm_test_top.env.clock_agent_inst", "vif", clock_if_inst);
+        uvm_config_db#(virtual reset_if)::set(null, "uvm_test_top.env.reset_agent_inst", "vif", reset_if_inst);
+        uvm_config_db#(virtual pad_if)::set(null, "uvm_test_top.env.pad_agent_inst", "vif", pad_if_inst);
         
         // Run UVM test
         run_test();

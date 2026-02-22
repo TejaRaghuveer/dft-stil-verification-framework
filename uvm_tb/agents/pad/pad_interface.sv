@@ -9,6 +9,9 @@ interface pad_if;
     
     parameter NUM_PADS = 32;
     
+    // Reference clock for setup/hold timing (optional, can be driven by testbench)
+    logic clk;
+    
     // Pad signals
     logic [NUM_PADS-1:0] pad_in;   // Pad input (from DUT perspective)
     logic [NUM_PADS-1:0] pad_out;  // Pad output (to DUT)

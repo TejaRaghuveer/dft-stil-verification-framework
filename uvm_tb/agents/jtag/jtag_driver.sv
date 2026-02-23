@@ -58,12 +58,15 @@ class jtag_driver extends uvm_driver#(jtag_transaction);
         vif.tdi <= 0;
         vif.trst_n <= 0;
         
+        int reset_cycles = (cfg != null) ? cfg.jtag_reset_cycles : 5;
+        int period_ns    = (cfg != null) ? cfg.jtag_clock_period_ns : 100;
+        
         // Hold reset for configured cycles
         // Generate clock directly (don't wait for posedge that we generate)
-        repeat(cfg.jtag_reset_cycles) begin
-            #(cfg.jtag_clock_period_ns / 2);
+        repeat(reset_cycles) begin
+            #(period_ns / 2);
             vif.tck <= 1;
-            #(cfg.jtag_clock_period_ns / 2);
+            #(period_ns / 2);
             vif.tck <= 0;
         end
         
@@ -84,10 +87,12 @@ class jtag_driver extends uvm_driver#(jtag_transaction);
             vif.tms <= txn.tms;
             vif.tdi <= txn.tdi;
             
+            int period_ns = (cfg != null) ? cfg.jtag_clock_period_ns : 100;
+
             // Generate rising edge
-            #(cfg.jtag_clock_period_ns / 2);
+            #(period_ns / 2);
             vif.tck <= 1;
-            #(cfg.jtag_clock_period_ns / 2);
+            #(period_ns / 2);
             
             // Sample TDO on falling edge (before driving clock low)
             txn.tdo = vif.tdo;

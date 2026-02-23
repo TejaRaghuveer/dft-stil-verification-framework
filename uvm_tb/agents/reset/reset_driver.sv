@@ -40,21 +40,32 @@ class reset_driver extends uvm_driver#(uvm_sequence_item);
     
     // Apply reset sequence
     task apply_reset();
+        bit reset_async;
+        int assert_cycles;
+        int clock_period_ns;
+        int deassert_delay_ns;
+
+        // Use configuration when present, otherwise fall back to sane defaults
+        reset_async       = (cfg != null) ? cfg.reset_async             : 0;
+        assert_cycles     = (cfg != null) ? cfg.reset_assert_cycles     : 100;
+        clock_period_ns   = (cfg != null) ? cfg.clock_period_ns         : 10;
+        deassert_delay_ns = (cfg != null) ? cfg.reset_deassert_delay_ns : 50;
+
         `uvm_info("RST_DRV", "Applying reset", UVM_MEDIUM)
         
-        if (cfg.reset_async) begin
+        if (reset_async) begin
             // Asynchronous reset
             vif.rst_n <= 0;
-            #(cfg.reset_assert_cycles * cfg.clock_period_ns);
-            #(cfg.reset_deassert_delay_ns);
+            #(assert_cycles * clock_period_ns);
+            #(deassert_delay_ns);
             vif.rst_n <= 1;
         end else begin
             // Synchronous reset
             vif.rst_n <= 0;
-            repeat(cfg.reset_assert_cycles) begin
+            repeat(assert_cycles) begin
                 @(posedge vif.clk);
             end
-            #(cfg.reset_deassert_delay_ns);
+            #(deassert_delay_ns);
             @(posedge vif.clk);
             vif.rst_n <= 1;
         end

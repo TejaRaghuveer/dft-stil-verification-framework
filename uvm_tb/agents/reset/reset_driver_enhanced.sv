@@ -176,7 +176,9 @@ class reset_driver_enhanced extends uvm_driver#(reset_xtn);
         vif.rst_n <= reset_value;
         
         // Hold for specified duration (in clock cycles)
-        int cycles = txn.duration / cfg.clock_period_ns;
+        int period_ns = (cfg != null && cfg.clock_period_ns > 0) ? cfg.clock_period_ns : 10;
+        int cycles = (period_ns > 0) ? (txn.duration / period_ns) : 0;
+        if (cycles <= 0) cycles = 1;
         repeat(cycles) begin
             @(posedge vif.clk);
         end

@@ -13,6 +13,7 @@ package dft_tb_pkg;
     // Includes
     `include "uvm_tb/utils/defines.sv"
     `include "uvm_tb/env/test_config.sv"
+    `include "uvm_tb/env/dft_test_config.sv"
     
     // Interfaces
     `include "uvm_tb/agents/jtag/jtag_interface.sv"
@@ -69,6 +70,7 @@ package dft_tb_pkg;
     // Environment
     `include "uvm_tb/subscribers/stil/stil_subscriber.sv"
     `include "uvm_tb/env/test_env.sv"
+    `include "uvm_tb/env/dft_env.sv"
     
     // Sequences
     `include "uvm_tb/sequences/base_sequence.sv"
@@ -77,6 +79,14 @@ package dft_tb_pkg;
     // Tests
     `include "uvm_tb/tests/base_test.sv"
     `include "uvm_tb/tests/simple_jtag_test.sv"
+    `include "uvm_tb/tests/dft_base_test.sv"
+    `include "uvm_tb/tests/scan_shift_test.sv"
+    `include "uvm_tb/tests/scan_capture_test.sv"
+    `include "uvm_tb/tests/atpg_pattern_test.sv"
+    `include "uvm_tb/tests/stuck_at_test.sv"
+    `include "uvm_tb/tests/transition_delay_test.sv"
+    `include "uvm_tb/tests/path_delay_test.sv"
+    `include "uvm_tb/tests/full_regression_test.sv"
     
     // Utilities
     `include "uvm_tb/utils/dft_utils.sv"

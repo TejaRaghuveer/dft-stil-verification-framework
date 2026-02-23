@@ -68,7 +68,9 @@ class sync_reset_sequence extends reset_base_sequence;
         txn.reset_pin = reset_pin;
         txn.reset_type = SYNC;
         txn.polarity = polarity;
-        txn.duration = cycles * cfg.clock_period_ns;
+        // Use configured clock period if available; otherwise default to 10ns
+        int period_ns = (cfg != null) ? cfg.clock_period_ns : 10;
+        txn.duration = cycles * period_ns;
         txn.delay_from_clock = delay_from_clock;
         txn.assert_reset = 1;
         

@@ -86,6 +86,7 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
      */
     task initialize_jtag();
         int reset_cycles = (cfg != null) ? cfg.jtag_reset_cycles : 5;
+        int period_ns    = (cfg != null) ? cfg.jtag_clock_period_ns : 100;
         
         `uvm_info("JTAG_DRV", "Initializing JTAG interface", UVM_MEDIUM)
         
@@ -98,9 +99,9 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
         // Hold reset for configured cycles (minimum 5 per IEEE 1149.1)
         // Generate clock directly to avoid deadlock
         repeat(reset_cycles) begin
-            #(cfg.jtag_clock_period_ns / 2);
+            #(period_ns / 2);
             vif.tck <= 1;
-            #(cfg.jtag_clock_period_ns / 2);
+            #(period_ns / 2);
             vif.tck <= 0;
         end
         
@@ -172,6 +173,9 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
         // Allocate TDO capture array
         tdo_captured = new[txn.cycle_count];
         
+        // Derive period from configuration (with safe default)
+        int period_ns = (cfg != null) ? cfg.jtag_clock_period_ns : 100;
+
         // Drive each cycle
         for (int i = 0; i < txn.cycle_count; i++) begin
             // Setup phase: Set TMS and TDI before rising edge
@@ -195,14 +199,14 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
             end
             
             // Generate TCK rising edge
-            #((cfg.jtag_clock_period_ns / 2) - txn.setup_time_ns);
+            #((period_ns / 2) - txn.setup_time_ns);
             vif.tck <= 1;
             
             // Update TAP state machine based on TMS
             update_tap_state(txn.tms_vector[i]);
             
             // Generate TCK falling edge
-            #(cfg.jtag_clock_period_ns / 2);
+            #(period_ns / 2);
             vif.tck <= 0;
             
             // Sample TDO on falling edge (TDO is valid after falling edge)

@@ -102,7 +102,7 @@ module tb_top;
         uvm_config_db#(virtual reset_if)::set(null, "uvm_test_top.env.reset_agent_inst", "vif", reset_if_inst);
         uvm_config_db#(virtual pad_if)::set(null, "uvm_test_top.env.pad_agent_inst", "vif", pad_if_inst);
         
-        // Run UVM test
+        // Run UVM test (test name via +UVM_TESTNAME=<class>, e.g. +UVM_TESTNAME=scan_shift_test)
         run_test();
     end
     

@@ -32,8 +32,13 @@ class jtag_monitor_enhanced extends uvm_monitor;
     
     // Signal history for transaction reconstruction
     bit tms_history[];
-    bit tdi_history[];
-    bit tdo_history[];
+    bit tdi_history[];      // full-cycle TDI history (debug / TMS alignment)
+    bit tdo_history[];      // full-cycle TDO history (debug)
+
+    // Shift-only bit histories (aligned TDI/TDO per shift cycle)
+    bit shift_tdi_bits[];
+    bit shift_tdo_bits[];
+    bit last_tdi_sampled;
     
     // Transaction reconstruction state
     bit in_shift_state = 0;
@@ -81,9 +86,12 @@ class jtag_monitor_enhanced extends uvm_monitor;
         `uvm_info("JTAG_MON", "Starting JTAG monitoring", UVM_MEDIUM)
         
         // Initialize signal history arrays
-        tms_history = new[0];
-        tdi_history = new[0];
-        tdo_history = new[0];
+        tms_history      = new[0];
+        tdi_history      = new[0];
+        tdo_history      = new[0];
+        shift_tdi_bits   = new[0];
+        shift_tdo_bits   = new[0];
+        last_tdi_sampled = 0;
         
         forever begin
             // Wait for TCK edge (monitor on both edges for complete capture)
@@ -107,6 +115,10 @@ class jtag_monitor_enhanced extends uvm_monitor;
                 
                 tdi_history = new[tdi_history.size() + 1](tdi_history);
                 tdi_history[tdi_history.size() - 1] = tdi_val;
+
+                // Remember last TDI value for this cycle; it will be paired
+                // with TDO on the subsequent falling edge if in shift state.
+                last_tdi_sampled = tdi_val;
                 
                 cycle_count++;
                 
@@ -130,10 +142,16 @@ class jtag_monitor_enhanced extends uvm_monitor;
                 tdo_history = new[tdo_history.size() + 1](tdo_history);
                 tdo_history[tdo_history.size() - 1] = tdo_val;
                 
-                // Track shift state for TDO capture
+                // Track shift state for TDO capture and build aligned
+                // shift-only vectors.
                 if (is_shift_state(current_state)) begin
                     in_shift_state = 1;
                     shift_bit_count++;
+                    // Capture one aligned bit of TDI/TDO per shift cycle
+                    shift_tdi_bits = new[shift_tdi_bits.size() + 1](shift_tdi_bits);
+                    shift_tdi_bits[shift_tdi_bits.size() - 1] = last_tdi_sampled;
+                    shift_tdo_bits = new[shift_tdo_bits.size() + 1](shift_tdo_bits);
+                    shift_tdo_bits[shift_tdo_bits.size() - 1] = tdo_val;
                 end else begin
                     if (in_shift_state) begin
                         // Exited shift state, may need to reconstruct
@@ -264,13 +282,14 @@ class jtag_monitor_enhanced extends uvm_monitor;
             tdi_shift_data = new[shift_bits];
             tdo_shift_data = new[shift_bits];
             
-            // Extract TDI/TDO from shift cycles
-            // (Simplified - in real implementation, would track which cycles were shift)
-            for (int i = 0; i < shift_bits && i < tdi_history.size(); i++) begin
-                tdi_shift_data[i] = tdi_history[i];
+            // Use aligned shift-only histories so that each index corresponds
+            // to a single shift cycle (TDI sampled on rising edge, TDO on
+            // the following falling edge of the same cycle).
+            for (int i = 0; i < shift_bits && i < shift_tdi_bits.size(); i++) begin
+                tdi_shift_data[i] = shift_tdi_bits[i];
             end
-            for (int i = 0; i < shift_bits && i < tdo_history.size(); i++) begin
-                tdo_shift_data[i] = tdo_history[i];
+            for (int i = 0; i < shift_bits && i < shift_tdo_bits.size(); i++) begin
+                tdo_shift_data[i] = shift_tdo_bits[i];
             end
             
             txn.tdi_vector = tdi_shift_data;
@@ -281,16 +300,16 @@ class jtag_monitor_enhanced extends uvm_monitor;
                 txn.ir_code = txn.get_instruction();
             end
         end else if (detected_sequence_type == LOAD_DR) begin
-            // Extract DR data
+            // Extract DR data using the same aligned shift-only histories
             shift_bits = shift_bit_count;
             tdi_shift_data = new[shift_bits];
             tdo_shift_data = new[shift_bits];
             
-            for (int i = 0; i < shift_bits && i < tdi_history.size(); i++) begin
-                tdi_shift_data[i] = tdi_history[i];
+            for (int i = 0; i < shift_bits && i < shift_tdi_bits.size(); i++) begin
+                tdi_shift_data[i] = shift_tdi_bits[i];
             end
-            for (int i = 0; i < shift_bits && i < tdo_history.size(); i++) begin
-                tdo_shift_data[i] = tdo_history[i];
+            for (int i = 0; i < shift_bits && i < shift_tdo_bits.size(); i++) begin
+                tdo_shift_data[i] = shift_tdo_bits[i];
             end
             
             txn.tdi_vector = tdi_shift_data;
@@ -300,7 +319,9 @@ class jtag_monitor_enhanced extends uvm_monitor;
         
         // Reset shift tracking
         shift_bit_count = 0;
-        in_shift_state = 0;
+        in_shift_state  = 0;
+        shift_tdi_bits.delete();
+        shift_tdo_bits.delete();
         
         // Clear history for next transaction
         tms_history.delete();

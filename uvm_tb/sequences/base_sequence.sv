@@ -1,11 +1,13 @@
 /**
  * Base Sequence Class
- * 
- * Base class for all test sequences in the UVM testbench.
- * Provides common functionality and utilities for sequence generation.
+ *
+ * Base class for JTAG-oriented test sequences.
+ * Uses jtag_transaction as the sequence item type so that it is
+ * type-compatible with uvm_sequencer#(jtag_transaction) used by
+ * the JTAG agents.
  */
 
-class base_sequence extends uvm_sequence#(uvm_sequence_item);
+class base_sequence extends uvm_sequence#(jtag_transaction);
     
     `uvm_object_utils(base_sequence)
     

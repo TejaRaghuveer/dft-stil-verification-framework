@@ -143,6 +143,7 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
             LOAD_DR:   drive_load_dr(txn);
             SCAN_SHIFT: drive_scan_shift(txn);
             BYPASS:    drive_bypass(txn);
+            TAP_RESET: drive_bypass(txn);  // Same TMS/TDI vector drive as bypass
             TDI_TDO_CHECK: drive_tdi_tdo_check(txn);
             default:   `uvm_error("JTAG_DRV", $sformatf("Unknown sequence type: %s", txn.sequence_type.name()))
         endcase

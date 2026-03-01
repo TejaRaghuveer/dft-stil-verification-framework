@@ -186,6 +186,43 @@ class ATPGParser:
             )
             self.patterns.append(pattern)
             
+    def parse_generic(self, file_path: str):
+        """
+        Parse generic ASCII ATPG (vector-per-line, optional 'Pattern name' headers).
+        """
+        with open(file_path, 'r') as f:
+            lines = f.readlines()
+        current_pattern = None
+        for line in lines:
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            if line.lower().startswith('pattern'):
+                if current_pattern:
+                    self.patterns.append(current_pattern)
+                parts = line.split(None, 1)
+                pattern_id = parts[1] if len(parts) > 1 else f"pattern_{len(self.patterns)}"
+                current_pattern = ATPGPattern(
+                    pattern_id=pattern_id,
+                    primary_inputs={},
+                    primary_outputs={},
+                    scan_inputs={'vec': ''},
+                    scan_outputs={}
+                )
+                continue
+            if re.match(r'^[01XZxz]+$', line):
+                if current_pattern is None:
+                    current_pattern = ATPGPattern(
+                        pattern_id=f"pattern_{len(self.patterns)}",
+                        primary_inputs={},
+                        primary_outputs={},
+                        scan_inputs={'vec': ''},
+                        scan_outputs={}
+                    )
+                current_pattern.scan_inputs['vec'] = current_pattern.scan_inputs.get('vec', '') + line + '\n'
+        if current_pattern:
+            self.patterns.append(current_pattern)
+
     def parse(self, file_path: str):
         """
         Parse ATPG file based on configured format.
@@ -199,6 +236,8 @@ class ATPGParser:
             self.parse_fastscan(file_path)
         elif self.format_type == ATPGFormat.ENCOUNTER:
             self.parse_encounter(file_path)
+        elif self.format_type == ATPGFormat.GENERIC:
+            self.parse_generic(file_path)
         else:
             raise ValueError(f"Unsupported format: {self.format_type}")
             
@@ -232,7 +271,7 @@ if __name__ == "__main__":
     
     if len(sys.argv) < 3:
         print("Usage: atpg_parser.py <format> <input_file>")
-        print("Formats: tetramax, fastscan, encounter")
+        print("Formats: tetramax, fastscan, encounter, generic")
         sys.exit(1)
         
     format_str = sys.argv[1].lower()
@@ -241,10 +280,13 @@ if __name__ == "__main__":
     format_map = {
         'tetramax': ATPGFormat.TETRAMAX,
         'fastscan': ATPGFormat.FASTSCAN,
-        'encounter': ATPGFormat.ENCOUNTER
+        'encounter': ATPGFormat.ENCOUNTER,
+        'generic': ATPGFormat.GENERIC
     }
-    
-    parser = ATPGParser(format_map.get(format_str, ATPGFormat.GENERIC))
+    if format_str not in format_map:
+        print(f"Error: Unrecognized format '{format_str}'. Use one of: tetramax, fastscan, encounter, generic", file=sys.stderr)
+        sys.exit(1)
+    parser = ATPGParser(format_map[format_str])
     parser.parse(input_file)
     
     print(f"Parsed {len(parser.get_patterns())} patterns")

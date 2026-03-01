@@ -210,8 +210,11 @@ class jtag_monitor_enhanced extends uvm_monitor;
             detected_sequence_type = LOAD_DR;
         end else if (current_state == SHIFT_DR || current_state == SHIFT_IR) begin
             detected_sequence_type = SCAN_SHIFT;
-        end else if (prev_state == TEST_LOGIC_RESET || current_state == TEST_LOGIC_RESET) begin
-            detected_sequence_type = BYPASS;
+        end else if (current_state == TEST_LOGIC_RESET && prev_state != TEST_LOGIC_RESET) begin
+            // Only classify as TAP_RESET when we have just entered TLR (reset sequence).
+            // Excluding prev_state == TEST_LOGIC_RESET avoids misclassifying the exit-from-TLR
+            // cycle or leaving detected_sequence_type stuck as TAP_RESET for later sequences.
+            detected_sequence_type = TAP_RESET;
         end
     endfunction
     

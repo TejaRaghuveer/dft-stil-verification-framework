@@ -55,6 +55,7 @@ class jtag_coverage extends uvm_subscriber#(jtag_xtn);
             bins scan_shift = {SCAN_SHIFT};
             bins bypass = {BYPASS};
             bins tdi_tdo_check = {TDI_TDO_CHECK};
+            bins tap_reset = {TAP_RESET};
         }
         
         // IR instruction coverage

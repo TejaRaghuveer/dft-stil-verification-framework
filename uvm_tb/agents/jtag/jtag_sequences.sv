@@ -1,9 +1,14 @@
 /**
  * JTAG Sequences (IEEE 1149.1 Compliant)
- * 
+ *
  * Complete set of sequences for JTAG TAP controller operations.
  * Implements standard JTAG operations for DFT testing.
- * 
+ *
+ * IMPORTANT: All sequences in this file extend jtag_base_sequence and produce
+ * jtag_xtn transactions. They must be run on jtag_agent_enhanced (which has
+ * uvm_sequencer#(jtag_xtn)). The legacy jtag_agent uses
+ * uvm_sequencer#(jtag_transaction); use sequences/jtag_sequence.sv for that agent.
+ *
  * Reference: IEEE 1149.1 Standard for Test Access Port and Boundary-Scan Architecture
  */
 
@@ -25,6 +30,16 @@ class jtag_base_sequence extends uvm_sequence#(jtag_xtn);
     task pre_body();
         if (!uvm_config_db#(test_config)::get(null, get_full_name(), "cfg", cfg)) begin
             `uvm_warning("SEQ", "Failed to get test_config")
+        end
+        // These sequences produce jtag_xtn and require jtag_agent_enhanced
+        // (uvm_sequencer#(jtag_xtn)). The legacy jtag_agent uses
+        // uvm_sequencer#(jtag_transaction); running this sequence there
+        // causes type mismatch and driver failure.
+        if (m_sequencer != null) begin
+            uvm_component p = m_sequencer.get_parent();
+            if (p != null && p.get_type_name() == "jtag_agent") begin
+                `uvm_fatal("JTAG_SEQ", "Sequences from jtag_sequences.sv produce jtag_xtn and must run on jtag_agent_enhanced. You are using the legacy jtag_agent (jtag_transaction). Use dft_env with jtag_agent_enhanced, or use sequences/jtag_sequence.sv for the legacy agent.")
+            end
         end
     endtask
 
@@ -60,7 +75,7 @@ class jtag_reset_sequence extends jtag_base_sequence;
         `uvm_info("JTAG_SEQ", "Starting JTAG Reset Sequence", UVM_MEDIUM)
         
         txn = jtag_xtn::type_id::create("reset_txn");
-        txn.sequence_type = BYPASS;
+        txn.sequence_type = TAP_RESET;
         txn.cycle_count = reset_cycles;
         txn.tms_vector = new[reset_cycles];
         txn.tdi_vector = new[1];
@@ -125,9 +140,13 @@ class load_instruction_sequence extends jtag_base_sequence;
         `uvm_info("JTAG_SEQ", $sformatf("Loading IR: 0x%0h (length: %0d)", ir_code, ir_length), UVM_MEDIUM)
         
         // Calculate total cycles:
-        // RTI(1) + SelDR(1) + SelIR(1) + CapIR(1) + ShiftIR(N) + Exit1IR(1) + UpdIR(1) + RTI(1)
+        // RTI(1) + SelDR(1) + SelIR(1) + CapIR(1) +
+        // Shift-IR: (ir_length-1) cycles in Shift-IR plus 1 cycle to Exit1-IR +
+        // Exit1-IR->Update-IR(1) + Update-IR->RTI(1)
+        //
+        // => total_cycles = 1 + 1 + 1 + 1 + (ir_length-1) + 1 + 1 + 1 = ir_length + 6
         shift_cycles = ir_length;
-        total_cycles = 1 + 1 + 1 + 1 + shift_cycles + 1 + 1 + 1;
+        total_cycles = ir_length + 6;
         
         txn = jtag_xtn::type_id::create("load_ir_txn");
         txn.sequence_type = LOAD_IR;
@@ -224,9 +243,13 @@ class load_data_register_sequence extends jtag_base_sequence;
                   dr_type.name(), dr_length, dr_data), UVM_MEDIUM)
         
         // Calculate total cycles:
-        // RTI(1) + SelDR(1) + CapDR(1) + ShiftDR(N) + Exit1DR(1) + UpdDR(1) + RTI(1)
+        // RTI(1) + SelDR(1) + CapDR(1) +
+        // Shift-DR: (dr_length-1) cycles in Shift-DR plus 1 cycle to Exit1-DR +
+        // Exit1-DR->Update-DR(1) + Update-DR->RTI(1)
+        //
+        // => total_cycles = 1 + 1 + 1 + (dr_length-1) + 1 + 1 + 1 = dr_length + 5
         shift_cycles = dr_length;
-        total_cycles = 1 + 1 + 1 + shift_cycles + 1 + 1 + 1;
+        total_cycles = dr_length + 5;
         
         txn = jtag_xtn::type_id::create("load_dr_txn");
         txn.sequence_type = LOAD_DR;
@@ -414,7 +437,10 @@ class tdi_tdo_check_sequence extends jtag_base_sequence;
             expected_tdo[i] = expected_output[i];
         end
         
-        // Execute scan shift
+        // Execute scan shift – ensure a valid sequencer is available
+        if (m_sequencer == null) begin
+            `uvm_fatal("JTAG_SEQ", "tdi_tdo_check_sequence: m_sequencer is null; cannot start scan_seq")
+        end
         scan_seq.start(m_sequencer);
         
         // Get the transaction and set expected TDO

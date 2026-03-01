@@ -89,8 +89,17 @@ package dft_tb_pkg;
     `include "uvm_tb/tests/transition_delay_test.sv"
     `include "uvm_tb/tests/path_delay_test.sv"
     `include "uvm_tb/tests/full_regression_test.sv"
-    
+    `include "uvm_tb/tests/atpg_select_patterns_test.sv"
+
     // Utilities
     `include "uvm_tb/utils/dft_utils.sv"
+    `include "uvm_tb/utils/atpg/atpg_pattern.sv"
+    `include "uvm_tb/utils/atpg/atpg_parser_config.sv"
+    `include "uvm_tb/utils/atpg/atpg_pattern_parser.sv"
+    `include "uvm_tb/utils/atpg/atpg_seq_config.sv"
+    `include "uvm_tb/utils/atpg/atpg_pattern_exec_logger.sv"
+
+    // ATPG-to-UVM sequences (converter)
+    `include "uvm_tb/sequences/atpg_pattern_to_uvm.sv"
 
 endpackage

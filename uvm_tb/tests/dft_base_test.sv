@@ -33,6 +33,11 @@ class dft_base_test extends uvm_test;
         env = dft_env::type_id::create("env", this);
     endfunction
 
+    function void connect_phase(uvm_phase phase);
+        super.connect_phase(phase);
+        uvm_config_db#(dft_env)::set(this, "*", "dft_env", env);
+    endfunction
+
     // Default configuration – override in derived tests as needed
     virtual function void configure_test();
         cfg.verbosity               = UVM_MEDIUM;

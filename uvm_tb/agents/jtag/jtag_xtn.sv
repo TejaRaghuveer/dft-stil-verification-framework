@@ -107,8 +107,9 @@ class jtag_xtn extends uvm_sequence_item;
             // For SCAN_SHIFT, TDI vector must match either DR or IR length
             // (actual length determined by is_ir flag in sequence)
             tdi_vector.size() == dr_length || tdi_vector.size() == ir_length;
-        } else if (sequence_type == BYPASS) {
+        } else if (sequence_type == BYPASS || sequence_type == TAP_RESET) {
             // For BYPASS, TDI vector is typically empty or minimal (1 bit for bypass register)
+            // For TAP_RESET, TDI is don't-care; 0 or 1 element is valid
             tdi_vector.size() == 0 || tdi_vector.size() == 1;
         } else if (sequence_type == TDI_TDO_CHECK) {
             // For TDI_TDO_CHECK, TDI vector length should match expected TDO length
@@ -118,7 +119,7 @@ class jtag_xtn extends uvm_sequence_item;
     
     // Constraint: Valid sequence type
     constraint valid_sequence_type_c {
-        sequence_type inside {LOAD_IR, LOAD_DR, SCAN_SHIFT, BYPASS, TDI_TDO_CHECK};
+        sequence_type inside {LOAD_IR, LOAD_DR, SCAN_SHIFT, BYPASS, TDI_TDO_CHECK, TAP_RESET};
     }
     
     // ============================================
@@ -357,7 +358,8 @@ typedef enum {
     LOAD_DR,        // Load Data Register (BSR, Bypass, IDCODE, etc.)
     SCAN_SHIFT,     // Shift data through scan chain
     BYPASS,         // Bypass register operation
-    TDI_TDO_CHECK   // Verify TDO against expected values
+    TDI_TDO_CHECK,  // Verify TDO against expected values
+    TAP_RESET       // TAP controller reset (TMS=1 for 5+ cycles)
 } jtag_sequence_type_e;
 
 // Data Register types

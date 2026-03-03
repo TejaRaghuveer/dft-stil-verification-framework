@@ -68,8 +68,24 @@ class dft_env extends uvm_env;
     function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
 
-        // Hook up analysis paths here when scoreboard is implemented
-        // (e.g., connect pad_ag.resp_collector, jtag_ag.analysis_port, etc.)
+        // Hook up analysis paths when the DFT scoreboard is enabled.
+        if (scoreboard != null) begin
+            dft_scoreboard scb;
+            if ($cast(scb, scoreboard)) begin
+                // JTAG: completed transactions from driver (expected + actual)
+                if (jtag_ag != null && jtag_ag.driver != null) begin
+                    jtag_ag.driver.ap_txn.connect(scb.jtag_txn_imp);
+                end
+
+                // PAD: expected vs actual primary–I/O values
+                if (pad_ag != null) begin
+                    if (pad_ag.monitor != null)
+                        pad_ag.monitor.ap_captured.connect(scb.pad_actual_imp);
+                    if (pad_ag.resp_collector != null)
+                        pad_ag.resp_collector.expected_export.connect(scb.pad_expected_imp);
+                end
+            end
+        end
     endfunction
 
     // ------------------------------------------------------------

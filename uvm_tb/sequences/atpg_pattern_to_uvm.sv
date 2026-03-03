@@ -281,7 +281,7 @@ class atpg_pattern_seq extends uvm_sequence#(jtag_xtn);
     endtask
 
     task phase_c_response_collection();
-        if (pattern_status != ATPG_PATTERN_FAIL) begin
+        if (pattern_status == ATPG_PATTERN_ERROR) begin
             pattern_status = ATPG_PATTERN_PASS;
             fail_vector_index = -1;
             mismatch_count = 0;
@@ -324,14 +324,15 @@ class multi_pattern_seq extends uvm_sequence#(jtag_xtn);
             if (reset_between && i > 0 && env != null && env.jtag_ag != null) begin
                 jtag_reset_sequence rst_seq;
                 rst_seq = jtag_reset_sequence::type_id::create("rst");
-                rst_seq.start(env.jtag_ag.sequencer);
+                if (env.jtag_ag.sequencer != null)
+                    rst_seq.start(env.jtag_ag.sequencer);
             end
             pat_seq = atpg_pattern_seq::type_id::create("pat_seq");
             pat_seq.pattern = pattern_queue[i];
             pat_seq.seq_cfg = seq_cfg;
             pat_seq.env = env;
             pat_seq.logger = logger;
-            if (env != null && env.jtag_ag != null)
+            if (env != null && env.jtag_ag != null && env.jtag_ag.sequencer != null)
                 pat_seq.start(env.jtag_ag.sequencer);
         end
     endtask

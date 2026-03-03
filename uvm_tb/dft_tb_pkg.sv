@@ -72,6 +72,7 @@ package dft_tb_pkg;
     `include "uvm_tb/subscribers/stil/stil_generator.sv"
     `include "uvm_tb/subscribers/stil/stil_subscriber.sv"
     `include "uvm_tb/env/test_env.sv"
+    `include "uvm_tb/env/dft_scoreboard.sv"
     `include "uvm_tb/env/dft_env.sv"
     
     // Sequences

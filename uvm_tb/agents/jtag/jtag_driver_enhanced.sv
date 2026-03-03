@@ -40,6 +40,10 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
     // Transaction logging
     jtag_xtn transaction_log[$];
     int transaction_count = 0;
+
+    // Broadcast completed transactions (with expected and actual TDO) so that
+    // the DFT scoreboard can perform higher-level checks and statistics.
+    uvm_analysis_port#(jtag_xtn) ap_txn;
     
     // Constructor
     function new(string name = "jtag_driver_enhanced", uvm_component parent = null);
@@ -60,6 +64,9 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
         if (!uvm_config_db#(test_config)::get(this, "", "cfg", cfg)) begin
             `uvm_warning("NO_CFG", "Failed to get test_config, using defaults")
         end
+
+        // Create analysis port for scoreboard subscription
+        ap_txn = new("ap_txn", this);
     endfunction
     
     // Run phase - main driver loop
@@ -153,6 +160,12 @@ class jtag_driver_enhanced extends uvm_driver#(jtag_xtn);
         
         `uvm_info("JTAG_DRV", $sformatf("Transaction completed: %0d cycles, duration=%0t ns", 
                   txn.cycle_count, txn.end_time - txn.start_time), UVM_MEDIUM)
+
+        // Publish transaction to any subscribers (e.g., DFT scoreboard) for
+        // additional checking and statistics. This happens after the driver
+        // has captured TDO and updated compare fields.
+        if (ap_txn != null)
+            ap_txn.write(txn);
     endtask
     
     // ============================================

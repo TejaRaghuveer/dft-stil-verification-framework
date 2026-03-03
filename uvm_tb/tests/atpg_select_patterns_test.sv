@@ -96,6 +96,10 @@ class atpg_select_patterns_test extends dft_base_test;
         multi_seq.env = env;
         multi_seq.logger = exec_logger;
         multi_seq.reset_between = seq_cfg.reset_between_patterns;
-        multi_seq.start(env.jtag_ag.sequencer);
+
+        // In passive–mode JTAG agent, the sequencer is not created and will be null.
+        // Guard against that to avoid runtime errors when starting the sequence.
+        if (env != null && env.jtag_ag != null && env.jtag_ag.sequencer != null)
+            multi_seq.start(env.jtag_ag.sequencer);
     endtask
 endclass

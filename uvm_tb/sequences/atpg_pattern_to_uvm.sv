@@ -194,12 +194,14 @@ class atpg_pattern_seq extends uvm_sequence#(jtag_xtn);
     atpg_pattern_status_e pattern_status;
     int fail_vector_index;
     int mismatch_count;
+    bit had_activity;  // set when any scan/PI stimulus actually runs
 
     function new(string name = "atpg_pattern_seq");
         super.new(name);
         pattern_status = ATPG_PATTERN_ERROR;
         fail_vector_index = -1;
         mismatch_count = 0;
+        had_activity = 0;
     endfunction
 
     task body();
@@ -259,6 +261,7 @@ class atpg_pattern_seq extends uvm_sequence#(jtag_xtn);
                     scan_seq.capture_cycles = (seq_cfg != null) ? seq_cfg.capture_cycles : 1;
                     scan_seq.seq_cfg = seq_cfg;
                     scan_seq.start(jtag_sqr);
+                    had_activity = 1;
                     if (sout != "" && !scan_seq.last_tdo_match) begin
                         pattern_status = ATPG_PATTERN_FAIL;
                         fail_vector_index = i;
@@ -276,12 +279,21 @@ class atpg_pattern_seq extends uvm_sequence#(jtag_xtn);
                 pi_seq.expected_primary_out_str = (i < pattern.expected_primary_out.size()) ? pattern.expected_primary_out[i] : "";
                 pi_seq.seq_cfg = seq_cfg;
                 pi_seq.start(pad_sqr);
+                had_activity = 1;
             end
         end
     endtask
 
+    // Response collection phase:
+    // At this point, pattern_status is either:
+    //   - ATPG_PATTERN_FAIL (mismatch detected in phase B), or
+    //   - ATPG_PATTERN_ERROR (no explicit verification result).
+    // If we actually executed any scan/primary–I/O activity (had_activity=1)
+    // and no failures were detected, then the pattern is treated as PASS.
+    // Patterns that never ran any activity remain in ERROR so that
+    // misconfigured tests are not silently reported as passing.
     task phase_c_response_collection();
-        if (pattern_status == ATPG_PATTERN_ERROR) begin
+        if (pattern_status == ATPG_PATTERN_ERROR && had_activity) begin
             pattern_status = ATPG_PATTERN_PASS;
             fail_vector_index = -1;
             mismatch_count = 0;

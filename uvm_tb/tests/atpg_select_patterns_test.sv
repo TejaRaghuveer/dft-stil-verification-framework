@@ -99,7 +99,14 @@ class atpg_select_patterns_test extends dft_base_test;
 
         // In passive–mode JTAG agent, the sequencer is not created and will be null.
         // Guard against that to avoid runtime errors when starting the sequence.
-        if (env != null && env.jtag_ag != null && env.jtag_ag.sequencer != null)
+        if (env != null && env.jtag_ag != null && env.jtag_ag.sequencer != null) begin
             multi_seq.start(env.jtag_ag.sequencer);
+        end else begin
+            // No sequencer → no patterns will run. Treat this as a configuration
+            // error so the test does not appear to pass silently.
+            `uvm_error("ATPG_SEL",
+                       $sformatf("JTAG sequencer not available; %0d selected patterns were not executed",
+                                 selected))
+        end
     endtask
 endclass

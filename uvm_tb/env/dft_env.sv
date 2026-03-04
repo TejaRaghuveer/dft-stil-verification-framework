@@ -56,9 +56,9 @@ class dft_env extends uvm_env;
         reset_ag = reset_agent::type_id::create("reset_ag", this);
         pad_ag   = pad_agent_enhanced::type_id::create("pad_ag",   this);
 
-        // Optional scoreboard placeholder
+        // Optional DFT scoreboard
         if (cfg.enable_scoreboard) begin
-            scoreboard = uvm_component::type_id::create("dft_scoreboard", this);
+            scoreboard = dft_scoreboard::type_id::create("dft_scoreboard", this);
         end
     endfunction
 

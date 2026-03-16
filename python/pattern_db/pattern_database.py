@@ -46,6 +46,9 @@ class PatternRecord:
     pattern_id: int
     pattern_name: str
     pattern_type: PatternType
+    # Optional: raw scan/ATPG vector lines for STIL generation and comparisons.
+    # This is intentionally tool-agnostic (e.g. vector-per-line ASCII).
+    vector_lines: List[str] = field(default_factory=list)
     fault_list: List[str] = field(default_factory=list)
     fault_count: int = 0
     coverage_contribution: float = 0.0  # percentage points
@@ -153,6 +156,7 @@ class PatternDatabase:
                 pattern_id=p["pattern_id"],
                 pattern_name=p["pattern_name"],
                 pattern_type=PatternType(p["pattern_type"]),
+                vector_lines=p.get("vector_lines", []),
                 fault_list=p.get("fault_list", []),
                 fault_count=p.get("fault_count", 0),
                 coverage_contribution=p.get("coverage_contribution", 0.0),

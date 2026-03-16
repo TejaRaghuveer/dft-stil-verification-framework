@@ -1,0 +1,59 @@
+============================================================
+FAULT COVERAGE REPORT - SUMMARY
+============================================================
+Total faults:        6
+Detected:            4
+Undetectable:        1
+Untestable:          1
+Retry needed:        0
+Fault coverage %:    80.0
+Test coverage %:     100.0
+Defect level:        0.2
+Pattern efficiency:  2.5
+
+------------------------------------------------------------
+UNDETECTED FAULT LIST (location, type, reason)
+------------------------------------------------------------
+  f5 |  | STUCK_AT | UNTESTABLE
+  f6 |  | STUCK_AT | UNDETECTABLE
+
+------------------------------------------------------------
+PATTERN CONTRIBUTION (top 30)
+------------------------------------------------------------
+  pat_1 | unique_faults=3 | contribution%=60.0
+  pat_2 | unique_faults=2 | contribution%=40.0
+
+------------------------------------------------------------
+COVERAGE BY TYPE
+------------------------------------------------------------
+  STUCK_AT: detected=4 total=6
+
+------------------------------------------------------------
+COVERAGE BY MODULE
+------------------------------------------------------------
+  _unknown: 66.67% (4/6)
+
+------------------------------------------------------------
+TARGETED PATTERN SUGGESTIONS (low-coverage modules)
+------------------------------------------------------------
+  _unknown: 66.67% | patterns=2 | Run ATPG with aborted-fault list for this module or increase pattern count.
+
+------------------------------------------------------------
+GAP ANALYSIS
+------------------------------------------------------------
+  estimated_patterns_for_95.0%: 1
+  estimated_patterns_for_98.0%: 1
+  estimated_patterns_for_99.0%: 1
+  - Re-run ATPG with aborted fault list targeting undetected IDs.
+
+------------------------------------------------------------
+CONVERGENCE
+------------------------------------------------------------
+  Saturation pattern count: 2
+  Estimated patterns for 99%: 3
+
+------------------------------------------------------------
+DISTRIBUTION
+------------------------------------------------------------
+  Essential patterns: 2
+  Redundant pairs:    0

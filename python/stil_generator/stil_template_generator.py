@@ -118,34 +118,56 @@ class STILTemplateGenerator:
         return timing_def
         
     def generate_patterns(self) -> str:
-        """Generate pattern section."""
+        """
+        Generate pattern section.
+
+        NOTE: The project STIL validator (`stil_utils/stil_validator.py`) expects
+        vector syntax of the form:
+            V { <vector_chars> };
+        where the vector width matches the declared signal ordering.
+
+        To stay IEEE-1450-friendly and validator-compatible, we:
+        - Emit a `PatternExec` block that references patterns by name
+        - Emit a `Patterns` section with `Pattern "<name>" { V { ... }; }`
+        - Emit vectors as a single concatenated string in the order of the
+          Signals section (as is typical with STIL WFT usage)
+        """
         if not self.patterns:
             return ""
-            
-        pattern_def = "PatternBurst \"burst1\" {\n"
-        pattern_def += "    PatList {\n"
-        
-        for pattern in self.patterns:
-            pattern_def += f'        "{pattern.vector_id}"'
-            if pattern.comment:
-                pattern_def += f' // {pattern.comment}'
-            pattern_def += ";\n"
-        pattern_def += "    }\n}\n\n"
-        
-        pattern_def += "PatternExec {\n"
-        pattern_def += '    PatternBurst "burst1";\n'
-        pattern_def += "}\n\n"
-        
-        # Generate vector definitions
-        pattern_def += "Pattern \"pattern1\" {\n"
-        for pattern in self.patterns:
-            pattern_def += f'    V "{pattern.vector_id}"'
-            for signal_name, value in pattern.signals.items():
-                pattern_def += f' {signal_name}={value}'
-            pattern_def += ";\n"
-        pattern_def += "}\n\n"
-        
-        return pattern_def
+
+        # Determine canonical signal order (Signals block order)
+        signal_order = [s.name for s in self.signals]
+        if not signal_order:
+            # Fallback: stable ordering from first pattern's signal dict, if any
+            if not self.patterns or not self.patterns[0].signals:
+                return ""
+            signal_order = list(self.patterns[0].signals.keys())
+
+        # PatternExec references patterns by name
+        out = "PatternExec {\n"
+        out += "    PatList {\n"
+        for p in self.patterns:
+            out += f'        "{p.vector_id}";\n'
+        out += "    }\n"
+        out += "}\n\n"
+
+        # Patterns section
+        out += "Patterns {\n"
+        for p in self.patterns:
+            out += f'    Pattern "{p.vector_id}" {{\n'
+            # Build vector string in signal_order
+            vec_chars = []
+            for sig in signal_order:
+                v = p.signals.get(sig, "X")
+                # STIL vector chars typically: 0/1/X/Z (also L/H etc). Keep as-is, default X.
+                vec_chars.append(v)
+            vec = "".join(vec_chars)
+            if p.comment:
+                out += f'        // {p.comment}\n'
+            out += f"        V {{ {vec} }};\n"
+            out += "    }\n"
+        out += "}\n\n"
+        return out
         
     def generate_procedures(self) -> str:
         """Generate procedure definitions."""

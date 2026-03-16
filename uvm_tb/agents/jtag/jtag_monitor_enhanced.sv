@@ -51,6 +51,7 @@ class jtag_monitor_enhanced extends uvm_monitor;
         analysis_port = new("analysis_port", this);
         current_state = TEST_LOGIC_RESET;
         prev_state = TEST_LOGIC_RESET;
+        detected_sequence_type = SEQUENCE_NONE;
     endfunction
     
     // Build phase
@@ -203,17 +204,17 @@ class jtag_monitor_enhanced extends uvm_monitor;
      * Detect sequence type based on state transitions
      */
     function void detect_sequence_type();
-        // Detect sequence type based on state path
-        if (prev_state == SELECT_IR_SCAN && current_state == CAPTURE_IR) begin
+        // Clear TAP_RESET when exiting Test-Logic-Reset so it is not stuck for later sequences
+        if (prev_state == TEST_LOGIC_RESET && current_state != TEST_LOGIC_RESET) begin
+            detected_sequence_type = SEQUENCE_NONE;
+        end else if (prev_state == SELECT_IR_SCAN && current_state == CAPTURE_IR) begin
             detected_sequence_type = LOAD_IR;
         end else if (prev_state == SELECT_DR_SCAN && current_state == CAPTURE_DR) begin
             detected_sequence_type = LOAD_DR;
         end else if (current_state == SHIFT_DR || current_state == SHIFT_IR) begin
             detected_sequence_type = SCAN_SHIFT;
         end else if (current_state == TEST_LOGIC_RESET && prev_state != TEST_LOGIC_RESET) begin
-            // Only classify as TAP_RESET when we have just entered TLR (reset sequence).
-            // Excluding prev_state == TEST_LOGIC_RESET avoids misclassifying the exit-from-TLR
-            // cycle or leaving detected_sequence_type stuck as TAP_RESET for later sequences.
+            // Classify as TAP_RESET only when we have just entered TLR (reset sequence).
             detected_sequence_type = TAP_RESET;
         end
     endfunction

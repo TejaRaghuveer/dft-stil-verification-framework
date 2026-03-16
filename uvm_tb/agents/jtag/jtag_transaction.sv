@@ -96,7 +96,8 @@ typedef enum {
     EXIT1_IR,
     PAUSE_IR,
     EXIT2_IR,
-    UPDATE_IR
+    UPDATE_IR,
+    TAP_UNKNOWN   // Start state unknown (e.g. before TAP reset from any state)
 } jtag_state_t;
 
 // JTAG Instruction Enumeration

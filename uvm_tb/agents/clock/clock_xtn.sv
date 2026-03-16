@@ -119,7 +119,10 @@ class clock_xtn extends uvm_sequence_item;
      */
     function int get_total_cycles();
         if (half_period_clocks > 0) begin
-            return (half_period_clocks + 1) / 2;  // Round up
+            // One full clock cycle consists of two half-periods. When
+            // half_period_clocks is specified explicitly, interpret it as a
+            // count of half-periods and convert to cycles via integer divide.
+            return half_period_clocks / 2;
         end else begin
             return total_cycles;
         end

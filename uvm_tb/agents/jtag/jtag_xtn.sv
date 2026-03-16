@@ -120,6 +120,7 @@ class jtag_xtn extends uvm_sequence_item;
     // Constraint: Valid sequence type
     constraint valid_sequence_type_c {
         sequence_type inside {LOAD_IR, LOAD_DR, SCAN_SHIFT, BYPASS, TDI_TDO_CHECK, TAP_RESET};
+        // SEQUENCE_NONE excluded; used only by monitor when clearing after exit from TLR
     }
     
     // ============================================
@@ -353,7 +354,9 @@ endclass
 // ============================================
 
 // JTAG sequence types
+// SEQUENCE_NONE: no sequence detected yet (e.g. after exiting TAP reset)
 typedef enum {
+    SEQUENCE_NONE,  // No sequence detected; used to clear type when leaving TLR
     LOAD_IR,        // Load Instruction Register
     LOAD_DR,        // Load Data Register (BSR, Bypass, IDCODE, etc.)
     SCAN_SHIFT,     // Shift data through scan chain

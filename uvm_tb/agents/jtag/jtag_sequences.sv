@@ -79,7 +79,9 @@ class jtag_reset_sequence extends jtag_base_sequence;
         txn.cycle_count = reset_cycles;
         txn.tms_vector = new[reset_cycles];
         txn.tdi_vector = new[1];
-        txn.start_state = TEST_LOGIC_RESET;  // Reset always starts from TLR
+        // TAP reset takes the controller FROM any unknown state TO Test-Logic-Reset.
+        txn.start_state = TAP_UNKNOWN;
+        txn.end_state   = TEST_LOGIC_RESET;
         
         // Set TMS=1 for all cycles to enter Test-Logic-Reset
         foreach (txn.tms_vector[i]) begin

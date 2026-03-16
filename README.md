@@ -123,6 +123,50 @@ make run
 
 ---
 
+## 🔗 Integrated Week-2 Flow (End-to-End)
+
+This repo now supports an **integrated flow** that connects:
+
+- ATPG pattern parsing → **pattern database** (`python/pattern_db/`)
+- Pattern database → **test suite builder** (SMOKE / FULL / etc.)
+- Test suite → **UVM execution** via `atpg_select_patterns_test` (pattern list file + plusargs)
+- UVM results (`atpg_pattern_exec_logger` CSV) → **execution + performance** analysis
+- Executed patterns → **fault coverage analyzer** (`python/fault_coverage/`)
+- Generated STIL → **STIL validator** (`python/stil_utils/`)
+- Combined results → **single integrated report**
+
+### Run the integrated Python flow
+
+From the repo root:
+
+```bash
+python python/integrated_flow/run_flow.py --atpg patterns/stuck_at.stil --design GPU_Shader_Core --smoke_n 30
+```
+
+Optional: also run the full set:
+
+```bash
+python python/integrated_flow/run_flow.py --atpg patterns/stuck_at.stil --design GPU_Shader_Core --smoke_n 30 --run_full
+```
+
+Outputs are written under `out/integrated/`:
+- `pattern_db.json` (loaded patterns)
+- `suites/*_pattern_list.txt` (UVM pattern list files)
+- `results/*_results.csv` (UVM execution CSV outputs)
+- `fault_coverage.json` (fault coverage report)
+- `generated.stil` + `stil_validation.json` (IEEE 1450 checks + compare)
+- `integrated_report.json` (combined report)
+
+### Passing plusargs into simulation
+
+The top-level `Makefile` now supports `PLUSARGS`:
+
+```bash
+make SIM=vcs TEST=atpg_select_patterns_test PLUSARGS="+PATTERN_FILE=patterns/stuck_at.stil +PATTERN_LIST_FILE=out/integrated/suites/smoke_pattern_list.txt +MAX_PATTERNS=30 +RESULT_CSV=out/integrated/results/smoke_results.csv"
+```
+
+---
+
 ## 🎯 Core Features
 
 ### IEEE 1149.1 JTAG Agent

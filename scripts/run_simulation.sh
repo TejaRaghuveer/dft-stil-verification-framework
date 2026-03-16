@@ -90,7 +90,13 @@ echo "Waveform: $WAVEFORM"
 echo "=========================================="
 
 # Run simulation using Makefile
-make SIMULATOR=$SIMULATOR TEST_NAME=$TEST_NAME WAVEFORM=$WAVEFORM run
+# Note: top-level Makefile expects SIM/TEST, and supports PLUSARGS for passing +args.
+PLUSARGS="+UVM_VERBOSITY=${VERBOSITY}"
+if [ -n "${CONFIG_FILE}" ]; then
+    PLUSARGS="${PLUSARGS} +TEST_CONFIG_JSON=${CONFIG_FILE}"
+fi
+
+make SIM=$SIMULATOR TEST=$TEST_NAME PLUSARGS="${PLUSARGS}"
 
 echo "=========================================="
 echo "Simulation completed"

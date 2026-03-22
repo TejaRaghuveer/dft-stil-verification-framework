@@ -1,0 +1,9 @@
+// Braced block — parse with parse_formal_verification_text()
+
+formal_verification {
+  enabled: true;
+  proof_depth: 1000;
+  timeout: 3600;
+  properties_to_prove: [tap_fsm, tdo_validity, scan_path, timing];
+  report_format: JSON;
+}

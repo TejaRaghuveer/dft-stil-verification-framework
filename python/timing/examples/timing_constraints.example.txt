@@ -1,0 +1,16 @@
+// Braced timing spec — parse with parse_timing_constraints_text()
+
+timing_constraints {
+  tck_frequency_mhz: 200;
+  system_clock_mhz: 400;
+  setup_time_ns: 0.5;
+  hold_time_ns: 0.3;
+  propagation_delay_ns: 1.5;
+
+  clock_domains {
+    tclock: 200 MHz;
+    sysclock: 400 MHz;
+    ratio: 1:2;
+    phase_offset: 0 ns;
+  }
+}

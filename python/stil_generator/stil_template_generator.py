@@ -138,10 +138,13 @@ class STILTemplateGenerator:
         # Determine canonical signal order (Signals block order)
         signal_order = [s.name for s in self.signals]
         if not signal_order:
-            # Fallback: stable ordering from first pattern's signal dict, if any
-            if not self.patterns or not self.patterns[0].signals:
-                return ""
-            signal_order = list(self.patterns[0].signals.keys())
+            # Fallback: stable ordering from union of all patterns' signal keys.
+            # Empty dict {} is falsy — do not use `not p.signals` or we suppress
+            # generation when the first pattern legitimately has no entries yet.
+            keys_set = set()
+            for p in self.patterns:
+                keys_set.update(p.signals.keys())
+            signal_order = sorted(keys_set)
 
         # PatternExec references patterns by name
         out = "PatternExec {\n"

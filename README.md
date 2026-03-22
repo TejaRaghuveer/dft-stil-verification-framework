@@ -65,6 +65,9 @@ DFT-STIL verification/
 │   │   ├── defines.sv
 │   │   └── dft_utils.sv
 │   │
+│   ├── 📂 assertions/                 # SVA: JTAG TAP, scan chain templates
+│   │   ├── jtag_tap_formal_sva.sv
+│   │   └── README.md
 │   ├── dft_tb_pkg.sv                  # Main package file
 │   └── tb_top.sv                      # Top-level testbench
 │
@@ -75,6 +78,21 @@ DFT-STIL verification/
 │   │   └── atpg_parser.py            # Supports: TetraMAX, FastScan, Encounter
 │   ├── 📂 validators/                 # File validation
 │   │   └── file_validator.py
+│   ├── 📂 timing/                    # At-speed timing modeling + reports
+│   │   ├── timing_config.py
+│   │   ├── timing_execution.py
+│   │   ├── constraints_parser.py
+│   │   └── AT_SPEED_TIMING_GUIDE.md
+│   ├── 📂 verification/             # Protocol, DFT DRC, formal hooks, coverage checks
+│   │   ├── protocol_checker.py
+│   │   ├── dft_drc_engine.py
+│   │   ├── formal_verification_module.py
+│   │   └── FORMAL_DFT_VERIFICATION.md
+│   ├── 📂 multi_domain/              # Domain manager, scheduler, result aggregation
+│   │   └── README.md
+│   ├── 📂 reporting/                 # HTML/JSON/XML/CSV/PDF reports, sign-off, comparisons
+│   │   ├── comprehensive_reporting.py
+│   │   └── REPORTING_GUIDE.md
 │   └── 📂 utils/                      # Python utilities
 │
 ├── 📂 config/                          # Configuration Files
@@ -156,6 +174,51 @@ Outputs are written under `out/integrated/`:
 - `fault_coverage.json` (fault coverage report)
 - `generated.stil` + `stil_validation.json` (IEEE 1450 checks + compare)
 - `integrated_report.json` (combined report)
+
+### Timing-aware pattern execution (at-speed modeling)
+
+The **`python/timing/`** package provides a model-level framework for at-speed testing analysis:
+
+- **`TimingConfig`** — TCK / system clock MHz, setup/hold, propagation delays, slew rates, multi-domain ratios and phase
+- **`AtSpeedExecutionEngine`** — pattern execution with margins, metastability risk, clock-to-output budget; capture edges **leading / trailing / both** (both = worst slack)
+- **`EdgeSelectionOptimizer`** — edge choice for transition-delay vs path-delay style profiles
+- **`TimingViolationDetector`** — setup/hold/metastability flags and remedy hints (including when logic “passes” but timing is unsafe)
+- **`MultiDomainClockSequencer`** — aligned TCK / system clock schedule and coarse CDC checks
+- **`OperationalSpeedAnalyzer`** — TCK sweep, coverage vs frequency curve, “reduced speed only” patterns, headroom summary
+- **Constraints** — YAML (`examples/timing_constraints.example.yaml`) or braced text (`examples/timing_constraints.example.txt` + `parse_timing_constraints_text`)
+
+Documentation: **`python/timing/AT_SPEED_TIMING_GUIDE.md`**. Quick demo (from `python/`):
+
+```bash
+cd python
+python -m timing
+# or: python -m timing timing/examples/timing_constraints.example.yaml  # requires PyYAML
+```
+
+### Test infrastructure & formal verification
+
+- **`python/verification/`** — `ProtocolChecker` (IEEE 1149.1 TAP trace replay), `DFTDRCEngine` (scan/reset/CG DRC-style rules), `TimingConstraintChecker`, `ScanPathVerification`, `CoverageValidation`, `FormalVerificationModule` + `FormalVerificationConfig`, assertion failure merging (`AssertionMonitorReport`).
+- **`uvm_tb/assertions/`** — SVA modules: shadow TAP FSM + shift TDO checks (`jtag_tap_formal_sva.sv`), scan connectivity template (`scan_chain_connectivity_sva.sv`), `dft_assertion_macros.svh` for pattern-context logging.
+- **Config** — `config/formal_verification.example.yaml` / `.txt` (parse with `parse_formal_verification_text`).
+- **Docs** — `python/verification/FORMAL_DFT_VERIFICATION.md` (assertion style, formal vs simulation, proof certificates).
+
+From `python/`:
+
+```bash
+python -m verification
+```
+
+### Multi-domain execution & comprehensive reporting
+
+- **`python/multi_domain/`** — `TestDomainManager` (domains, shared TAM/resources, conflict groups), `DomainTestScheduler` (parallel makespan estimate), `MultiDomainResultAggregator` (weighted FC, cross-domain notes).
+- **`python/reporting/`** — `ComprehensiveReportingSystem` with templates (executive / technical / detailed / minimal), `ReportGenerator`, HTML nav + JSON/XML/CSV export, optional PDF (WeasyPrint / ReportLab stub), SVG visualizations (convergence, histogram, heatmap, pie), `compare_reports`, `SignOffReport` + traceability, `report_input_from_aggregate()` to merge multi-domain results.
+
+Docs: **`python/reporting/REPORTING_GUIDE.md`**. Demo:
+
+```bash
+cd python
+python -m reporting
+```
 
 ### Passing plusargs into simulation
 

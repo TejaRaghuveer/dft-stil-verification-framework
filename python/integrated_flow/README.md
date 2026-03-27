@@ -28,3 +28,22 @@ Add `--run_full` to run the full suite.
 - The current “achieved fault coverage” is computed from **patterns successfully executed** (PASS/FAIL) and their `fault_list` in the pattern DB. If your pattern DB does not include `fault_list`, the analyzer will still produce contribution and execution summaries but coverage will be limited.
 - For IEEE 1450 validation, the Python STIL generator emits `V { ... };` vectors compatible with the project validator.
 
+---
+
+## Week 3 production bundle
+
+Single orchestrator: **compression**, **timing-aware report**, **formal/DRC artifacts**, **HTML/JSON reports**, **failure analysis**, and **`deliverables/`** layout.
+
+```bash
+set PYTHONPATH=python
+python python/integrated_flow/week3_production.py --atpg patterns/stuck_at.stil --out deliverables --tck-mhz 200
+```
+
+With simulation CSV:
+
+```bash
+python python/integrated_flow/week3_production.py --pattern-db out/integrated/pattern_db.json --results-csv out/integrated/results/full_results.csv --out deliverables
+```
+
+See `Documentation/WEEK3_PRODUCTION.md` and `deliverables/README.md`.
+

@@ -44,6 +44,9 @@ build/
 *.sublime-project
 *.sublime-workspace
 
+# Week 3 CI output
+deliverables_ci/
+
 # OS
 .DS_Store
 Thumbs.db

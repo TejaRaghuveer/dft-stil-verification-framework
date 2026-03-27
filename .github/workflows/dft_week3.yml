@@ -1,0 +1,34 @@
+# Nightly / CI: Week 3 deliverable bundle (dry-run, no EDA tools required)
+
+name: DFT Week 3 Bundle
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * *"
+
+jobs:
+  week3-dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate Week 3 deliverables (dry-run)
+        env:
+          PYTHONPATH: python
+        run: |
+          python python/integrated_flow/week3_production.py --dry-run --out deliverables_ci
+
+      - name: Upload bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: week3-deliverables
+          path: deliverables_ci

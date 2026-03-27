@@ -373,6 +373,21 @@ For more details, see [User Guide](docs/USER_GUIDE.md).
 
 ---
 
+## Week 3 production deliverables
+
+End-to-end bundle: **compression metrics**, **at-speed timing report**, **formal/DRC JSON**, **HTML/CSV/JSON reports**, **failure analysis**, and **`production_readiness_checklist.json`**.
+
+```bash
+set PYTHONPATH=python
+python python/integrated_flow/week3_production.py --atpg patterns/stuck_at.stil --out deliverables --tck-mhz 200
+```
+
+- **Guide:** [Documentation/WEEK3_PRODUCTION.md](Documentation/WEEK3_PRODUCTION.md)
+- **Deliverables layout:** [deliverables/README.md](deliverables/README.md)
+- **CI:** [.github/workflows/dft_week3.yml](.github/workflows/dft_week3.yml) (dry-run artifact)
+
+---
+
 ## 📄 License
 
 This framework is provided as-is for DFT verification purposes.

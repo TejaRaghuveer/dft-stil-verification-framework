@@ -1,6 +1,6 @@
-# Nightly / CI: Week 3 deliverable bundle (dry-run, no EDA tools required)
+# Nightly / CI: Week 3 deliverables (dry-run, no EDA tools required)
 
-name: DFT Week 3 Bundle
+name: DFT Week 3 CI Deliverables
 
 on:
   push:
@@ -21,9 +21,14 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
       - name: Generate Week 3 deliverables (dry-run)
         env:
-          PYTHONPATH: python
+          PYTHONPATH: ${{ github.workspace }}/python
         run: |
           python python/integrated_flow/week3_production.py --dry-run --out deliverables_ci
 

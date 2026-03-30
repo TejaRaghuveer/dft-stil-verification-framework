@@ -383,6 +383,7 @@ python python/integrated_flow/week3_production.py --atpg patterns/stuck_at.stil 
 ```
 
 - **Guide:** [Documentation/WEEK3_PRODUCTION.md](Documentation/WEEK3_PRODUCTION.md)
+- **GPU specialization guide:** [Documentation/GPU_SHADER_DFT_SPECIALIZATION.md](Documentation/GPU_SHADER_DFT_SPECIALIZATION.md)
 - **Deliverables layout:** [deliverables/README.md](deliverables/README.md)
 - **CI:** [.github/workflows/dft_week3.yml](.github/workflows/dft_week3.yml) (dry-run artifact)
 

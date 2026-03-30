@@ -8,5 +8,6 @@
 | [troubleshooting_guide.md](troubleshooting_guide.md) | Common failures and fixes |
 | [production_readiness_checklist.md](production_readiness_checklist.md) | Tapeout checklist |
 | [design_modification_recommendations.md](design_modification_recommendations.md) | When FC/timing gaps remain |
+| [GPU_SHADER_DFT_SPECIALIZATION.md](GPU_SHADER_DFT_SPECIALIZATION.md) | GPU ALU/register/pipeline DFT specialization |
 
 Project docs also live under `docs/` (architecture, user guide, API).

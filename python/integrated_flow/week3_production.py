@@ -37,6 +37,11 @@ from timing.timing_execution import PatternTimingProfile, build_full_timing_repo
 from verification.dft_drc_engine import DFTDRCEngine  # noqa: E402
 from verification.formal_config import FormalVerificationConfig  # noqa: E402
 from verification.formal_verification_module import FormalVerificationModule  # noqa: E402
+from gpu_shader.gpu_shader_verification import (  # noqa: E402
+    GPUShaderConfig,
+    build_gpu_shader_report,
+    parse_gpu_shader_config_text,
+)
 
 from run_flow import (  # noqa: E402
     achieved_fault_coverage,
@@ -248,6 +253,16 @@ def run_week3(args: argparse.Namespace) -> Dict[str, Any]:
     crs.set_template(ReportTemplateId.TECHNICAL)
     export_paths = crs.export_all(str(reports_dir), "week3_comprehensive")
 
+    # GPU shader-core specialization:
+    # This extends generic DFT output with ALU/register/pipeline-specific results.
+    gpu_cfg = GPUShaderConfig()
+    if args.gpu_shader_config and os.path.isfile(args.gpu_shader_config):
+        cfg_text = Path(args.gpu_shader_config).read_text(encoding="utf-8")
+        gpu_cfg = parse_gpu_shader_config_text(cfg_text)
+    elif args.gpu_shader_config_json and os.path.isfile(args.gpu_shader_config_json):
+        gpu_cfg = GPUShaderConfig.from_dict(json.loads(Path(args.gpu_shader_config_json).read_text(encoding="utf-8")))
+    gpu_payload = build_gpu_shader_report(gpu_cfg, str(reports_dir))
+
     failure_rep = _failure_report_from_csv(results_csv or None, args.dry_run)
     (reports_dir / "failure_analysis.json").write_text(json.dumps(failure_rep, indent=2), encoding="utf-8")
 
@@ -291,9 +306,12 @@ def run_week3(args: argparse.Namespace) -> Dict[str, Any]:
             "compression": str(comp_json),
             "checklist": str(out / "production_readiness_checklist.json"),
             "html_report": export_paths.get("html", ""),
+            "gpu_shader_report_json": gpu_payload.get("output_paths", {}).get("json", ""),
+            "gpu_shader_report_html": gpu_payload.get("output_paths", {}).get("html", ""),
         },
         "execution_summary": summary,
         "fault_coverage": fc,
+        "gpu_shader_specialization": gpu_payload.get("gpu_shader_summary", {}),
     }
     manifest_path = out / "week3_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
@@ -318,6 +336,18 @@ def build_arg_parser() -> argparse.ArgumentParser:
     ap.add_argument("--coverage-target", type=float, default=95.0, dest="coverage_target")
     ap.add_argument("--total-faults", type=int, default=50000, dest="total_faults")
     ap.add_argument("--dry-run", action="store_true", help="Skip requiring simulation artifacts")
+    ap.add_argument(
+        "--gpu-shader-config",
+        default=None,
+        dest="gpu_shader_config",
+        help="Path to gpu_shader_config { ... } text file",
+    )
+    ap.add_argument(
+        "--gpu-shader-config-json",
+        default=None,
+        dest="gpu_shader_config_json",
+        help="Path to JSON GPU shader config mapping",
+    )
     return ap
 
 

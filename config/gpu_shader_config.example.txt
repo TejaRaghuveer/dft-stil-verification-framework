@@ -1,0 +1,12 @@
+gpu_shader_config {
+  bit_width: 32;
+  instruction_format: scalar;
+  alu_operations: [ADD, SUB, MUL, DIV, AND, OR, XOR, NOT, SHIFT, EQ, NE, LT, GT, LE, GE];
+  num_registers: 32;
+  register_banks: 4;
+  pipeline_depth: 4;
+  num_alu_units: 2;
+  memory_interfaces: 1;
+  scan_chains: 16;
+  verify_modes: [FUNCTIONAL, SCAN, AT_SPEED];
+}

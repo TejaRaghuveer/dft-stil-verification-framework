@@ -47,3 +47,13 @@ python python/integrated_flow/week3_production.py --pattern-db out/integrated/pa
 
 See `Documentation/WEEK3_PRODUCTION.md` and `deliverables/README.md`.
 
+GPU shader specialization (ALU/register/pipeline focused):
+
+```bash
+python python/integrated_flow/week3_production.py --dry-run --out deliverables --gpu-shader-config config/gpu_shader_config.example.txt
+```
+
+Outputs include:
+- `Reports/gpu_shader_verification.json`
+- `Reports/gpu_shader_verification.html`
+

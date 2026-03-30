@@ -183,7 +183,7 @@ def run_week3(args: argparse.Namespace) -> Dict[str, Any]:
 
     comp_bundle = _compression_bundle(db)
     comp_json = reports_dir / "compression_analysis.json"
-    comp_json.write_text(json.dumps(comp_bundle, indent=2), encoding="utf-8")
+    comp_json.write_text(json.dumps(comp_bundle, indent=2, default=str), encoding="utf-8")
 
     stil_base = stil_dir / "patterns_generated.stil"
     generate_stil_from_db(db, str(stil_base))

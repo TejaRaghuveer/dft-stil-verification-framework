@@ -105,7 +105,7 @@ class STILTemplateGenerator:
         if not self.timing:
             return ""
             
-        timing_def = f"""Timing {
+        timing_def = f"""Timing {{
     WaveformTable "default_wft" {{
         Period {self.timing.period}ns;
 """

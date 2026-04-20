@@ -310,3 +310,9 @@ JTAG instructions:
 - `DEFAULT_CLK_PERIOD_NS`: Default clock period (10ns)
 - `DEFAULT_JTAG_CLK_PERIOD_NS`: Default JTAG clock period (100ns)
 - `DEFAULT_RST_CYCLES`: Default reset cycles (100)
+
+## Maintainer
+
+- **Raghuveer**
+- GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+- Email: `tejaraghuveer@gmail.com`

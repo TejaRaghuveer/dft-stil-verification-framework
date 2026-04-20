@@ -117,3 +117,9 @@ Generated files:
 - Pipeline correctness
 - Data integrity
 - Per-stage timing margins
+
+## Maintainer
+
+- **Raghuveer**
+- GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+- Email: `tejaraghuveer@gmail.com`

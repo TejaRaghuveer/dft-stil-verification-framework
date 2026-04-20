@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a complete, production-grade Design-for-Test (DFT) Verification framework with STIL (Standard Test Interface Language) Pattern Generation using SystemVerilog UVM and Python. The framework is designed to be modular, scalable, and adaptable for GPU shader verification contexts.
+This project is a full DFT verification framework with STIL (Standard Test Interface Language) pattern generation using SystemVerilog UVM and Python. The goal is to keep the flow modular, scalable, and practical for GPU shader verification work.
 
 ## Project Structure
 
@@ -263,6 +263,9 @@ For questions and issues:
 - Check example files in `examples/`
 - Validate project structure with `make validate`
 - Review API reference in `docs/API_REFERENCE.md`
+- Contact maintainer **Raghuveer**
+  - GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+  - Email: `tejaraghuveer@gmail.com`
 
 ---
 

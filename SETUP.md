@@ -238,3 +238,6 @@ For setup issues:
 - Review error messages carefully
 - Validate project structure with `make validate`
 - Check environment variables are set correctly
+- Contact maintainer **Raghuveer**
+  - GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+  - Email: `tejaraghuveer@gmail.com`

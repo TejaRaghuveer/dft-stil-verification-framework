@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document describes the architecture of the DFT-STIL Verification Framework, designed for Design-for-Test (DFT) verification with STIL (Standard Test Interface Language) pattern generation using SystemVerilog UVM and Python.
+This document describes the architecture of the DFT-STIL Verification Framework for Design-for-Test (DFT) verification with STIL (Standard Test Interface Language) pattern generation using SystemVerilog UVM and Python.
 
 ## Directory Structure
 
@@ -129,7 +129,7 @@ Central configuration class with:
 
 ## GPU Shader Context
 
-The framework is designed to be adaptable for GPU shader verification:
+The framework is adaptable for GPU shader verification:
 - Configurable number of shader cores
 - Thread-level testing support
 - Scan chain verification for shader logic
@@ -137,7 +137,7 @@ The framework is designed to be adaptable for GPU shader verification:
 
 ## Extension Points
 
-The framework is designed to be extended:
+The framework is intentionally extensible:
 
 1. **New Agents**: Add new agent directories under `uvm_tb/agents/`
 2. **New Sequences**: Add sequence files under `uvm_tb/sequences/`
@@ -153,3 +153,9 @@ The framework is designed to be extended:
 4. Add comprehensive comments for maintainability
 5. Validate configurations before use
 6. Use proper UVM phases for initialization
+
+## Maintainer
+
+- **Raghuveer**
+- GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+- Email: `tejaraghuveer@gmail.com`

@@ -212,3 +212,9 @@ export PATH=$CDS_HOME/tools/bin:$PATH
 - [Architecture](docs/ARCHITECTURE.md)
 - [User Guide](docs/USER_GUIDE.md)
 - [API Reference](docs/API_REFERENCE.md)
+
+## Maintainer
+
+- **Raghuveer**
+- GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+- Email: `tejaraghuveer@gmail.com`

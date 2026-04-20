@@ -24,3 +24,9 @@ This milestone wires **compression**, **timing-aware analysis**, **formal/DRC ho
 ## ATE note
 
 The “compressed” STIL in this flow keeps **identical** `V { }` vectors; compression **metrics** are in JSON. Full ATE-side compaction (repeat/procedure macros) is vendor-specific—extend `stil_template_generator` if your ATE requires it.
+
+## Maintainer
+
+- **Raghuveer**
+- GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+- Email: `tejaraghuveer@gmail.com`

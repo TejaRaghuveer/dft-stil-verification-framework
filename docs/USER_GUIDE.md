@@ -265,3 +265,6 @@ The framework can be integrated with:
 - Check `docs/ARCHITECTURE.md` for architecture details
 - Review example files in `examples/`
 - Check configuration files in `config/`
+- Contact maintainer **Raghuveer**
+  - GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+  - Email: `tejaraghuveer@gmail.com`

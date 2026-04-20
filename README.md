@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**A production-grade Design-for-Test (DFT) Verification framework with IEEE 1149.1 JTAG support and STIL pattern generation**
+**A practical DFT verification framework with IEEE 1149.1 JTAG support and STIL pattern generation**
 
 [![UVM](https://img.shields.io/badge/UVM-1.2-blue)](https://www.accellera.org/downloads/standards/uvm)
 [![IEEE 1149.1](https://img.shields.io/badge/IEEE-1149.1-green)](https://standards.ieee.org/)
@@ -14,7 +14,7 @@
 
 ## 🚀 Overview
 
-Complete UVM-based verification framework for DFT testing with comprehensive JTAG TAP controller support, automatic STIL pattern generation, and ATPG integration. Designed for GPU shader and ASIC DFT verification.
+This repository brings together a UVM-based DFT verification flow with JTAG TAP support, STIL generation, and ATPG integration. It is built for real verification work on GPU shader and ASIC-style DFT use cases.
 
 ### Key Capabilities
 
@@ -384,8 +384,18 @@ python python/integrated_flow/week3_production.py --atpg patterns/stuck_at.stil 
 
 - **Guide:** [Documentation/WEEK3_PRODUCTION.md](Documentation/WEEK3_PRODUCTION.md)
 - **GPU specialization guide:** [Documentation/GPU_SHADER_DFT_SPECIALIZATION.md](Documentation/GPU_SHADER_DFT_SPECIALIZATION.md)
+- **Multi-core cache/interconnect guide:** [Documentation/MULTI_CORE_CACHE_INTERCONNECT_DFT.md](Documentation/MULTI_CORE_CACHE_INTERCONNECT_DFT.md)
 - **Deliverables layout:** [deliverables/README.md](deliverables/README.md)
 - **CI:** [.github/workflows/dft_week3.yml](.github/workflows/dft_week3.yml) (dry-run artifact)
+
+---
+
+## 👤 Maintainer
+
+Maintained by **Raghuveer**.
+
+- GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)
+- Email: `tejaraghuveer@gmail.com`
 
 ---
 

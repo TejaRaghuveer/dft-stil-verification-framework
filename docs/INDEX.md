@@ -1,5 +1,7 @@
 # Documentation Index
 
+I use this file as the main navigation point for the project docs. When someone joins the repo or needs to jump between usage guides, deep dives, and training material, this is the quickest path.
+
 ## Core Guides
 
 - `README.md`
@@ -55,18 +57,13 @@
 
 ## Changes Made
 
-- Organized documents into clear usage paths (core guides, deep dives, tutorials, diagrams).
-- Linked operational docs and implementation docs so onboarding is faster.
-- Added local search/index commands so the team can quickly locate answers.
+I organized the docs into practical usage paths (core guides, deep dives, tutorials, and diagrams) so the flow from onboarding to advanced debugging is clearer. I also linked operational docs with implementation references and added local search/index commands so people can find answers quickly without digging through folders manually.
 
 ## Challenges
 
-- The documentation set grew across multiple folders and became hard to navigate.
-- Similar topics existed in different places, which made ownership and discovery confusing.
+As the project grew, documentation spread across multiple folders and similar topics started to overlap. That made discovery slower and made it harder to know which file should be treated as the source of truth during handoff.
 
 ## Resolution Approach
 
-- I created a single navigation entry-point with topic-first grouping.
-- I standardized section naming so people can quickly choose the right document path.
-- I added searchable indexing tooling to reduce time spent manually browsing files.
+I treated this index as the single entry point, grouped content by topic, and standardized section names so teams can quickly decide where to go next. The search index tooling is there to reduce manual browsing and make day-to-day documentation use more efficient.
 

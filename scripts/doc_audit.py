@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import ast
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,16 +44,17 @@ def audit_systemverilog() -> list[str]:
     return issues
 
 
-def main() -> None:
+def main() -> int:
     issues = audit_python() + audit_systemverilog()
     if not issues:
         print("No documentation issues found.")
-        return
+        return 0
     print("Documentation audit issues:")
     for item in issues:
         print(f"- {item}")
+    return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
 

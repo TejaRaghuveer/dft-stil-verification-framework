@@ -54,7 +54,7 @@ jobs:
     name: Nightly regression
     runs-on: ubuntu-latest
     needs: precommit_checks
-    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 2 * * *'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && github.event.schedule == '0 2 * * *')
     steps:
       - uses: actions/checkout@v4
 
@@ -99,8 +99,8 @@ jobs:
   weekly_extended:
     name: Weekly extended and coverage
     runs-on: ubuntu-latest
-    needs: nightly_regression
-    if: github.event.schedule == '0 3 * * 0'
+    needs: precommit_checks
+    if: github.event_name == 'schedule' && github.event.schedule == '0 3 * * 0'
     steps:
       - uses: actions/checkout@v4
 
@@ -120,6 +120,7 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}/python
         run: |
+          chmod +x scripts/run_regression.sh
           ./scripts/run_regression.sh --mode weekly --out deliverables_ci_weekly --extended
 
       - name: Upload weekly artifacts
@@ -154,6 +155,7 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}/python
         run: |
+          chmod +x scripts/run_regression.sh
           ./scripts/run_regression.sh --mode signoff --out deliverables_ci_signoff --extended
 
       - name: Create sign-off report

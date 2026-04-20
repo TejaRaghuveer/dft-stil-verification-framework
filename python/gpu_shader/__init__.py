@@ -14,6 +14,11 @@ from .gpu_shader_verification import (
     GPUFunctionalTest,
     parse_gpu_shader_config_text,
 )
+from .multi_core_verification import (
+    MultiCoreGPUConfig,
+    build_multi_core_report,
+    parse_multi_core_config_text,
+)
 
 __all__ = [
     "GPUShaderConfig",
@@ -23,4 +28,7 @@ __all__ = [
     "GPUPipelineTest",
     "GPUFunctionalTest",
     "parse_gpu_shader_config_text",
+    "MultiCoreGPUConfig",
+    "build_multi_core_report",
+    "parse_multi_core_config_text",
 ]

@@ -42,6 +42,11 @@ from gpu_shader.gpu_shader_verification import (  # noqa: E402
     build_gpu_shader_report,
     parse_gpu_shader_config_text,
 )
+from gpu_shader.multi_core_verification import (  # noqa: E402
+    MultiCoreGPUConfig,
+    build_multi_core_report,
+    parse_multi_core_config_text,
+)
 
 from run_flow import (  # noqa: E402
     achieved_fault_coverage,
@@ -263,6 +268,16 @@ def run_week3(args: argparse.Namespace) -> Dict[str, Any]:
         gpu_cfg = GPUShaderConfig.from_dict(json.loads(Path(args.gpu_shader_config_json).read_text(encoding="utf-8")))
     gpu_payload = build_gpu_shader_report(gpu_cfg, str(reports_dir))
 
+    # Multi-core cache coherence + interconnect specialization:
+    # Complements per-core GPU checks with system-level cache/interconnect verification.
+    mc_cfg = MultiCoreGPUConfig()
+    if args.multi_core_config and os.path.isfile(args.multi_core_config):
+        mc_text = Path(args.multi_core_config).read_text(encoding="utf-8")
+        mc_cfg = parse_multi_core_config_text(mc_text)
+    elif args.multi_core_config_json and os.path.isfile(args.multi_core_config_json):
+        mc_cfg = MultiCoreGPUConfig.from_dict(json.loads(Path(args.multi_core_config_json).read_text(encoding="utf-8")))
+    multi_core_payload = build_multi_core_report(mc_cfg, str(reports_dir))
+
     failure_rep = _failure_report_from_csv(results_csv or None, args.dry_run)
     (reports_dir / "failure_analysis.json").write_text(json.dumps(failure_rep, indent=2), encoding="utf-8")
 
@@ -308,10 +323,13 @@ def run_week3(args: argparse.Namespace) -> Dict[str, Any]:
             "html_report": export_paths.get("html", ""),
             "gpu_shader_report_json": gpu_payload.get("output_paths", {}).get("json", ""),
             "gpu_shader_report_html": gpu_payload.get("output_paths", {}).get("html", ""),
+            "multi_core_report_json": multi_core_payload.get("output_paths", {}).get("json", ""),
+            "multi_core_report_html": multi_core_payload.get("output_paths", {}).get("html", ""),
         },
         "execution_summary": summary,
         "fault_coverage": fc,
         "gpu_shader_specialization": gpu_payload.get("gpu_shader_summary", {}),
+        "multi_core_specialization": multi_core_payload.get("multi_core_summary", {}),
     }
     manifest_path = out / "week3_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
@@ -347,6 +365,18 @@ def build_arg_parser() -> argparse.ArgumentParser:
         default=None,
         dest="gpu_shader_config_json",
         help="Path to JSON GPU shader config mapping",
+    )
+    ap.add_argument(
+        "--multi-core-config",
+        default=None,
+        dest="multi_core_config",
+        help="Path to multi_core_config { ... } text file",
+    )
+    ap.add_argument(
+        "--multi-core-config-json",
+        default=None,
+        dest="multi_core_config_json",
+        help="Path to JSON multi-core GPU config mapping",
     )
     return ap
 

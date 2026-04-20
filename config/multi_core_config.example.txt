@@ -1,0 +1,12 @@
+multi_core_config {
+  num_shader_cores: 4;
+  cache_level: L1;
+  cache_type: INSTRUCTION_DATA_UNIFIED;
+  cache_size_kb: 32;
+  cache_line_bytes: 64;
+  coherence_protocol: MESI;
+  interconnect_type: MESH;
+  verify_coherence: true;
+  verify_interconnect: true;
+  arbitration_policy: ROUND_ROBIN;
+}

@@ -1,4 +1,4 @@
-# Documentation index
+# My Documentation Index
 
 | Document | Description |
 |----------|-------------|
@@ -10,6 +10,7 @@
 | [design_modification_recommendations.md](design_modification_recommendations.md) | When FC/timing gaps remain |
 | [GPU_SHADER_DFT_SPECIALIZATION.md](GPU_SHADER_DFT_SPECIALIZATION.md) | GPU ALU/register/pipeline DFT specialization |
 | [MULTI_CORE_CACHE_INTERCONNECT_DFT.md](MULTI_CORE_CACHE_INTERCONNECT_DFT.md) | Cache coherence and interconnect verification |
+| [ML_PATTERN_OPTIMIZATION.md](ML_PATTERN_OPTIMIZATION.md) | ML-based test pattern optimization and fault prediction |
 
 Project docs also live under `docs/` (architecture, user guide, API).
 

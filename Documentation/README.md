@@ -1,4 +1,4 @@
-# DFT Verification Documentation Hub
+# DFT Verification Documentation Index
 
 | Document | Description |
 |----------|-------------|
@@ -14,18 +14,18 @@
 
 Project docs also live under `docs/` (architecture, user guide, API, CI/CD).
 
-## Changes I Made to This Documentation Set
+## Changes Made to This Documentation Set
 
 - Grouped documents by execution flow, troubleshooting, readiness, and advanced specialization.
 - Added GPU shader, multi-core interconnect, and ML optimization references into one discoverable hub.
 - Kept the document map compact so new contributors can quickly find the right guide.
 
-## Difficulties I Faced While Organizing Docs
+## Challenges in Documentation Organization
 
 - Some topics overlap (for example, troubleshooting across production and user guides).
 - Technical depth differs by audience, from onboarding-level to architecture-level material.
 
-## How I Resolved Those Difficulties
+## Resolution Approach
 
 - I used this file as the primary map and delegated details to topic-specific documents.
 - I kept short descriptions per file to reduce ambiguity during team handoff.

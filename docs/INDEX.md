@@ -1,6 +1,6 @@
-# Documentation Navigation and Adoption Guide
+# Documentation Index
 
-## Core Documentation Paths
+## Core Guides
 
 - `README.md`
 - `GETTING_STARTED.md`
@@ -12,7 +12,7 @@
 - `docs/BEST_PRACTICES.md`
 - `docs/DESIGN_DOCUMENT.md`
 
-## Knowledge Base and Reuse Material
+## Knowledge Base
 
 - `docs/KNOWLEDGE_BASE.md`
 - `docs/faq.md`
@@ -21,7 +21,7 @@
 - `docs/CODE_DOC_ROADMAP.md`
 - `docs/DOCUMENTATION_TEMPLATE.md`
 
-## Technical Deep-Dive References
+## Deep Dives
 
 - `docs/deep_dives/jtag_protocol.md`
 - `docs/deep_dives/stil_generation.md`
@@ -30,7 +30,7 @@
 - `docs/deep_dives/pattern_compression.md`
 - `docs/deep_dives/multi_core_gpu_verification.md`
 
-## Tutorials, Training, and Team Onboarding
+## Tutorials and Training
 
 - `docs/tutorials/tutorial_1_setup.md`
 - `docs/tutorials/tutorial_2_run_patterns.md`
@@ -39,7 +39,7 @@
 - `training/TRAINING_PLAN.md`
 - `training/video_scripts/`
 
-## Architecture and Flow Diagrams
+## Diagrams
 
 - `docs/diagrams/system_architecture.md`
 - `docs/diagrams/data_flow.md`
@@ -47,24 +47,24 @@
 - `docs/diagrams/test_execution_flow.md`
 - `docs/diagrams/coverage_analysis_flow.md`
 
-## Search Tooling for Fast Discovery
+## Search and Index Tooling
 
 - Generate index: `python scripts/generate_doc_index.py`
 - Search docs: `python scripts/doc_search.py "<query>"`
 - Prebuilt index file: `docs/search_index.json`
 
-## What I Changed
+## Changes Made
 
 - Organized documents into clear usage paths (core guides, deep dives, tutorials, diagrams).
 - Linked operational docs and implementation docs so onboarding is faster.
 - Added local search/index commands so the team can quickly locate answers.
 
-## Difficulties I Faced
+## Challenges
 
 - The documentation set grew across multiple folders and became hard to navigate.
 - Similar topics existed in different places, which made ownership and discovery confusing.
 
-## How I Overcame Them
+## Resolution Approach
 
 - I created a single navigation entry-point with topic-first grouping.
 - I standardized section naming so people can quickly choose the right document path.

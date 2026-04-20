@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[pre-commit] Running syntax and docs checks..."
+python -m compileall -q python scripts
+python scripts/doc_audit.py
+python scripts/check_coverage.py 90.0 reports/local_precommit_coverage.json --actual 95.0
+echo "[pre-commit] Checks passed"

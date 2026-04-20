@@ -46,6 +46,12 @@ build/
 
 # Week 3 CI output
 deliverables_ci/
+deliverables_ci_*/
+deliverables_*_ci/
+reports/
+logs/
+performance/
+.cache/
 
 # OS
 .DS_Store

@@ -140,7 +140,12 @@ class ALUExecutionAgent:
         if op == "DIV":
             if bsg == 0:
                 return self._norm(0)
-            return self._norm(int(asg / bsg))
+            # Keep signed division integer-only to avoid float precision drift
+            # for wide operands (for example values above 2^53).
+            q = abs(asg) // abs(bsg)
+            if (asg < 0) ^ (bsg < 0):
+                q = -q
+            return self._norm(q)
         if op == "AND":
             return au & bu
         if op == "OR":

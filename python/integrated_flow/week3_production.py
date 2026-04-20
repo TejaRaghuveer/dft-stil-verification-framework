@@ -47,6 +47,7 @@ from gpu_shader.multi_core_verification import (  # noqa: E402
     build_multi_core_report,
     parse_multi_core_config_text,
 )
+from ml_pattern_optimization.pattern_ml_analyzer import analyze_pattern_db_with_ml  # noqa: E402
 
 from run_flow import (  # noqa: E402
     achieved_fault_coverage,
@@ -278,6 +279,25 @@ def run_week3(args: argparse.Namespace) -> Dict[str, Any]:
         mc_cfg = MultiCoreGPUConfig.from_dict(json.loads(Path(args.multi_core_config_json).read_text(encoding="utf-8")))
     multi_core_payload = build_multi_core_report(mc_cfg, str(reports_dir))
 
+    ml_payload: Dict[str, Any] = {}
+    if args.ml_pattern_optimize:
+        exec_metrics: Dict[str, Dict[str, Any]] = {}
+        if results_csv and os.path.isfile(results_csv):
+            for r in parse_results_csv(results_csv):
+                exec_metrics[r.pattern_name] = {
+                    "duration_ns": r.duration_ns,
+                    "coverage_contribution": 1.0 if r.status in ("PASS", "ATPG_PATTERN_PASS") else 0.0,
+                }
+        ml_payload = analyze_pattern_db_with_ml(
+            db,
+            execution_metrics_by_pattern=exec_metrics,
+            target_coverage=args.ml_target_coverage,
+            max_patterns=args.ml_max_patterns,
+            out_json=str(reports_dir / "ml_pattern_optimization.json"),
+            out_txt=str(reports_dir / "ml_pattern_optimization.txt"),
+            learning_history_path=str(reports_dir / "ml_learning_history.json"),
+        )
+
     failure_rep = _failure_report_from_csv(results_csv or None, args.dry_run)
     (reports_dir / "failure_analysis.json").write_text(json.dumps(failure_rep, indent=2), encoding="utf-8")
 
@@ -325,11 +345,14 @@ def run_week3(args: argparse.Namespace) -> Dict[str, Any]:
             "gpu_shader_report_html": gpu_payload.get("output_paths", {}).get("html", ""),
             "multi_core_report_json": multi_core_payload.get("output_paths", {}).get("json", ""),
             "multi_core_report_html": multi_core_payload.get("output_paths", {}).get("html", ""),
+            "ml_pattern_optimization_json": str(reports_dir / "ml_pattern_optimization.json") if ml_payload else "",
+            "ml_pattern_optimization_txt": str(reports_dir / "ml_pattern_optimization.txt") if ml_payload else "",
         },
         "execution_summary": summary,
         "fault_coverage": fc,
         "gpu_shader_specialization": gpu_payload.get("gpu_shader_summary", {}),
         "multi_core_specialization": multi_core_payload.get("multi_core_summary", {}),
+        "ml_pattern_optimization_summary": ml_payload.get("summary", {}),
     }
     manifest_path = out / "week3_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
@@ -378,6 +401,9 @@ def build_arg_parser() -> argparse.ArgumentParser:
         dest="multi_core_config_json",
         help="Path to JSON multi-core GPU config mapping",
     )
+    ap.add_argument("--ml-pattern-optimize", action="store_true", help="Enable ML-based pattern optimization analysis")
+    ap.add_argument("--ml-target-coverage", type=float, default=95.0, dest="ml_target_coverage")
+    ap.add_argument("--ml-max-patterns", type=int, default=None, dest="ml_max_patterns")
     return ap
 
 

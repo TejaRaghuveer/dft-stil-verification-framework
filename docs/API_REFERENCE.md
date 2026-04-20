@@ -311,6 +311,26 @@ JTAG instructions:
 - `DEFAULT_JTAG_CLK_PERIOD_NS`: Default JTAG clock period (100ns)
 - `DEFAULT_RST_CYCLES`: Default reset cycles (100)
 
+## Parameter Range Guidance
+
+- `jtag_clock_period_ns`: recommended 10 to 1000
+- `clock_period_ns`: recommended 1 to 100
+- `num_test_patterns`: recommended 1 to 1,000,000
+- `ml_target_coverage`: 0.0 to 100.0
+- `ml_max_patterns`: positive integer or omitted
+
+## Documentation Templates and Standards
+
+- Class template: `docs/DOCUMENTATION_TEMPLATE.md`
+- Code documentation standard: `docs/CODE_DOCUMENTATION_STANDARD.md`
+- Deep dives for complex algorithms:
+  - `docs/deep_dives/jtag_protocol.md`
+  - `docs/deep_dives/stil_generation.md`
+  - `docs/deep_dives/fault_coverage.md`
+  - `docs/deep_dives/at_speed_testing.md`
+  - `docs/deep_dives/pattern_compression.md`
+  - `docs/deep_dives/multi_core_gpu_verification.md`
+
 ## Maintainer
 
 - **Raghuveer**

@@ -327,11 +327,25 @@ endclass
 
 | Document | Description |
 |---------|-------------|
+| [Getting Started](GETTING_STARTED.md) | Step-by-step onboarding path |
 | [Architecture Guide](docs/ARCHITECTURE.md) | Detailed architecture and design |
 | [User Guide](docs/USER_GUIDE.md) | Comprehensive usage guide |
 | [API Reference](docs/API_REFERENCE.md) | Complete API documentation |
+| [Troubleshooting](docs/TROUBLESHOOTING.md) | Common problems and validated fixes |
+| [Best Practices](docs/BEST_PRACTICES.md) | Team recommendations and guardrails |
+| [Design Document](docs/DESIGN_DOCUMENT.md) | Technical rationale and maintainability strategy |
+| [Knowledge Base](docs/KNOWLEDGE_BASE.md) | FAQ, snippets, decisions, and lessons learned |
+| [Maintenance Process](docs/MAINTENANCE_PROCESS.md) | Quarterly review, ownership, and update triggers |
+| [CI/CD Pipeline](docs/CI_CD_PIPELINE.md) | Automation flow, sign-off gates, and deployment procedure |
 | [JTAG Agent Docs](uvm_tb/agents/jtag/JTAG_AGENT_DOCUMENTATION.md) | IEEE 1149.1 JTAG agent reference |
 | [Setup Guide](SETUP.md) | Environment setup instructions |
+
+### Documentation Search (Local)
+
+```bash
+python scripts/generate_doc_index.py
+python scripts/doc_search.py "fault coverage"
+```
 
 ---
 

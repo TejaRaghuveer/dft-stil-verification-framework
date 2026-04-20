@@ -1,0 +1,1508 @@
+[
+  {
+    "path": "DFT_UVM_Sequences.md",
+    "title": "DFT_UVM_Sequences.md",
+    "line_count": 64,
+    "preview": "## DFT UVM Testbench \u2013 Sequence Diagrams\n\n### High\u2013Level Test Execution Flow\n\n```mermaid\nsequenceDiagram\n    participant TB as test_top (tb_top)\n    participant UVM as UVM Runtime\n    participant T as dft_base_test\n    participant ENV as dft_env\n    participant JTAG as jtag_agent_enhanced\n    partic"
+  },
+  {
+    "path": "Documentation/GPU_SHADER_DFT_SPECIALIZATION.md",
+    "title": "GPU Shader Core DFT Specialization",
+    "line_count": 125,
+    "preview": "# GPU Shader Core DFT Specialization\n\nThis extension adds GPU shader-core specific verification on top of the base DFT flow, with direct emphasis on ALU correctness, register file reliability, and pipeline/interconnect behavior.\n\n## Scope and architecture notes\n\n- Shader ALUs have mixed arithmetic/l"
+  },
+  {
+    "path": "Documentation/ML_PATTERN_OPTIMIZATION.md",
+    "title": "My ML-Based Pattern Optimization",
+    "line_count": 122,
+    "preview": "# My ML-Based Pattern Optimization\n\nThis document describes the ML workflow added for ATPG pattern prioritization, fault prediction, and subset optimization.\n\n## What I Implemented\n\nCode location:\n\n- `python/ml_pattern_optimization/pattern_ml_analyzer.py`\n- `python/ml_pattern_optimization/__main__.p"
+  },
+  {
+    "path": "Documentation/MULTI_CORE_CACHE_INTERCONNECT_DFT.md",
+    "title": "Multi-Core GPU Cache & Interconnect DFT Verification",
+    "line_count": 140,
+    "preview": "# Multi-Core GPU Cache & Interconnect DFT Verification\n\nThis guide documents the multi-core specialization for cache coherence protocol and chip interconnect verification in GPU shader systems.\n\n## Why this specialization exists\n\nSingle-core ALU/register checks are not enough for modern shader fabri"
+  },
+  {
+    "path": "Documentation/README.md",
+    "title": "My Documentation Index",
+    "line_count": 19,
+    "preview": "# My Documentation Index\n\n| Document | Description |\n|----------|-------------|\n| [WEEK3_PRODUCTION.md](WEEK3_PRODUCTION.md) | Week 3 integration overview |\n| [pattern_execution_manual.md](pattern_execution_manual.md) | How to run patterns and flows |\n| [testbench_user_guide.md](testbench_user_guide"
+  },
+  {
+    "path": "Documentation/WEEK3_PRODUCTION.md",
+    "title": "Week 3 \u2014 Production integration",
+    "line_count": 32,
+    "preview": "# Week 3 \u2014 Production integration\n\nThis milestone wires **compression**, **timing-aware analysis**, **formal/DRC hooks**, **comprehensive reporting**, and **failure analysis** into one deliverable bundle.\n\n## Orchestrator\n\n`python/integrated_flow/week3_production.py`\n\n- **Day 15 \u2014 Compression:** `Co"
+  },
+  {
+    "path": "Documentation/design_modification_recommendations.md",
+    "title": "Design modification recommendations (when FC or timing gaps remain)",
+    "line_count": 8,
+    "preview": "# Design modification recommendations (when FC or timing gaps remain)\n\n1. **Observability:** Add test points or adjust scan ordering for low-coverage modules (see `Reports/` module coverage sections).\n2. **Timing:** Re-pipeline long paths; add capture cycles; reduce shift frequency for marginal path"
+  },
+  {
+    "path": "Documentation/pattern_execution_manual.md",
+    "title": "Pattern execution manual",
+    "line_count": 23,
+    "preview": "# Pattern execution manual\n\n## 1. Inputs\n\n- **ATPG / STIL source:** `--atpg` or pre-built `--pattern-db` (`pattern_db.json`).\n- **UVM execution:** `atpg_select_patterns_test` with `+PATTERN_FILE`, `+PATTERN_LIST_FILE`, `+MAX_PATTERNS`, `+RESULT_CSV` (see top-level `Makefile`).\n\n## 2. Integrated flow"
+  },
+  {
+    "path": "Documentation/production_readiness_checklist.md",
+    "title": "Production readiness checklist \u2014 DFT / patterns",
+    "line_count": 19,
+    "preview": "# Production readiness checklist \u2014 DFT / patterns\n\nFill in **actual** fields after Week 3 run.\n\n| Item | Target | Actual |\n|------|--------|--------|\n| Pattern execution rate | 100% | _____ % |\n| Fault coverage | \u2265 95% (goal \u2265 96%) | _____ % |\n| STIL generated & validated | Yes | \u2610 |\n| Compression a"
+  },
+  {
+    "path": "Documentation/testbench_user_guide.md",
+    "title": "Testbench user guide (quick reference)",
+    "line_count": 30,
+    "preview": "# Testbench user guide (quick reference)\n\n## Structure\n\n- **`uvm_tb/`** \u2014 UVM environment, JTAG agent, ATPG pattern execution tests.\n- **`atpg_select_patterns_test`** \u2014 Loads pattern list + STIL/ATPG file via plusargs; logs CSV results.\n\n## Running simulation\n\n```bash\nmake SIM=vcs TEST=atpg_select_p"
+  },
+  {
+    "path": "Documentation/troubleshooting_guide.md",
+    "title": "Troubleshooting guide (DFT / patterns)",
+    "line_count": 28,
+    "preview": "# Troubleshooting guide (DFT / patterns)\n\n## Pattern mismatches\n\n1. Confirm **first failing vector** (`pattern_debug.response_comparer`).\n2. Check **TAP state** vs expected (`verification.protocol_checker` on exported trace).\n3. Review **waveform** at mismatch (`pattern_debug.waveform_viewer_integra"
+  },
+  {
+    "path": "GETTING_STARTED.md",
+    "title": "Getting Started",
+    "line_count": 52,
+    "preview": "# Getting Started\n\nThis guide helps a new team member get productive with the DFT verification project in under 30 minutes.\n\n## 1) Environment Setup\n\n- Install Python 3.9+ and run:\n  - `pip install -r requirements.txt`\n- Ensure one simulator is installed (VCS / Questa / Xcelium).\n- From repo root, v"
+  },
+  {
+    "path": "PROJECT_SUMMARY.md",
+    "title": "DFT-STIL Verification Framework - Project Summary",
+    "line_count": 275,
+    "preview": "# DFT-STIL Verification Framework - Project Summary\n\n## Project Overview\n\nThis project is a full DFT verification framework with STIL (Standard Test Interface Language) pattern generation using SystemVerilog UVM and Python. The goal is to keep the flow modular, scalable, and practical for GPU shader"
+  },
+  {
+    "path": "QUICK_REFERENCE.md",
+    "title": "Quick Reference - DFT-STIL Verification Framework",
+    "line_count": 220,
+    "preview": "# Quick Reference - DFT-STIL Verification Framework\n\n## Common Commands\n\n### Project Validation\n```bash\nmake validate\n# or\npython python/validators/file_validator.py\n```\n\n### Generate Example STIL\n```bash\nmake stil_example\n# or\npython python/stil_generator/stil_template_generator.py examples/example"
+  },
+  {
+    "path": "README.md",
+    "title": "DFT-STIL Verification Framework",
+    "line_count": 417,
+    "preview": "# DFT-STIL Verification Framework\n\n<div align=\"center\">\n\n**A practical DFT verification framework with IEEE 1149.1 JTAG support and STIL pattern generation**\n\n[![UVM](https://img.shields.io/badge/UVM-1.2-blue)](https://www.accellera.org/downloads/standards/uvm)\n[![IEEE 1149.1](https://img.shields.io"
+  },
+  {
+    "path": "SETUP.md",
+    "title": "Setup Guide - DFT-STIL Verification Framework",
+    "line_count": 243,
+    "preview": "# Setup Guide - DFT-STIL Verification Framework\n\n## Prerequisites\n\n### 1. Simulator Installation\n\nInstall one of the following simulators:\n\n- **Synopsys VCS** (2020.03 or later)\n- **Mentor Graphics QuestaSim** (2020.1 or later)  \n- **Cadence Xcelium** (20.03 or later)\n\n### 2. UVM Library\n\nUVM 1.2 or"
+  },
+  {
+    "path": "WEEK1_DFT_INTEGRATION_SUMMARY.md",
+    "title": "WEEK1_DFT_INTEGRATION_SUMMARY.md",
+    "line_count": 124,
+    "preview": "## Week 1 \u2013 DFT Testbench Integration and First Run Plan\n\n### 1. Components integrated\n\n- **Agents**\n  - JTAG: `jtag_agent` (legacy) and `jtag_agent_enhanced` (for DFT env)\n  - Clock: `clock_agent` + `clock_driver` / `clock_driver_enhanced`\n  - Reset: `reset_agent` + `reset_driver` / `reset_driver_e"
+  },
+  {
+    "path": "config/formal_verification.example.txt",
+    "title": "formal_verification.example.txt",
+    "line_count": 9,
+    "preview": "// Braced block \u2014 parse with parse_formal_verification_text()\n\nformal_verification {\n  enabled: true;\n  proof_depth: 1000;\n  timeout: 3600;\n  properties_to_prove: [tap_fsm, tdo_validity, scan_path, timing];\n  report_format: JSON;\n}\n"
+  },
+  {
+    "path": "config/gpu_shader_config.example.txt",
+    "title": "gpu_shader_config.example.txt",
+    "line_count": 12,
+    "preview": "gpu_shader_config {\n  bit_width: 32;\n  instruction_format: scalar;\n  alu_operations: [ADD, SUB, MUL, DIV, AND, OR, XOR, NOT, SHIFT, EQ, NE, LT, GT, LE, GE];\n  num_registers: 32;\n  register_banks: 4;\n  pipeline_depth: 4;\n  num_alu_units: 2;\n  memory_interfaces: 1;\n  scan_chains: 16;\n  verify_modes: ["
+  },
+  {
+    "path": "config/multi_core_config.example.txt",
+    "title": "multi_core_config.example.txt",
+    "line_count": 12,
+    "preview": "multi_core_config {\n  num_shader_cores: 4;\n  cache_level: L1;\n  cache_type: INSTRUCTION_DATA_UNIFIED;\n  cache_size_kb: 32;\n  cache_line_bytes: 64;\n  coherence_protocol: MESI;\n  interconnect_type: MESH;\n  verify_coherence: true;\n  verify_interconnect: true;\n  arbitration_policy: ROUND_ROBIN;\n}\n"
+  },
+  {
+    "path": "deliverables_ci_gpu/Artifacts/golden_responses_README.txt",
+    "title": "golden_responses_README.txt",
+    "line_count": 1,
+    "preview": "Place golden TDO/PO dumps from simulation here (e.g. golden_tdo_pat001.txt).\n"
+  },
+  {
+    "path": "deliverables_ml_ci/Artifacts/golden_responses_README.txt",
+    "title": "golden_responses_README.txt",
+    "line_count": 1,
+    "preview": "Place golden TDO/PO dumps from simulation here (e.g. golden_tdo_pat001.txt).\n"
+  },
+  {
+    "path": "deliverables_ml_ci/Reports/ml_pattern_optimization.txt",
+    "title": "ml_pattern_optimization.txt",
+    "line_count": 19,
+    "preview": "ML PATTERN OPTIMIZATION RESULTS\n================================\n\nOriginal Pattern Set Size: 1 patterns\nML-Optimized Set Size: 1 patterns (100.0% of original)\nCoverage Preserved (predicted): 0.0%\nTest Time Reduction (predicted): 0.0% faster\n\nML Model Performance:\n- Fault Coverage Predictor: 100.0% a"
+  },
+  {
+    "path": "deliverables_multi_core_ci/Artifacts/golden_responses_README.txt",
+    "title": "golden_responses_README.txt",
+    "line_count": 1,
+    "preview": "Place golden TDO/PO dumps from simulation here (e.g. golden_tdo_pat001.txt).\n"
+  },
+  {
+    "path": "docs/API_REFERENCE.md",
+    "title": "API Reference - DFT-STIL Verification Framework",
+    "line_count": 338,
+    "preview": "# API Reference - DFT-STIL Verification Framework\n\n## UVM Classes\n\n### Configuration Classes\n\n#### `test_config`\n\nMain configuration class for the testbench.\n\n**Key Fields:**\n- `jtag_clock_period_ns` (int): JTAG clock period in nanoseconds\n- `clock_period_ns` (int): Main clock period in nanoseconds\n"
+  },
+  {
+    "path": "docs/API_REFERENCE.md",
+    "title": "API Reference - DFT-STIL Verification Framework",
+    "line_count": 338,
+    "preview": "# API Reference - DFT-STIL Verification Framework\n\n## UVM Classes\n\n### Configuration Classes\n\n#### `test_config`\n\nMain configuration class for the testbench.\n\n**Key Fields:**\n- `jtag_clock_period_ns` (int): JTAG clock period in nanoseconds\n- `clock_period_ns` (int): Main clock period in nanoseconds\n"
+  },
+  {
+    "path": "docs/ARCHITECTURE.md",
+    "title": "DFT-STIL Verification Framework Architecture",
+    "line_count": 161,
+    "preview": "# DFT-STIL Verification Framework Architecture\n\n## Overview\n\nThis document describes the architecture of the DFT-STIL Verification Framework for Design-for-Test (DFT) verification with STIL (Standard Test Interface Language) pattern generation using SystemVerilog UVM and Python.\n\n## Directory Struct"
+  },
+  {
+    "path": "docs/ARCHITECTURE.md",
+    "title": "DFT-STIL Verification Framework Architecture",
+    "line_count": 161,
+    "preview": "# DFT-STIL Verification Framework Architecture\n\n## Overview\n\nThis document describes the architecture of the DFT-STIL Verification Framework for Design-for-Test (DFT) verification with STIL (Standard Test Interface Language) pattern generation using SystemVerilog UVM and Python.\n\n## Directory Struct"
+  },
+  {
+    "path": "docs/BEST_PRACTICES.md",
+    "title": "Best Practices",
+    "line_count": 31,
+    "preview": "# Best Practices\n\n## Do\n\n- Keep commits small and scoped (code, docs, infra separately).\n- Always run a local dry-run before pushing.\n- Keep generated artifacts out of commits unless explicitly needed.\n- Add configuration examples for each new feature.\n- Update both user-facing docs and technical do"
+  },
+  {
+    "path": "docs/BEST_PRACTICES.md",
+    "title": "Best Practices",
+    "line_count": 31,
+    "preview": "# Best Practices\n\n## Do\n\n- Keep commits small and scoped (code, docs, infra separately).\n- Always run a local dry-run before pushing.\n- Keep generated artifacts out of commits unless explicitly needed.\n- Add configuration examples for each new feature.\n- Update both user-facing docs and technical do"
+  },
+  {
+    "path": "docs/CODE_DOCUMENTATION_STANDARD.md",
+    "title": "Code Documentation Standard",
+    "line_count": 34,
+    "preview": "# Code Documentation Standard\n\nThis standard supports long-term maintainability without over-commenting obvious code.\n\n## Inline Comments\n\n- Comment non-obvious intent, assumptions, and hardware-specific constraints.\n- Do not comment trivial assignments or control flow.\n\n## Class and Method Docstrin"
+  },
+  {
+    "path": "docs/CODE_DOCUMENTATION_STANDARD.md",
+    "title": "Code Documentation Standard",
+    "line_count": 34,
+    "preview": "# Code Documentation Standard\n\nThis standard supports long-term maintainability without over-commenting obvious code.\n\n## Inline Comments\n\n- Comment non-obvious intent, assumptions, and hardware-specific constraints.\n- Do not comment trivial assignments or control flow.\n\n## Class and Method Docstrin"
+  },
+  {
+    "path": "docs/CODE_DOC_ROADMAP.md",
+    "title": "Code Documentation Rollout Roadmap",
+    "line_count": 31,
+    "preview": "# Code Documentation Rollout Roadmap\n\n## Goal\n\nReach full class/method documentation coverage across Python and SystemVerilog without blocking feature velocity.\n\n## Phased Plan\n\n### Phase 1 (Immediate)\n\n- Enforce docstrings/comments on all new code.\n- Run `python scripts/doc_audit.py` in local check"
+  },
+  {
+    "path": "docs/CODE_DOC_ROADMAP.md",
+    "title": "Code Documentation Rollout Roadmap",
+    "line_count": 31,
+    "preview": "# Code Documentation Rollout Roadmap\n\n## Goal\n\nReach full class/method documentation coverage across Python and SystemVerilog without blocking feature velocity.\n\n## Phased Plan\n\n### Phase 1 (Immediate)\n\n- Enforce docstrings/comments on all new code.\n- Run `python scripts/doc_audit.py` in local check"
+  },
+  {
+    "path": "docs/DESIGN_DOCUMENT.md",
+    "title": "Design Document",
+    "line_count": 49,
+    "preview": "# Design Document\n\nThis document captures technical rationale and long-term design choices for maintainability.\n\n## 1) System Goals\n\n- Unify ATPG parsing, execution orchestration, STIL generation, and reporting.\n- Keep modules composable so teams can adopt features incrementally.\n- Support GPU-focus"
+  },
+  {
+    "path": "docs/DESIGN_DOCUMENT.md",
+    "title": "Design Document",
+    "line_count": 49,
+    "preview": "# Design Document\n\nThis document captures technical rationale and long-term design choices for maintainability.\n\n## 1) System Goals\n\n- Unify ATPG parsing, execution orchestration, STIL generation, and reporting.\n- Keep modules composable so teams can adopt features incrementally.\n- Support GPU-focus"
+  },
+  {
+    "path": "docs/DOCUMENTATION_TEMPLATE.md",
+    "title": "Documentation Template Library",
+    "line_count": 37,
+    "preview": "# Documentation Template Library\n\nUse this template for consistent class-level documentation.\n\n## Class: dft_scoreboard\n\n### Purpose\n\nVerifies DFT test patterns by comparing expected vs. actual responses.\n\n### Configuration Parameters\n\n- `comparison_mode`: EXACT_MATCH or TIMING_MARGIN (default: EXAC"
+  },
+  {
+    "path": "docs/DOCUMENTATION_TEMPLATE.md",
+    "title": "Documentation Template Library",
+    "line_count": 37,
+    "preview": "# Documentation Template Library\n\nUse this template for consistent class-level documentation.\n\n## Class: dft_scoreboard\n\n### Purpose\n\nVerifies DFT test patterns by comparing expected vs. actual responses.\n\n### Configuration Parameters\n\n- `comparison_mode`: EXACT_MATCH or TIMING_MARGIN (default: EXAC"
+  },
+  {
+    "path": "docs/KNOWLEDGE_BASE.md",
+    "title": "Internal Knowledge Base",
+    "line_count": 44,
+    "preview": "# Internal Knowledge Base\n\n## FAQ\n\nSee `docs/faq.md` for quick Q&A.\n\n## Common Patterns and Snippets\n\n### Run integrated flow\n\n```bash\nset PYTHONPATH=python\npython python/integrated_flow/week3_production.py --dry-run --out deliverables_kb\n```\n\n### Enable GPU + Multi-Core + ML\n\n```bash\npython python/"
+  },
+  {
+    "path": "docs/KNOWLEDGE_BASE.md",
+    "title": "Internal Knowledge Base",
+    "line_count": 44,
+    "preview": "# Internal Knowledge Base\n\n## FAQ\n\nSee `docs/faq.md` for quick Q&A.\n\n## Common Patterns and Snippets\n\n### Run integrated flow\n\n```bash\nset PYTHONPATH=python\npython python/integrated_flow/week3_production.py --dry-run --out deliverables_kb\n```\n\n### Enable GPU + Multi-Core + ML\n\n```bash\npython python/"
+  },
+  {
+    "path": "docs/MAINTENANCE_PROCESS.md",
+    "title": "Documentation Maintenance Process",
+    "line_count": 35,
+    "preview": "# Documentation Maintenance Process\n\n## Review Cadence\n\n- Quarterly documentation review with maintainers and active contributors.\n- Release-time fast review for changed modules.\n\n## Ownership\n\n- Primary owner: Raghuveer\n- Feature owner: engineer introducing the change\n- Reviewer: one peer from a di"
+  },
+  {
+    "path": "docs/MAINTENANCE_PROCESS.md",
+    "title": "Documentation Maintenance Process",
+    "line_count": 35,
+    "preview": "# Documentation Maintenance Process\n\n## Review Cadence\n\n- Quarterly documentation review with maintainers and active contributors.\n- Release-time fast review for changed modules.\n\n## Ownership\n\n- Primary owner: Raghuveer\n- Feature owner: engineer introducing the change\n- Reviewer: one peer from a di"
+  },
+  {
+    "path": "docs/TROUBLESHOOTING.md",
+    "title": "Troubleshooting",
+    "line_count": 49,
+    "preview": "# Troubleshooting\n\n## Quick Triage\n\n1. Run `make validate` to catch missing files or setup issues.\n2. Check latest report artifacts in `deliverables*/Reports/`.\n3. Confirm `PYTHONPATH=python` when executing integrated scripts.\n\n## Common Problems\n\n### 1) STIL generation fails\n\n- Verify `python/stil_"
+  },
+  {
+    "path": "docs/TROUBLESHOOTING.md",
+    "title": "Troubleshooting",
+    "line_count": 49,
+    "preview": "# Troubleshooting\n\n## Quick Triage\n\n1. Run `make validate` to catch missing files or setup issues.\n2. Check latest report artifacts in `deliverables*/Reports/`.\n3. Confirm `PYTHONPATH=python` when executing integrated scripts.\n\n## Common Problems\n\n### 1) STIL generation fails\n\n- Verify `python/stil_"
+  },
+  {
+    "path": "docs/USER_GUIDE.md",
+    "title": "User Guide - DFT-STIL Verification Framework",
+    "line_count": 270,
+    "preview": "# User Guide - DFT-STIL Verification Framework\n\n## Quick Start\n\n### Prerequisites\n\n1. **Simulator**: One of the following:\n   - Synopsys VCS\n   - Mentor Graphics QuestaSim\n   - Cadence Xcelium\n\n2. **UVM Library**: UVM 1.2 or later\n\n3. **Python**: Python 3.6 or later with required packages:\n   ```bas"
+  },
+  {
+    "path": "docs/USER_GUIDE.md",
+    "title": "User Guide - DFT-STIL Verification Framework",
+    "line_count": 270,
+    "preview": "# User Guide - DFT-STIL Verification Framework\n\n## Quick Start\n\n### Prerequisites\n\n1. **Simulator**: One of the following:\n   - Synopsys VCS\n   - Mentor Graphics QuestaSim\n   - Cadence Xcelium\n\n2. **UVM Library**: UVM 1.2 or later\n\n3. **Python**: Python 3.6 or later with required packages:\n   ```bas"
+  },
+  {
+    "path": "docs/deep_dives/at_speed_testing.md",
+    "title": "Deep Dive: At-Speed Testing and Timing Constraints",
+    "line_count": 19,
+    "preview": "# Deep Dive: At-Speed Testing and Timing Constraints\n\n## Scope\n\nExplains timing-aware execution modeling, margin checks, and at-speed risk reporting.\n\n## Topics\n\n- TCK/system clock relationship\n- setup/hold and propagation assumptions\n- edge selection strategy\n- operational speed sweep\n\n## Implement"
+  },
+  {
+    "path": "docs/deep_dives/at_speed_testing.md",
+    "title": "Deep Dive: At-Speed Testing and Timing Constraints",
+    "line_count": 19,
+    "preview": "# Deep Dive: At-Speed Testing and Timing Constraints\n\n## Scope\n\nExplains timing-aware execution modeling, margin checks, and at-speed risk reporting.\n\n## Topics\n\n- TCK/system clock relationship\n- setup/hold and propagation assumptions\n- edge selection strategy\n- operational speed sweep\n\n## Implement"
+  },
+  {
+    "path": "docs/deep_dives/fault_coverage.md",
+    "title": "Deep Dive: Fault Coverage Analysis Techniques",
+    "line_count": 18,
+    "preview": "# Deep Dive: Fault Coverage Analysis Techniques\n\n## Scope\n\nDescribes fault categorization, contribution accounting, convergence behavior, and recommendation generation.\n\n## Topics\n\n- Fault coverage vs test coverage\n- Undetectable/untestable/retry-needed categories\n- Pattern contribution and Pareto t"
+  },
+  {
+    "path": "docs/deep_dives/fault_coverage.md",
+    "title": "Deep Dive: Fault Coverage Analysis Techniques",
+    "line_count": 18,
+    "preview": "# Deep Dive: Fault Coverage Analysis Techniques\n\n## Scope\n\nDescribes fault categorization, contribution accounting, convergence behavior, and recommendation generation.\n\n## Topics\n\n- Fault coverage vs test coverage\n- Undetectable/untestable/retry-needed categories\n- Pattern contribution and Pareto t"
+  },
+  {
+    "path": "docs/deep_dives/jtag_protocol.md",
+    "title": "Deep Dive: JTAG Protocol Implementation in UVM",
+    "line_count": 19,
+    "preview": "# Deep Dive: JTAG Protocol Implementation in UVM\n\n## Scope\n\nExplains how TAP transitions, sequence modeling, and monitor reconstruction are implemented in this project.\n\n## Key Concepts\n\n- TAP state transitions and legal paths\n- IR/DR shift semantics\n- Reset behavior and synchronization\n- Coverage b"
+  },
+  {
+    "path": "docs/deep_dives/jtag_protocol.md",
+    "title": "Deep Dive: JTAG Protocol Implementation in UVM",
+    "line_count": 19,
+    "preview": "# Deep Dive: JTAG Protocol Implementation in UVM\n\n## Scope\n\nExplains how TAP transitions, sequence modeling, and monitor reconstruction are implemented in this project.\n\n## Key Concepts\n\n- TAP state transitions and legal paths\n- IR/DR shift semantics\n- Reset behavior and synchronization\n- Coverage b"
+  },
+  {
+    "path": "docs/deep_dives/multi_core_gpu_verification.md",
+    "title": "Deep Dive: Multi-Core GPU Verification Strategies",
+    "line_count": 18,
+    "preview": "# Deep Dive: Multi-Core GPU Verification Strategies\n\n## Scope\n\nCovers cache coherence and interconnect-oriented verification strategy for multi-core shader systems.\n\n## Topics\n\n- protocol states (MSI/MESI/MOESI)\n- interconnect route and arbitration coverage\n- compliance checks (deadlock/livelock)\n- "
+  },
+  {
+    "path": "docs/deep_dives/multi_core_gpu_verification.md",
+    "title": "Deep Dive: Multi-Core GPU Verification Strategies",
+    "line_count": 18,
+    "preview": "# Deep Dive: Multi-Core GPU Verification Strategies\n\n## Scope\n\nCovers cache coherence and interconnect-oriented verification strategy for multi-core shader systems.\n\n## Topics\n\n- protocol states (MSI/MESI/MOESI)\n- interconnect route and arbitration coverage\n- compliance checks (deadlock/livelock)\n- "
+  },
+  {
+    "path": "docs/deep_dives/pattern_compression.md",
+    "title": "Deep Dive: Pattern Compression Methods",
+    "line_count": 17,
+    "preview": "# Deep Dive: Pattern Compression Methods\n\n## Scope\n\nSummarizes compression analysis, merge heuristics, and trade-offs in this framework.\n\n## Topics\n\n- Compression opportunities and savings\n- Annotated compressed STIL export behavior\n- Validation guardrails after compression\n\n## Implementation Anchor"
+  },
+  {
+    "path": "docs/deep_dives/pattern_compression.md",
+    "title": "Deep Dive: Pattern Compression Methods",
+    "line_count": 17,
+    "preview": "# Deep Dive: Pattern Compression Methods\n\n## Scope\n\nSummarizes compression analysis, merge heuristics, and trade-offs in this framework.\n\n## Topics\n\n- Compression opportunities and savings\n- Annotated compressed STIL export behavior\n- Validation guardrails after compression\n\n## Implementation Anchor"
+  },
+  {
+    "path": "docs/deep_dives/stil_generation.md",
+    "title": "Deep Dive: STIL Generation and IEEE 1450 Compliance",
+    "line_count": 19,
+    "preview": "# Deep Dive: STIL Generation and IEEE 1450 Compliance\n\n## Scope\n\nCovers STIL creation flow, validator expectations, and practical compatibility rules.\n\n## Topics\n\n- Signal/timing/pattern blocks\n- `V { ... }` vector formatting expectations\n- Baseline vs compressed annotated exports\n- Validation and c"
+  },
+  {
+    "path": "docs/deep_dives/stil_generation.md",
+    "title": "Deep Dive: STIL Generation and IEEE 1450 Compliance",
+    "line_count": 19,
+    "preview": "# Deep Dive: STIL Generation and IEEE 1450 Compliance\n\n## Scope\n\nCovers STIL creation flow, validator expectations, and practical compatibility rules.\n\n## Topics\n\n- Signal/timing/pattern blocks\n- `V { ... }` vector formatting expectations\n- Baseline vs compressed annotated exports\n- Validation and c"
+  },
+  {
+    "path": "docs/diagrams/coverage_analysis_flow.md",
+    "title": "Coverage Analysis Flow Diagram",
+    "line_count": 12,
+    "preview": "# Coverage Analysis Flow Diagram\n\n```mermaid\nflowchart LR\n  A[Execution Results] --> B[Per-pattern pass/fail]\n  B --> C[Fault contribution mapping]\n  C --> D[Aggregate coverage]\n  D --> E[Gap analysis]\n  E --> F[Recommendations]\n  F --> G[Optimization candidates]\n```\n\n"
+  },
+  {
+    "path": "docs/diagrams/coverage_analysis_flow.md",
+    "title": "Coverage Analysis Flow Diagram",
+    "line_count": 12,
+    "preview": "# Coverage Analysis Flow Diagram\n\n```mermaid\nflowchart LR\n  A[Execution Results] --> B[Per-pattern pass/fail]\n  B --> C[Fault contribution mapping]\n  C --> D[Aggregate coverage]\n  D --> E[Gap analysis]\n  E --> F[Recommendations]\n  F --> G[Optimization candidates]\n```\n\n"
+  },
+  {
+    "path": "docs/diagrams/data_flow.md",
+    "title": "Data Flow Diagram",
+    "line_count": 15,
+    "preview": "# Data Flow Diagram\n\n```mermaid\nflowchart TD\n  P[Patterns / ATPG] --> DB[pattern_db.json]\n  DB --> STIL[Generated STIL]\n  DB --> SUITE[Pattern Suite]\n  SUITE --> SIM[UVM Execution]\n  SIM --> CSV[Execution CSV]\n  CSV --> FC[Fault Coverage Analysis]\n  STIL --> VAL[STIL Validation]\n  FC --> REP[Compreh"
+  },
+  {
+    "path": "docs/diagrams/data_flow.md",
+    "title": "Data Flow Diagram",
+    "line_count": 15,
+    "preview": "# Data Flow Diagram\n\n```mermaid\nflowchart TD\n  P[Patterns / ATPG] --> DB[pattern_db.json]\n  DB --> STIL[Generated STIL]\n  DB --> SUITE[Pattern Suite]\n  SUITE --> SIM[UVM Execution]\n  SIM --> CSV[Execution CSV]\n  CSV --> FC[Fault Coverage Analysis]\n  STIL --> VAL[STIL Validation]\n  FC --> REP[Compreh"
+  },
+  {
+    "path": "docs/diagrams/jtag_fsm.md",
+    "title": "JTAG TAP State Machine (Simplified)",
+    "line_count": 20,
+    "preview": "# JTAG TAP State Machine (Simplified)\n\n```mermaid\nstateDiagram-v2\n  [*] --> TEST_LOGIC_RESET\n  TEST_LOGIC_RESET --> RUN_TEST_IDLE\n  RUN_TEST_IDLE --> SELECT_DR_SCAN\n  SELECT_DR_SCAN --> CAPTURE_DR\n  CAPTURE_DR --> SHIFT_DR\n  SHIFT_DR --> EXIT1_DR\n  EXIT1_DR --> UPDATE_DR\n  UPDATE_DR --> RUN_TEST_IDL"
+  },
+  {
+    "path": "docs/diagrams/jtag_fsm.md",
+    "title": "JTAG TAP State Machine (Simplified)",
+    "line_count": 20,
+    "preview": "# JTAG TAP State Machine (Simplified)\n\n```mermaid\nstateDiagram-v2\n  [*] --> TEST_LOGIC_RESET\n  TEST_LOGIC_RESET --> RUN_TEST_IDLE\n  RUN_TEST_IDLE --> SELECT_DR_SCAN\n  SELECT_DR_SCAN --> CAPTURE_DR\n  CAPTURE_DR --> SHIFT_DR\n  SHIFT_DR --> EXIT1_DR\n  EXIT1_DR --> UPDATE_DR\n  UPDATE_DR --> RUN_TEST_IDL"
+  },
+  {
+    "path": "docs/diagrams/system_architecture.md",
+    "title": "System Architecture Diagram",
+    "line_count": 18,
+    "preview": "# System Architecture Diagram\n\n```mermaid\nflowchart LR\n  A[ATPG Parser] --> B[Pattern Database]\n  B --> C[Integrated Flow Runner]\n  C --> D[Simulation / Execution]\n  C --> E[STIL Generator]\n  C --> F[Coverage Engine]\n  C --> G[Timing / Formal / DRC]\n  C --> H[GPU / Multi-Core / ML Extensions]\n  D --"
+  },
+  {
+    "path": "docs/diagrams/system_architecture.md",
+    "title": "System Architecture Diagram",
+    "line_count": 18,
+    "preview": "# System Architecture Diagram\n\n```mermaid\nflowchart LR\n  A[ATPG Parser] --> B[Pattern Database]\n  B --> C[Integrated Flow Runner]\n  C --> D[Simulation / Execution]\n  C --> E[STIL Generator]\n  C --> F[Coverage Engine]\n  C --> G[Timing / Formal / DRC]\n  C --> H[GPU / Multi-Core / ML Extensions]\n  D --"
+  },
+  {
+    "path": "docs/diagrams/test_execution_flow.md",
+    "title": "Test Execution Flow Diagram",
+    "line_count": 13,
+    "preview": "# Test Execution Flow Diagram\n\n```mermaid\nflowchart TD\n  START[Start Run] --> CFG[Load Config]\n  CFG --> PAT[Load Pattern DB]\n  PAT --> RUN[Execute Patterns]\n  RUN --> ANALYZE[Analyze Results]\n  ANALYZE --> EXT[Run Optional Extensions]\n  EXT --> MANIFEST[Generate Manifest + Reports]\n  MANIFEST --> E"
+  },
+  {
+    "path": "docs/diagrams/test_execution_flow.md",
+    "title": "Test Execution Flow Diagram",
+    "line_count": 13,
+    "preview": "# Test Execution Flow Diagram\n\n```mermaid\nflowchart TD\n  START[Start Run] --> CFG[Load Config]\n  CFG --> PAT[Load Pattern DB]\n  PAT --> RUN[Execute Patterns]\n  RUN --> ANALYZE[Analyze Results]\n  ANALYZE --> EXT[Run Optional Extensions]\n  EXT --> MANIFEST[Generate Manifest + Reports]\n  MANIFEST --> E"
+  },
+  {
+    "path": "docs/faq.md",
+    "title": "FAQ",
+    "line_count": 18,
+    "preview": "# FAQ\n\n## Why is fault coverage low even when tests pass?\n\nPattern execution pass/fail is different from broad structural fault detectability. Check fault lists and undetected categories.\n\n## Do I need EDA tools for CI?\n\nNo, dry-run mode supports artifact generation for most analysis flows.\n\n## How "
+  },
+  {
+    "path": "docs/faq.md",
+    "title": "FAQ",
+    "line_count": 18,
+    "preview": "# FAQ\n\n## Why is fault coverage low even when tests pass?\n\nPattern execution pass/fail is different from broad structural fault detectability. Check fault lists and undetected categories.\n\n## Do I need EDA tools for CI?\n\nNo, dry-run mode supports artifact generation for most analysis flows.\n\n## How "
+  },
+  {
+    "path": "docs/glossary.md",
+    "title": "Glossary",
+    "line_count": 10,
+    "preview": "# Glossary\n\n- **ATPG**: Automatic Test Pattern Generation.\n- **DFT**: Design for Test.\n- **STIL**: Standard Test Interface Language (IEEE 1450).\n- **TAP**: Test Access Port in JTAG protocol.\n- **TDF**: Transition Delay Fault.\n- **Coverage Contribution**: Estimated marginal fault coverage gained by a"
+  },
+  {
+    "path": "docs/glossary.md",
+    "title": "Glossary",
+    "line_count": 10,
+    "preview": "# Glossary\n\n- **ATPG**: Automatic Test Pattern Generation.\n- **DFT**: Design for Test.\n- **STIL**: Standard Test Interface Language (IEEE 1450).\n- **TAP**: Test Access Port in JTAG protocol.\n- **TDF**: Transition Delay Fault.\n- **Coverage Contribution**: Estimated marginal fault coverage gained by a"
+  },
+  {
+    "path": "docs/tutorials/tutorial_1_setup.md",
+    "title": "Tutorial 1: Environment Setup",
+    "line_count": 6,
+    "preview": "# Tutorial 1: Environment Setup\n\n1. Install Python and project dependencies.\n2. Validate repo structure with `make validate`.\n3. Run a week-3 dry-run and inspect generated reports.\n\n"
+  },
+  {
+    "path": "docs/tutorials/tutorial_1_setup.md",
+    "title": "Tutorial 1: Environment Setup",
+    "line_count": 6,
+    "preview": "# Tutorial 1: Environment Setup\n\n1. Install Python and project dependencies.\n2. Validate repo structure with `make validate`.\n3. Run a week-3 dry-run and inspect generated reports.\n\n"
+  },
+  {
+    "path": "docs/tutorials/tutorial_2_run_patterns.md",
+    "title": "Tutorial 2: Running ATPG Patterns",
+    "line_count": 7,
+    "preview": "# Tutorial 2: Running ATPG Patterns\n\n1. Build or import pattern DB.\n2. Select smoke/full suite.\n3. Execute simulation flow and collect CSV.\n4. Review execution summary and fault coverage outputs.\n\n"
+  },
+  {
+    "path": "docs/tutorials/tutorial_2_run_patterns.md",
+    "title": "Tutorial 2: Running ATPG Patterns",
+    "line_count": 7,
+    "preview": "# Tutorial 2: Running ATPG Patterns\n\n1. Build or import pattern DB.\n2. Select smoke/full suite.\n3. Execute simulation flow and collect CSV.\n4. Review execution summary and fault coverage outputs.\n\n"
+  },
+  {
+    "path": "docs/tutorials/tutorial_3_debug_failures.md",
+    "title": "Tutorial 3: Debugging Failed Patterns",
+    "line_count": 7,
+    "preview": "# Tutorial 3: Debugging Failed Patterns\n\n1. Open results CSV and isolate failed patterns.\n2. Use failure analysis JSON to identify likely root causes.\n3. Inspect timing/DRC/formal reports for correlated failures.\n4. Re-run focused pattern set with debug instrumentation.\n\n"
+  },
+  {
+    "path": "docs/tutorials/tutorial_3_debug_failures.md",
+    "title": "Tutorial 3: Debugging Failed Patterns",
+    "line_count": 7,
+    "preview": "# Tutorial 3: Debugging Failed Patterns\n\n1. Open results CSV and isolate failed patterns.\n2. Use failure analysis JSON to identify likely root causes.\n3. Inspect timing/DRC/formal reports for correlated failures.\n4. Re-run focused pattern set with debug instrumentation.\n\n"
+  },
+  {
+    "path": "docs/tutorials/tutorial_4_optimize.md",
+    "title": "Tutorial 4: Pattern Compression and ML Optimization",
+    "line_count": 7,
+    "preview": "# Tutorial 4: Pattern Compression and ML Optimization\n\n1. Generate baseline reports with all patterns.\n2. Run compression analysis and compare STIL outputs.\n3. Enable ML optimization and set target coverage.\n4. Review selected subset, anomalies, and predicted trade-offs.\n\n"
+  },
+  {
+    "path": "docs/tutorials/tutorial_4_optimize.md",
+    "title": "Tutorial 4: Pattern Compression and ML Optimization",
+    "line_count": 7,
+    "preview": "# Tutorial 4: Pattern Compression and ML Optimization\n\n1. Generate baseline reports with all patterns.\n2. Run compression analysis and compare STIL outputs.\n3. Enable ML optimization and set target coverage.\n4. Review selected subset, anomalies, and predicted trade-offs.\n\n"
+  },
+  {
+    "path": "examples/example_dut_wrapper.sv",
+    "title": "example_dut_wrapper.sv",
+    "line_count": 53,
+    "preview": "/**\n * Example DUT Wrapper\n * \n * This is a placeholder DUT wrapper module. Replace this with your\n * actual DUT module and connect the ports appropriately.\n * \n * For GPU shader verification, this would wrap your shader core DUT\n * and connect DFT signals (JTAG, scan chains, etc.).\n */\n\n`timescale "
+  },
+  {
+    "path": "python/atpg_parser/__init__.py",
+    "title": "__init__.py",
+    "line_count": 15,
+    "preview": "\"\"\"\nATPG Parser Package\n\"\"\"\n\nfrom .atpg_parser import (\n    ATPGParser,\n    ATPGPattern,\n    ATPGFormat\n)\n\n__all__ = [\n    'ATPGParser',\n    'ATPGPattern',\n    'ATPGFormat'\n]\n"
+  },
+  {
+    "path": "python/atpg_parser/atpg_parser.py",
+    "title": "Extract patterns from TetraMAX format",
+    "line_count": 294,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nATPG Pattern Parser\nParses ATPG (Automatic Test Pattern Generation) output files and converts\nthem to STIL format or other test formats.\n\nSupports common ATPG tool formats:\n- Synopsys TetraMAX\n- Mentor Graphics FastScan\n- Cadence Encounter Test\n\"\"\"\n\nimport re\nfrom typing i"
+  },
+  {
+    "path": "python/fault_coverage/README.md",
+    "title": "Fault Coverage Analysis System",
+    "line_count": 52,
+    "preview": "# Fault Coverage Analysis System\n\nTracks achieved fault coverage, identifies gaps, and provides insights for pattern optimization. Integrates with the pattern database (`pattern_db`) and can be fed from ATPG tool reports or `atpg_pattern_t.fault_list` data.\n\nFor **detailed comments on fault coverage"
+  },
+  {
+    "path": "python/fault_coverage/__init__.py",
+    "title": "__init__.py",
+    "line_count": 41,
+    "preview": "\"\"\"\nFault Coverage Analysis System\n------------------------------\n\nFault coverage engine, report generator, undetected/gap/distribution analyzers,\ntrendline, module-level coverage, and interactive fault browser.\n\"\"\"\n\nfrom .fault_coverage_engine import (\n    FaultCoverageAnalyzer,\n    FaultCoverageCo"
+  },
+  {
+    "path": "python/fault_coverage/__main__.py",
+    "title": "__main__.py",
+    "line_count": 5,
+    "preview": "\"\"\"Allow running as python -m fault_coverage.\"\"\"\nfrom .fault_coverage_engine import _run_cli\n\nif __name__ == \"__main__\":\n    _run_cli()\n"
+  },
+  {
+    "path": "python/fault_coverage/fault_coverage_engine.py",
+    "title": "Optional: use pattern_db types if available",
+    "line_count": 1175,
+    "preview": "\"\"\"\nFault Coverage Analysis System\n------------------------------\n\nTracks achieved fault coverage, identifies gaps, and provides insights for\npattern optimization. Integrates with the pattern database (pattern_db) and\ncan be fed from ATPG tool reports or atpg_pattern_t fault_list data.\n\nConcepts:\n- "
+  },
+  {
+    "path": "python/fault_coverage/fault_coverage_metrics_and_standards.md",
+    "title": "Fault Coverage Metrics, Standards, and Industry Best Practices",
+    "line_count": 129,
+    "preview": "# Fault Coverage Metrics, Standards, and Industry Best Practices\n\nThis document provides detailed comments on fault coverage metrics, relevant IEEE/IEC standards, and industry best practices used in the fault coverage analysis system.\n\n---\n\n## 1. Fault Coverage Metrics (Detailed Comments)\n\n### 1.1 F"
+  },
+  {
+    "path": "python/fault_coverage_report.txt",
+    "title": "fault_coverage_report.txt",
+    "line_count": 59,
+    "preview": "============================================================\nFAULT COVERAGE REPORT - SUMMARY\n============================================================\nTotal faults:        6\nDetected:            4\nUndetectable:        1\nUntestable:          1\nRetry needed:        0\nFault coverage %:    80.0\nTest "
+  },
+  {
+    "path": "python/gpu_shader/__init__.py",
+    "title": "__init__.py",
+    "line_count": 34,
+    "preview": "\"\"\"\nGPU shader-core DFT specialization package.\n\nFocuses on ALU, register file, and pipeline/interconnect verification with\nfunctional, scan-based, and at-speed style checks.\n\"\"\"\n\nfrom .gpu_shader_verification import (\n    GPUShaderConfig,\n    GPUComprehensiveTest,\n    GPUALUTest,\n    GPURegisterFil"
+  },
+  {
+    "path": "python/gpu_shader/gpu_shader_verification.py",
+    "title": "Truncate toward zero for signed division (match common hardware behavior).",
+    "line_count": 651,
+    "preview": "\"\"\"\nGPU shader-core DFT specialization.\n\nThis module extends the generic framework with shader-centric verification that\ntargets ALU datapath correctness, register file integrity, and interconnect /\npipeline movement. The implementation intentionally keeps the model lightweight\nso it can run in CI d"
+  },
+  {
+    "path": "python/gpu_shader/multi_core_verification.py",
+    "title": "Coherence transition goals are protocol-specific, but model them as a",
+    "line_count": 433,
+    "preview": "\"\"\"\nMulti-core GPU cache coherence and interconnect DFT specialization.\n\nThis module adds higher-level verification modeling for:\n  - Cache coherence protocol behavior (MSI/MESI/MOESI-style transitions)\n  - Interconnect behavior (mesh/crossbar/ring routing and arbitration)\n  - Cross-core synchronize"
+  },
+  {
+    "path": "python/integrated_flow/README.md",
+    "title": "My Integrated Flow (Week 2)",
+    "line_count": 86,
+    "preview": "# My Integrated Flow (Week 2)\n\nThis folder provides a single runner that stitches together the Week-2 pipeline:\n\n1. **Parse ATPG patterns** (Python)  \n2. **Load into Pattern DB** (`python/pattern_db/`)  \n3. **Build suites** (SMOKE then FULL)  \n4. **Execute UVM** with `atpg_select_patterns_test` usin"
+  },
+  {
+    "path": "python/integrated_flow/run_flow.py",
+    "title": "vector-per-line is stored in scan_inputs['vec'] as concatenation; split into single line",
+    "line_count": 321,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nIntegrated DFT test flow runner\n-------------------------------\n\nConnects:\n  ATPG pattern parser -> pattern database\n  Pattern database -> test suite builder\n  Test suite -> UVM (pattern list file + plusargs)\n  UVM results (CSV) -> execution summary + performance\n  Execute"
+  },
+  {
+    "path": "python/integrated_flow/week3_production.py",
+    "title": "Repo python/ on path",
+    "line_count": 420,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nWeek 3 production integration: compression, timing-aware analysis, formal hooks,\ncomprehensive reporting, failure analysis, and deliverable bundle manifest.\n\nRun from repo root with PYTHONPATH including `python/`:\n\n  set PYTHONPATH=python\n  python python/integrated_flow/we"
+  },
+  {
+    "path": "python/ml_pattern_optimization/__init__.py",
+    "title": "__init__.py",
+    "line_count": 20,
+    "preview": "\"\"\"\nML-based pattern optimization package.\n\"\"\"\n\nfrom .pattern_ml_analyzer import (\n    PatternMLAnalyzer,\n    PatternSelectionOptimizer,\n    FaultPredictionEngine,\n    AnomalyDetectionEngine,\n    FeatureExtractionEngine,\n)\n\n__all__ = [\n    \"PatternMLAnalyzer\",\n    \"PatternSelectionOptimizer\",\n    \"F"
+  },
+  {
+    "path": "python/ml_pattern_optimization/__main__.py",
+    "title": "__main__.py",
+    "line_count": 52,
+    "preview": "\"\"\"CLI entry for ML pattern optimization.\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport json\nfrom pathlib import Path\nfrom typing import Any, Dict\n\nfrom pattern_db.pattern_database import PatternDatabase, PatternDatabaseConfig\nfrom .pattern_ml_analyzer import analyze_pattern_db_with"
+  },
+  {
+    "path": "python/ml_pattern_optimization/pattern_ml_analyzer.py",
+    "title": "Predict likely faults for top selected patterns.",
+    "line_count": 535,
+    "preview": "\"\"\"\nML-based pattern optimization for DFT/ATPG pattern selection.\n\nThis module provides a lightweight, dependency-free ML workflow:\n  - Feature extraction from ATPG/pattern DB vectors\n  - Predictor models for coverage/time/power/timing-risk\n  - Pattern subset optimization for target coverage\n  - Ano"
+  },
+  {
+    "path": "python/multi_domain/README.md",
+    "title": "Multi-domain test execution",
+    "line_count": 10,
+    "preview": "# Multi-domain test execution\n\nChip-level DFT often spans **multiple clock domains**, **cores**, or **TAM partitions**. This package models:\n\n- **Who** runs (`TestDomain`)\n- **What** shares (`ResourceClaim` on TAM/ATE)\n- **When** (`DomainTestScheduler` + conflict groups)\n- **Results** (`MultiDomainR"
+  },
+  {
+    "path": "python/multi_domain/__init__.py",
+    "title": "__init__.py",
+    "line_count": 16,
+    "preview": "\"\"\"Multi-domain test execution: scheduling, TAM coordination, result aggregation.\"\"\"\n\nfrom .domain_manager import ExecutionMode, ResourceClaim, TestDomain, TestDomainManager\nfrom .result_aggregator import DomainResult, MultiDomainResultAggregator\nfrom .scheduler import DomainTestScheduler, Scheduled"
+  },
+  {
+    "path": "python/multi_domain/domain_manager.py",
+    "title": "domain_manager.py",
+    "line_count": 99,
+    "preview": "\"\"\"\nMulti-domain test execution: domains, TAM/shared access, conflict resolution.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing import Any, Dict, List, Optional, Set, Tuple\n\n\nclass ExecutionMode(str, Enum):\n    SINGLE_DOMAIN = \"si"
+  },
+  {
+    "path": "python/multi_domain/result_aggregator.py",
+    "title": "Weighted coverage by pattern count",
+    "line_count": 90,
+    "preview": "\"\"\"\nAggregate pass/fail, coverage, and cross-domain flags from multiple domains.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional\n\n\n@dataclass\nclass DomainResult:\n    domain_id: str\n    patterns_run: int = 0\n    patterns_p"
+  },
+  {
+    "path": "python/multi_domain/scheduler.py",
+    "title": "scheduler.py",
+    "line_count": 77,
+    "preview": "\"\"\"\nDomain test scheduler: parallel groups, TAM/channel allocation, makespan estimate.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List\n\nfrom .domain_manager import TestDomainManager\n\n\n@dataclass\nclass ScheduledTest:\n    domain_id: "
+  },
+  {
+    "path": "python/pattern_db/pattern_compression.py",
+    "title": "---------------- Vector-level compression ----------------",
+    "line_count": 323,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nPattern Compression and Optimization\n------------------------------------\n\nImplements several test-data compression techniques on top of the PatternDatabase:\n\n- Vector merging (identical consecutive vectors \u2192 (vector, repeat_count))\n- Bit-wise run-length encoding (RLE) ins"
+  },
+  {
+    "path": "python/pattern_db/pattern_database.py",
+    "title": "---------------------------------------------------------------------------",
+    "line_count": 538,
+    "preview": "\"\"\"\nPattern Database and Test Suite Management\n-----------------------------------------\n\nThis module provides a pattern database and suite builder for DFT/ATPG\npatterns. It is intentionally tool-agnostic and can be populated from:\n\n- SystemVerilog `atpg_pattern_t` exports\n- STIL files (via `stil_va"
+  },
+  {
+    "path": "python/pattern_debug/PATTERN_DEBUG_GUIDE.md",
+    "title": "PATTERN_DEBUG_GUIDE.md",
+    "line_count": 37,
+    "preview": "\ufeff# Pattern Debugging and Failure Root-Cause Guide\n\n`python/pattern_debug/` provides a modular debug flow for failed ATPG/STIL patterns.\n\n## Components\n\n- `PatternDebugger` \u2014 single-step vector execution, breakpoints (vector/fault/signal), snapshots, replay history.\n- `FailureAnalyzer` \u2014 classify fai"
+  },
+  {
+    "path": "python/pattern_debug/__init__.py",
+    "title": "__init__.py",
+    "line_count": 36,
+    "preview": "\ufeff\"\"\"Pattern debugging and failure analysis framework.\"\"\"\n\nfrom .pattern_debugger import (\n    Breakpoint,\n    DebugEvent,\n    PatternDebugger,\n    PatternVector,\n    SignalSnapshot,\n)\nfrom .failure_analyzer import FailureAnalyzer, FailureCategory\nfrom .waveform_viewer_integration import WaveformView"
+  },
+  {
+    "path": "python/pattern_debug/__main__.py",
+    "title": "__main__.py",
+    "line_count": 34,
+    "preview": "\ufeff\"\"\"Demo run for pattern debugging framework.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\n\nfrom .interactive_debug import PatternDebugOrchestrator\nfrom .pattern_debugger import Breakpoint, PatternVector\n\n\ndef main() -> None:\n    vectors = [\n        PatternVector(0, {\"TMS\": \"1\", \"TDI\": \"0\"}),"
+  },
+  {
+    "path": "python/pattern_debug/comparative_analysis.py",
+    "title": "comparative_analysis.py",
+    "line_count": 40,
+    "preview": "\ufeff\"\"\"Compare passing vs failing pattern populations and classify failure traits.\"\"\"\n\nfrom __future__ import annotations\n\nfrom typing import Any, Dict, List\n\n\nclass ComparativeAnalysis:\n    def compare(self, passing: List[Dict[str, Any]], failing: List[Dict[str, Any]]) -> Dict[str, Any]:\n        def a"
+  },
+  {
+    "path": "python/pattern_debug/failure_analyzer.py",
+    "title": "failure_analyzer.py",
+    "line_count": 65,
+    "preview": "\ufeff\"\"\"Failure categorization and root-cause analysis.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom enum import Enum\nfrom typing import Any, Dict, List, Optional\n\n\nclass FailureCategory(str, Enum):\n    TIMING_VIOLATION = \"timing_violation\"\n    DATA_MISMATCH = \"data_mis"
+  },
+  {
+    "path": "python/pattern_debug/fault_injection_debugger.py",
+    "title": "fault_injection_debugger.py",
+    "line_count": 38,
+    "preview": "\ufeff\"\"\"Manual fault injection model and detection proof stub.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import Any, Dict, List\n\n\n@dataclass\nclass InjectedFault:\n    fault_id: str\n    location: str\n    fault_type: str\n    forced_value: str\n\n\nclass FaultInjecti"
+  },
+  {
+    "path": "python/pattern_debug/interactive_debug.py",
+    "title": "interactive_debug.py",
+    "line_count": 67,
+    "preview": "\ufeff\"\"\"Debug framework orchestration helpers and report assembly.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import Any, Dict, List\n\nfrom .comparative_analysis import ComparativeAnalysis\nfrom .failure_analyzer import FailureAnalyzer\nfrom .pattern_debugger impo"
+  },
+  {
+    "path": "python/pattern_debug/pattern_debugger.py",
+    "title": "pattern_debugger.py",
+    "line_count": 106,
+    "preview": "\ufeff\"\"\"Core pattern debugger with breakpoints and replay.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional\n\n\n@dataclass\nclass PatternVector:\n    vector_index: int\n    stimulus: Dict[str, str]\n    expected: Dict[str, str] = fie"
+  },
+  {
+    "path": "python/pattern_debug/pattern_modification_suggester.py",
+    "title": "pattern_modification_suggester.py",
+    "line_count": 42,
+    "preview": "\ufeff\"\"\"Pattern fix recommendations from failure signatures and timing stats.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import Any, Dict, List\n\n\n@dataclass\nclass PatternModificationSuggester:\n    def suggest(self, failure_record: Dict[str, Any]) -> Dict[str, A"
+  },
+  {
+    "path": "python/pattern_debug/response_comparer.py",
+    "title": "response_comparer.py",
+    "line_count": 63,
+    "preview": "\ufeff\"\"\"Expected-vs-actual response comparison and timing deltas.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import Any, Dict, List, Optional\n\n\n@dataclass\nclass ResponseCompareResult:\n    first_diff_index: Optional[int]\n    expected: str\n    actual: str\n    mis"
+  },
+  {
+    "path": "python/pattern_debug/signal_analysis_tools.py",
+    "title": "signal_analysis_tools.py",
+    "line_count": 38,
+    "preview": "\ufeff\"\"\"Signal statistics and anomaly detection.\"\"\"\n\nfrom __future__ import annotations\n\nfrom typing import Any, Dict, List\n\n\nclass SignalAnalysisTools:\n    def signal_statistics(self, snapshots: List[Dict[str, str]]) -> Dict[str, Any]:\n        if not snapshots:\n            return {\"signals\": {}, \"sampl"
+  },
+  {
+    "path": "python/pattern_debug/visualization_tools.py",
+    "title": "visualization_tools.py",
+    "line_count": 46,
+    "preview": "\ufeff\"\"\"Failure distribution and hotspot visualization data builders.\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections import defaultdict\nfrom typing import Any, Dict, List\n\n\nclass VisualizationTools:\n    def failure_distribution_map(self, failures: List[Dict[str, Any]]) -> Dict[str, int]:\n     "
+  },
+  {
+    "path": "python/pattern_debug/waveform_viewer_integration.py",
+    "title": "waveform_viewer_integration.py",
+    "line_count": 47,
+    "preview": "\ufeff\"\"\"Waveform generation metadata and viewer-link helpers.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Optional\n\n\n@dataclass\nclass WaveformViewerIntegration:\n    output_dir: str = \"out/debug\"\n\n    def generate_"
+  },
+  {
+    "path": "python/reporting/REPORTING_GUIDE.md",
+    "title": "Multi-domain execution & comprehensive reporting guide",
+    "line_count": 109,
+    "preview": "# Multi-domain execution & comprehensive reporting guide\n\n## 1. Multi-domain test execution (`python/multi_domain/`)\n\n### `TestDomainManager`\n- Register `TestDomain` objects with `clock_domain`, optional `ResourceClaim` list (shared TAM, ATE channel IDs), and `conflicts_with_domain_ids` for explicit"
+  },
+  {
+    "path": "python/reporting/__init__.py",
+    "title": "__init__.py",
+    "line_count": 28,
+    "preview": "\"\"\"Comprehensive DFT reporting: HTML/JSON/XML/CSV/PDF, templates, sign-off, comparisons.\"\"\"\n\nfrom .comparison_reports import ComparisonReport, compare_reports\nfrom .comprehensive_reporting import ComprehensiveReportingSystem\nfrom .export_system import export_csv, export_html, export_json, export_pdf"
+  },
+  {
+    "path": "python/reporting/__main__.py",
+    "title": "__main__.py",
+    "line_count": 61,
+    "preview": "\"\"\"Demo comprehensive report + multi-domain sample.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport tempfile\nfrom pathlib import Path\n\nfrom .comprehensive_reporting import ComprehensiveReportingSystem\nfrom .report_generator import ReportInputData\nfrom .templates import ReportTemplateId\n\n\n"
+  },
+  {
+    "path": "python/reporting/comparison_reports.py",
+    "title": "comparison_reports.py",
+    "line_count": 46,
+    "preview": "\"\"\"Compare two report JSON blobs.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom typing import Any, Dict\n\n\ndef _get(d: Dict[str, Any], key: str, default=None):\n    if key in d:\n        return d[key]\n    return default\n\n\n@dataclass\nclass ComparisonReport:\n    label_a: "
+  },
+  {
+    "path": "python/reporting/comprehensive_reporting.py",
+    "title": "comprehensive_reporting.py",
+    "line_count": 145,
+    "preview": "\"\"\"\nComprehensive reporting: orchestrates templates, generator, exports, visualizations, multi-domain data.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom pathlib import Path\nfrom typing import Any, Dict, List\n\nfrom .export_system import export_csv, export_htm"
+  },
+  {
+    "path": "python/reporting/export_system.py",
+    "title": "export_system.py",
+    "line_count": 103,
+    "preview": "\"\"\"Export report payloads to CSV, JSON, XML, HTML, PDF (optional).\"\"\"\n\nfrom __future__ import annotations\n\nimport csv\nimport json\nfrom typing import Any, Dict, List, Optional\nfrom xml.etree import ElementTree as ET\n\n\ndef export_json(data: Dict[str, Any], path: str, indent: int = 2) -> None:\n    with"
+  },
+  {
+    "path": "python/reporting/multidomain_bridge.py",
+    "title": "multidomain_bridge.py",
+    "line_count": 25,
+    "preview": "\"\"\"Map multi-domain aggregate dict into ReportInputData.\"\"\"\n\nfrom __future__ import annotations\n\nfrom typing import Any, Dict\n\nfrom .report_generator import ReportInputData\n\n\ndef report_input_from_aggregate(aggregated: Dict[str, Any], design_name: str) -> ReportInputData:\n    \"\"\"Build ReportInputDat"
+  },
+  {
+    "path": "python/reporting/report_generator.py",
+    "title": "report_generator.py",
+    "line_count": 183,
+    "preview": "\"\"\"Executive, detailed, statistical, and quality sections for DFT reports.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom datetime import datetime, timedelta\nfrom typing import Any, Dict, List, Optional\n\n\n@dataclass\nclass ReportInputData:\n    design_name: str ="
+  },
+  {
+    "path": "python/reporting/sign_off_report.py",
+    "title": "sign_off_report.py",
+    "line_count": 66,
+    "preview": "\"\"\"Formal sign-off document structure and traceability.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom datetime import datetime\nfrom typing import Any, Dict, List\n\n\n@dataclass\nclass SignOffReport:\n    design_name: str\n    coverage_target_pct: float = 95.0\n    a"
+  },
+  {
+    "path": "python/reporting/templates.py",
+    "title": "templates.py",
+    "line_count": 73,
+    "preview": "\"\"\"Report templates: sections, verbosity, branding.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing import Set\n\n\nclass ReportTemplateId(str, Enum):\n    EXECUTIVE = \"executive\"\n    TECHNICAL = \"technical\"\n    DETAILED = \"detailed\"\n   "
+  },
+  {
+    "path": "python/reporting/visualization.py",
+    "title": "visualization.py",
+    "line_count": 127,
+    "preview": "\"\"\"Charts for HTML reports: matplotlib optional; SVG fallbacks.\"\"\"\n\nfrom __future__ import annotations\n\nimport base64\nimport io\nimport math\nfrom typing import Dict, List, Tuple\n\n\ndef coverage_convergence_svg(points: List[Tuple[int, float]], width: int = 480, height: int = 220) -> str:\n    \"\"\"Simple "
+  },
+  {
+    "path": "python/stil_generator/__init__.py",
+    "title": "__init__.py",
+    "line_count": 19,
+    "preview": "\"\"\"\nSTIL Generator Package\n\"\"\"\n\nfrom .stil_template_generator import (\n    STILTemplateGenerator,\n    STILSignal,\n    STILPattern,\n    STILTiming,\n    create_example_stil\n)\n\n__all__ = [\n    'STILTemplateGenerator',\n    'STILSignal',\n    'STILPattern',\n    'STILTiming',\n    'create_example_stil'\n]\n"
+  },
+  {
+    "path": "python/stil_generator/stil_template_generator.py",
+    "title": "edge_type: 'C', 'D', 'U', 'Z', 'V'",
+    "line_count": 259,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nSTIL Template Generator (IEEE 1450 Compliant)\nGenerates STIL pattern files for DFT verification.\n\nThis module provides functionality to generate STIL (Standard Test Interface Language)\nfiles compliant with IEEE 1450 standard for test pattern generation and verification.\n\"\""
+  },
+  {
+    "path": "python/stil_utils/stil_validator.py",
+    "title": "---------------------------------------------------------------------------",
+    "line_count": 585,
+    "preview": "\"\"\"\nSTIL Validator and Parser\n-------------------------\n\nHigh-level goals:\n- Validate generated STIL files against the IEEE 1450 standard (syntax + basic semantics).\n- Provide a structured parser and accessors so STIL data can be consumed by other tools.\n- Enable portability by converting between ST"
+  },
+  {
+    "path": "python/timing/AT_SPEED_TIMING_GUIDE.md",
+    "title": "At-speed testing, timing violations, and design margin analysis",
+    "line_count": 71,
+    "preview": "# At-speed testing, timing violations, and design margin analysis\n\nThis package (`python/timing`) provides a **model-level** timing-aware pattern execution framework. It complements RTL simulation and static timing analysis (STA): use it for **planning**, **what-if sweeps**, and **reporting**; sign-"
+  },
+  {
+    "path": "python/timing/__init__.py",
+    "title": "__init__.py",
+    "line_count": 33,
+    "preview": "\"\"\"\nTiming-aware pattern execution: at-speed modeling, margins, violations, multi-domain clocks.\n\"\"\"\n\nfrom .timing_config import (\n    ClockDomainSpec,\n    TimingConfig,\n    load_timing_config_from_dict,\n    load_timing_config_from_yaml,\n)\nfrom .timing_execution import (\n    AtSpeedExecutionEngine,\n"
+  },
+  {
+    "path": "python/timing/__main__.py",
+    "title": "__main__.py",
+    "line_count": 46,
+    "preview": "\"\"\"\nCLI demo: load constraints, run timing report.\n\n  python -m timing\n  python -m timing path/to/constraints.yaml\n\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nimport sys\n\nfrom .timing_config import load_timing_config_from_dict, load_timing_config_from_yaml\nfrom .timing_execution import Patt"
+  },
+  {
+    "path": "python/timing/constraints_parser.py",
+    "title": "constraints_parser.py",
+    "line_count": 134,
+    "preview": "\"\"\"\nParse timing_constraints { ... } style blocks (semicolon-separated, brace-nested).\n\"\"\"\n\nfrom __future__ import annotations\n\nimport re\nfrom typing import Any, Dict, List, Tuple\n\n\ndef _strip_comments(s: str) -> str:\n    return re.sub(r\"//.*?$|/\\*.*?\\*/\", \"\", s, flags=re.MULTILINE | re.DOTALL)\n\n\nde"
+  },
+  {
+    "path": "python/timing/examples/timing_constraints.example.txt",
+    "title": "timing_constraints.example.txt",
+    "line_count": 16,
+    "preview": "// Braced timing spec \u2014 parse with parse_timing_constraints_text()\n\ntiming_constraints {\n  tck_frequency_mhz: 200;\n  system_clock_mhz: 400;\n  setup_time_ns: 0.5;\n  hold_time_ns: 0.3;\n  propagation_delay_ns: 1.5;\n\n  clock_domains {\n    tclock: 200 MHz;\n    sysclock: 400 MHz;\n    ratio: 1:2;\n    phase"
+  },
+  {
+    "path": "python/timing/timing_config.py",
+    "title": "Allow top-level timing_constraints: { ... }",
+    "line_count": 156,
+    "preview": "\"\"\"\nTiming configuration for at-speed pattern execution and margin analysis.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional, Tuple\n\n\n@dataclass\nclass ClockDomainSpec:\n    \"\"\"One clock domain with optional relationship to"
+  },
+  {
+    "path": "python/timing/timing_execution.py",
+    "title": "Higher score = better for detection: need positive margins but stress path",
+    "line_count": 439,
+    "preview": "\"\"\"\nAt-speed execution modeling, edge optimization, violation detection, multi-domain sequencing,\nand operational frequency capability analysis.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing import Any, Dict, List, Literal, Option"
+  },
+  {
+    "path": "python/utils/__init__.py",
+    "title": "__init__.py",
+    "line_count": 3,
+    "preview": "\"\"\"\nUtility functions for DFT-STIL verification framework.\n\"\"\"\n"
+  },
+  {
+    "path": "python/validators/__init__.py",
+    "title": "__init__.py",
+    "line_count": 13,
+    "preview": "\"\"\"\nFile Validators Package\n\"\"\"\n\nfrom .file_validator import (\n    FileStructureValidator,\n    ValidationError\n)\n\n__all__ = [\n    'FileStructureValidator',\n    'ValidationError'\n]\n"
+  },
+  {
+    "path": "python/validators/file_validator.py",
+    "title": "Optional YAML support",
+    "line_count": 209,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nFile Structure Validator\nValidates project structure, file formats, and configuration files\nfor the DFT-STIL verification framework.\n\"\"\"\n\nimport os\nimport sys\nfrom pathlib import Path\nfrom typing import List, Tuple, Dict\nimport json\n\n# Optional YAML support\ntry:\n    import"
+  },
+  {
+    "path": "python/verification/FORMAL_DFT_VERIFICATION.md",
+    "title": "Formal verification, assertions, and test infrastructure for DFT",
+    "line_count": 113,
+    "preview": "# Formal verification, assertions, and test infrastructure for DFT\n\nThis document describes the **Python verification package** (`python/verification/`) and **SystemVerilog Assertions (SVA)** under `uvm_tb/assertions/`, and how they support protocol compliance, DFT DRC-style checks, timing reports, "
+  },
+  {
+    "path": "python/verification/__init__.py",
+    "title": "__init__.py",
+    "line_count": 38,
+    "preview": "\"\"\"\nTest infrastructure verification: protocol, DFT DRC, timing checks, formal hooks, coverage validation.\n\"\"\"\n\nfrom .assertion_monitoring import AssertionFailureRecord, AssertionMonitorReport\nfrom .coverage_validation import CoverageValidation\nfrom .dft_drc_engine import DFTDRCEngine, DRCSeverity, "
+  },
+  {
+    "path": "python/verification/__main__.py",
+    "title": "__main__.py",
+    "line_count": 43,
+    "preview": "\"\"\"Demo: protocol trace + DRC + formal stub.\"\"\"\n\nfrom __future__ import annotations\n\nimport json\n\nfrom .dft_drc_engine import DFTDRCEngine\nfrom .formal_config import FormalVerificationConfig\nfrom .formal_verification_module import FormalVerificationModule\nfrom .protocol_checker import ProtocolChecke"
+  },
+  {
+    "path": "python/verification/assertion_monitoring.py",
+    "title": "assertion_monitoring.py",
+    "line_count": 64,
+    "preview": "\"\"\"\nMerge assertion failures with pattern / vector context from simulation logs or JSONL.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nfrom dataclasses import dataclass, field\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Optional\n\n\n@dataclass\nclass AssertionFailureRecord:\n   "
+  },
+  {
+    "path": "python/verification/coverage_validation.py",
+    "title": "coverage_validation.py",
+    "line_count": 54,
+    "preview": "\"\"\"\nCross-check functional / protocol coverage expectations vs collected bins.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Set\n\n\n@dataclass\nclass CoverageValidation:\n    \"\"\"\n    ``expected`` maps category -> set or list of req"
+  },
+  {
+    "path": "python/verification/dft_drc_engine.py",
+    "title": "dft_drc_engine.py",
+    "line_count": 164,
+    "preview": "\"\"\"\nPost-insertion DFT design rule checks (structural / rule-based reports).\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing import Any, Dict, List, Optional\n\n\nclass DRCSeverity(str, Enum):\n    CRITICAL = \"critical\"\n    WARNING = \"w"
+  },
+  {
+    "path": "python/verification/formal_config.py",
+    "title": "key: value;  arrays like [a, b]",
+    "line_count": 101,
+    "preview": "\"\"\"Parse formal_verification { ... } configuration blocks.\"\"\"\n\nfrom __future__ import annotations\n\nimport re\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List\n\n\ndef _strip_comments(s: str) -> str:\n    return re.sub(r\"//.*?$|/\\*.*?\\*/\", \"\", s, flags=re.MULTILINE | re.DOTALL)"
+  },
+  {
+    "path": "python/verification/formal_verification_module.py",
+    "title": "formal_verification_module.py",
+    "line_count": 147,
+    "preview": "\"\"\"\nFormal verification orchestration: SVA generation hooks, proof obligation export,\ntool integration stubs (JasperGold / VC Formal / Symbiotic ESBMC \u2014 user toolchain).\n\"\"\"\n\nfrom __future__ import annotations\n\nimport hashlib\nimport json\nfrom dataclasses import dataclass, field\nfrom pathlib import P"
+  },
+  {
+    "path": "python/verification/protocol_checker.py",
+    "title": "protocol_checker.py",
+    "line_count": 128,
+    "preview": "\"\"\"\nJTAG / TAP protocol compliance checker (IEEE 1149.1) \u2014 offline from cycle logs.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom enum import Enum\nfrom typing import Any, Dict, List, Optional\n\nfrom .tap_fsm_reference import TAPState, next_tap_state\n\n\nclass Vi"
+  },
+  {
+    "path": "python/verification/scan_path_verification.py",
+    "title": "scan_path_verification.py",
+    "line_count": 100,
+    "preview": "\"\"\"\nScan chain path reachability: TDI to cells, cells to TDO (graph model).\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections import deque\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Set\n\n\n@dataclass\nclass ScanPathVerification:\n    \"\"\"\n    ``chain`` is ordere"
+  },
+  {
+    "path": "python/verification/tap_fsm_reference.py",
+    "title": "tap_fsm_reference.py",
+    "line_count": 75,
+    "preview": "\"\"\"IEEE 1149.1 TAP state reference aligned with jtag_driver_enhanced.\"\"\"\n\nfrom __future__ import annotations\n\nfrom enum import IntEnum\nfrom typing import Dict, Tuple\n\n\nclass TAPState(IntEnum):\n    TEST_LOGIC_RESET = 0\n    RUN_TEST_IDLE = 1\n    SELECT_DR_SCAN = 2\n    CAPTURE_DR = 3\n    SHIFT_DR = 4\n "
+  },
+  {
+    "path": "python/verification/timing_constraint_checker.py",
+    "title": "timing_constraint_checker.py",
+    "line_count": 91,
+    "preview": "\"\"\"\nPattern / vector timing checks against TimingConfig (integrates with python/timing).\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass, field\nfrom typing import Any, Dict, List, Optional\n\ntry:\n    from ..timing.timing_config import TimingConfig\nexcept ImportError:\n    tr"
+  },
+  {
+    "path": "requirements.txt",
+    "title": "Python Requirements for DFT-STIL Verification Framework",
+    "line_count": 4,
+    "preview": "# Python Requirements for DFT-STIL Verification Framework\n# Install with: pip install -r requirements.txt\n\npyyaml>=5.4.1\n"
+  },
+  {
+    "path": "scripts/analyze_waveform.py",
+    "title": "analyze_waveform.py",
+    "line_count": 30,
+    "preview": "\ufeff#!/usr/bin/env python3\n\"\"\"Waveform analysis report generator from manifest/wave metadata.\"\"\"\n\nimport argparse\nimport json\nfrom pathlib import Path\n\n\ndef main() -> None:\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"-waveform\", required=True)\n    ap.add_argument(\"-output\", required=True)\n "
+  },
+  {
+    "path": "scripts/compare_responses.py",
+    "title": "compare_responses.py",
+    "line_count": 47,
+    "preview": "\ufeff#!/usr/bin/env python3\n\"\"\"Compare expected vs actual response files and emit HTML summary.\"\"\"\n\nimport argparse\nimport html\nimport json\nfrom pathlib import Path\nimport sys\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1] / \"python\"))\n\nfrom pattern_debug.response_comparer import ResponseCo"
+  },
+  {
+    "path": "scripts/doc_audit.py",
+    "title": "doc_audit.py",
+    "line_count": 58,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nBasic documentation audit:\n- Python classes/functions missing docstrings\n- SystemVerilog classes missing leading comment block\n\"\"\"\n\nfrom __future__ import annotations\n\nimport ast\nimport re\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef audit_pyt"
+  },
+  {
+    "path": "scripts/doc_search.py",
+    "title": "doc_search.py",
+    "line_count": 45,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nSimple local documentation search over docs/search_index.json.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport json\nfrom pathlib import Path\nfrom typing import Any, Dict, List\n\nROOT = Path(__file__).resolve().parents[1]\nINDEX = ROOT / \"docs\" / \"search_index"
+  },
+  {
+    "path": "scripts/extract_pattern.py",
+    "title": "Try STIL Pattern \"name\" { ... }",
+    "line_count": 31,
+    "preview": "\ufeff#!/usr/bin/env python3\n\"\"\"Extract a named pattern block from ATPG/STIL-like text.\"\"\"\n\nimport argparse\nimport re\nfrom pathlib import Path\n\n\ndef extract(pattern_name: str, text: str) -> str:\n    # Try STIL Pattern \"name\" { ... }\n    m = re.search(r'Pattern\\s+\"?%s\"?\\s*\\{(.*?)\\n\\}' % re.escape(pattern_"
+  },
+  {
+    "path": "scripts/generate_doc_index.py",
+    "title": "generate_doc_index.py",
+    "line_count": 63,
+    "preview": "#!/usr/bin/env python3\n\"\"\"\nBuild a searchable documentation index for local use.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport json\nfrom pathlib import Path\nfrom typing import Dict, List\n\nROOT = Path(__file__).resolve().parents[1]\nSEARCH_ROOTS = [ROOT / \"docs\", ROOT / \"training\", ROOT]\nALLOWED = {"
+  },
+  {
+    "path": "scripts/suggest_fixes.py",
+    "title": "suggest_fixes.py",
+    "line_count": 34,
+    "preview": "\ufeff#!/usr/bin/env python3\n\"\"\"Suggest pattern fixes based on failure response file.\"\"\"\n\nimport argparse\nimport json\nfrom pathlib import Path\nimport sys\n\nsys.path.insert(0, str(Path(__file__).resolve().parents[1] / \"python\"))\n\nfrom pattern_debug.pattern_modification_suggester import PatternModificationS"
+  },
+  {
+    "path": "training/TRAINING_PLAN.md",
+    "title": "Team Training Plan",
+    "line_count": 34,
+    "preview": "# Team Training Plan\n\n## 1) Theory Session (1 hour)\n\nTitle: **Fundamentals of DFT and Scan Testing**\n\n- DFT basics, scan chain concepts, fault models\n- ATPG intent and practical constraints\n- How this repository maps to real validation workflows\n\n## 2) Hands-on Session (2 hours)\n\nTitle: **Building a"
+  },
+  {
+    "path": "training/TRAINING_PLAN.md",
+    "title": "Team Training Plan",
+    "line_count": 34,
+    "preview": "# Team Training Plan\n\n## 1) Theory Session (1 hour)\n\nTitle: **Fundamentals of DFT and Scan Testing**\n\n- DFT basics, scan chain concepts, fault models\n- ATPG intent and practical constraints\n- How this repository maps to real validation workflows\n\n## 2) Hands-on Session (2 hours)\n\nTitle: **Building a"
+  },
+  {
+    "path": "training/video_scripts/debugging_failed_patterns.md",
+    "title": "Video Script: Debugging Failed Patterns (12 min)",
+    "line_count": 14,
+    "preview": "# Video Script: Debugging Failed Patterns (12 min)\n\n## Objective\n\nTeach a repeatable triage workflow from failure symptom to root cause.\n\n## Script Outline\n\n- 00:00-02:00: Failure types and data sources\n- 02:00-05:00: Reproduce with focused subset\n- 05:00-08:00: Inspect timing and formal indicators\n"
+  },
+  {
+    "path": "training/video_scripts/debugging_failed_patterns.md",
+    "title": "Video Script: Debugging Failed Patterns (12 min)",
+    "line_count": 14,
+    "preview": "# Video Script: Debugging Failed Patterns (12 min)\n\n## Objective\n\nTeach a repeatable triage workflow from failure symptom to root cause.\n\n## Script Outline\n\n- 00:00-02:00: Failure types and data sources\n- 02:00-05:00: Reproduce with focused subset\n- 05:00-08:00: Inspect timing and formal indicators\n"
+  },
+  {
+    "path": "training/video_scripts/getting_started_with_dft_testbench.md",
+    "title": "Video Script: Getting Started with DFT Testbench (10 min)",
+    "line_count": 14,
+    "preview": "# Video Script: Getting Started with DFT Testbench (10 min)\n\n## Objective\n\nShow first-time setup, first run, and how to read generated outputs.\n\n## Script Outline\n\n- 00:00-01:00: Project overview and expected outcomes\n- 01:00-03:00: Environment setup and dependency install\n- 03:00-06:00: Run `week3_"
+  },
+  {
+    "path": "training/video_scripts/getting_started_with_dft_testbench.md",
+    "title": "Video Script: Getting Started with DFT Testbench (10 min)",
+    "line_count": 14,
+    "preview": "# Video Script: Getting Started with DFT Testbench (10 min)\n\n## Objective\n\nShow first-time setup, first run, and how to read generated outputs.\n\n## Script Outline\n\n- 00:00-01:00: Project overview and expected outcomes\n- 01:00-03:00: Environment setup and dependency install\n- 03:00-06:00: Run `week3_"
+  },
+  {
+    "path": "training/video_scripts/interpreting_results_and_fault_coverage.md",
+    "title": "Video Script: Interpreting Test Results and Fault Coverage (8 min)",
+    "line_count": 13,
+    "preview": "# Video Script: Interpreting Test Results and Fault Coverage (8 min)\n\n## Objective\n\nExplain how to read coverage metrics and make actionable decisions.\n\n## Script Outline\n\n- 00:00-02:00: Report files and where each metric comes from\n- 02:00-04:00: Coverage summary and contribution breakdown\n- 04:00-"
+  },
+  {
+    "path": "training/video_scripts/interpreting_results_and_fault_coverage.md",
+    "title": "Video Script: Interpreting Test Results and Fault Coverage (8 min)",
+    "line_count": 13,
+    "preview": "# Video Script: Interpreting Test Results and Fault Coverage (8 min)\n\n## Objective\n\nExplain how to read coverage metrics and make actionable decisions.\n\n## Script Outline\n\n- 00:00-02:00: Report files and where each metric comes from\n- 02:00-04:00: Coverage summary and contribution breakdown\n- 04:00-"
+  },
+  {
+    "path": "training/video_scripts/pattern_compression_and_optimization.md",
+    "title": "Video Script: Pattern Compression and Optimization (7 min)",
+    "line_count": 13,
+    "preview": "# Video Script: Pattern Compression and Optimization (7 min)\n\n## Objective\n\nShow how to reduce pattern count while preserving target coverage.\n\n## Script Outline\n\n- 00:00-02:00: Compression concepts and risks\n- 02:00-04:00: Run optimization flow with target coverage\n- 04:00-06:00: Compare baseline v"
+  },
+  {
+    "path": "training/video_scripts/pattern_compression_and_optimization.md",
+    "title": "Video Script: Pattern Compression and Optimization (7 min)",
+    "line_count": 13,
+    "preview": "# Video Script: Pattern Compression and Optimization (7 min)\n\n## Objective\n\nShow how to reduce pattern count while preserving target coverage.\n\n## Script Outline\n\n- 00:00-02:00: Compression concepts and risks\n- 02:00-04:00: Run optimization flow with target coverage\n- 04:00-06:00: Compare baseline v"
+  },
+  {
+    "path": "training/video_scripts/running_atpg_patterns.md",
+    "title": "Video Script: Running ATPG Patterns (5 min)",
+    "line_count": 13,
+    "preview": "# Video Script: Running ATPG Patterns (5 min)\n\n## Objective\n\nDemonstrate pattern execution workflow and output interpretation.\n\n## Script Outline\n\n- 00:00-01:00: Pattern source and suite options\n- 01:00-03:00: Execute test flow\n- 03:00-04:00: Review result CSV and pass/fail\n- 04:00-05:00: Link to tr"
+  },
+  {
+    "path": "training/video_scripts/running_atpg_patterns.md",
+    "title": "Video Script: Running ATPG Patterns (5 min)",
+    "line_count": 13,
+    "preview": "# Video Script: Running ATPG Patterns (5 min)\n\n## Objective\n\nDemonstrate pattern execution workflow and output interpretation.\n\n## Script Outline\n\n- 00:00-01:00: Pattern source and suite options\n- 01:00-03:00: Execute test flow\n- 03:00-04:00: Review result CSV and pass/fail\n- 04:00-05:00: Link to tr"
+  },
+  {
+    "path": "uvm_tb/agents/clock/clock_agent.sv",
+    "title": "clock_agent.sv",
+    "line_count": 30,
+    "preview": "/**\n * Clock Agent\n * \n * UVM agent for clock generation.\n */\n\nclass clock_agent extends uvm_agent;\n    \n    `uvm_component_utils(clock_agent)\n    \n    clock_driver driver;\n    test_config cfg;\n    \n    function new(string name = \"clock_agent\", uvm_component parent = null);\n        super.new(name, p"
+  },
+  {
+    "path": "uvm_tb/agents/clock/clock_driver.sv",
+    "title": "clock_driver.sv",
+    "line_count": 84,
+    "preview": "/**\n * Clock Driver\n * \n * Generates clock signals based on configuration.\n * Supports multiple clock domains and configurable frequency/duty cycle.\n */\n\nclass clock_driver extends uvm_driver#(uvm_sequence_item);\n    \n    `uvm_component_utils(clock_driver)\n    \n    // Virtual interface\n    virtual c"
+  },
+  {
+    "path": "uvm_tb/agents/clock/clock_driver_enhanced.sv",
+    "title": "clock_driver_enhanced.sv",
+    "line_count": 354,
+    "preview": "/**\n * Enhanced Clock Driver for DFT Test Mode Control\n * \n * Advanced clock driver with support for:\n * - Multiple clock domains (TCK, system clock, test clock)\n * - Half-period TCK toggling for JTAG compliance\n * - Edge capture on specified edges\n * - Precise timing logging\n * - Clock-stop-on-dema"
+  },
+  {
+    "path": "uvm_tb/agents/clock/clock_interface.sv",
+    "title": "clock_interface.sv",
+    "line_count": 25,
+    "preview": "/**\n * Clock Interface\n * \n * SystemVerilog interface for clock signals.\n */\n\ninterface clock_if;\n    \n    logic clk;\n    \n    // Clocking block\n    clocking cb @(posedge clk);\n        default input #1step output #2ns;\n    endclocking\n    \n    // Modport for driver\n    modport DRIVER(output clk);\n  "
+  },
+  {
+    "path": "uvm_tb/agents/clock/clock_monitor_enhanced.sv",
+    "title": "clock_monitor_enhanced.sv",
+    "line_count": 150,
+    "preview": "/**\n * Enhanced Clock Monitor\n * \n * Monitors clock activities and reports statistics including:\n * - Clock frequency measurement\n * - Duty cycle calculation\n * - Transition counts\n * - Timing violations\n * - Clock domain synchronization\n */\n\nclass clock_monitor_enhanced extends uvm_monitor;\n    \n  "
+  },
+  {
+    "path": "uvm_tb/agents/clock/clock_sequences.sv",
+    "title": "clock_sequences.sv",
+    "line_count": 101,
+    "preview": "/**\n * Clock Sequences\n * \n * Pre-defined sequences for clock control in DFT test mode.\n */\n\nclass clock_base_sequence extends uvm_sequence#(clock_xtn);\n    \n    `uvm_object_utils(clock_base_sequence)\n    \n    test_config cfg;\n    \n    function new(string name = \"clock_base_sequence\");\n        super"
+  },
+  {
+    "path": "uvm_tb/agents/clock/clock_xtn.sv",
+    "title": "clock_xtn.sv",
+    "line_count": 213,
+    "preview": "/**\n * Clock Transaction Class\n * \n * Enhanced transaction class for clock control in DFT test mode.\n * Supports multiple clock domains, configurable timing, and edge capture.\n */\n\nclass clock_xtn extends uvm_sequence_item;\n    \n    `uvm_object_utils(clock_xtn)\n    \n    // =========================="
+  },
+  {
+    "path": "uvm_tb/agents/control/CONTROL_AGENT_DOCUMENTATION.md",
+    "title": "Clock and Reset Control Agent Documentation",
+    "line_count": 292,
+    "preview": "# Clock and Reset Control Agent Documentation\n\n## Overview\n\nThe Control Agent provides unified management of clock and reset signals for DFT test mode control. It coordinates multiple clock domains and reset signals with support for scan mode, timing margin analysis, and comprehensive monitoring.\n\n#"
+  },
+  {
+    "path": "uvm_tb/agents/control/control_agent.sv",
+    "title": "control_agent.sv",
+    "line_count": 194,
+    "preview": "/**\n * Unified Control Agent for Clock and Reset\n * \n * Coordinates clock and reset operations for DFT test mode control.\n * Provides synchronized control of multiple clock domains and reset signals.\n * \n * Features:\n * - Coordinated clock/reset sequences\n * - Scan mode control\n * - Timing margin an"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/IMPLEMENTATION_SUMMARY.md",
+    "title": "JTAG Agent Implementation Summary",
+    "line_count": 201,
+    "preview": "# JTAG Agent Implementation Summary\n\n## Implementation Status: \u2705 COMPLETE\n\nAll requested features have been implemented for the complete IEEE 1149.1 JTAG UVM agent.\n\n## Implemented Components\n\n### 1. Enhanced Transaction Class (jtag_xtn.sv) \u2705\n\n**Fields Implemented:**\n- \u2705 `tms_vector[]` - TMS sequenc"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/JTAG_AGENT_DOCUMENTATION.md",
+    "title": "JTAG Agent Documentation (IEEE 1149.1 Compliant)",
+    "line_count": 376,
+    "preview": "# JTAG Agent Documentation (IEEE 1149.1 Compliant)\n\n## Overview\n\nThis document describes the complete JTAG (IEEE 1149.1) UVM agent implementation for DFT testing. The agent provides comprehensive support for all standard JTAG TAP controller operations including instruction register (IR) and data reg"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/README.md",
+    "title": "JTAG Agent (IEEE 1149.1) - Quick Start",
+    "line_count": 90,
+    "preview": "# JTAG Agent (IEEE 1149.1) - Quick Start\n\n## Overview\n\nThis directory contains a complete IEEE 1149.1 compliant JTAG agent implementation for DFT testing. The agent provides comprehensive support for all standard JTAG TAP controller operations.\n\n## Files\n\n### Enhanced Implementation (Recommended)\n- "
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_agent.sv",
+    "title": "jtag_agent.sv",
+    "line_count": 57,
+    "preview": "/**\n * JTAG Agent\n * \n * Complete UVM agent for JTAG interface including driver, monitor,\n * and sequencer. Can operate in active or passive mode.\n */\n\nclass jtag_agent extends uvm_agent;\n    \n    `uvm_component_utils(jtag_agent)\n    \n    // Agent components\n    jtag_driver driver;\n    jtag_monitor "
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_agent_enhanced.sv",
+    "title": "jtag_agent_enhanced.sv",
+    "line_count": 98,
+    "preview": "/**\n * Enhanced JTAG Agent (IEEE 1149.1 Compliant)\n * \n * Complete JTAG agent with enhanced driver, monitor, sequencer, and coverage.\n * Supports both active (drives signals) and passive (monitors only) modes.\n * \n * Agent Components:\n * - Enhanced Driver: Drives JTAG signals with full TAP state mac"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_coverage.sv",
+    "title": "jtag_coverage.sv",
+    "line_count": 164,
+    "preview": "/**\n * JTAG Coverage Collector (IEEE 1149.1)\n * \n * Functional coverage for JTAG TAP controller operations.\n * Tracks:\n * - TAP state transitions\n * - Instruction register operations\n * - Data register operations\n * - Sequence type coverage\n * - TDO verification coverage\n * \n * Reference: IEEE 1149."
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_driver.sv",
+    "title": "jtag_driver.sv",
+    "line_count": 132,
+    "preview": "/**\n * JTAG Driver\n * \n * Drives JTAG signals (TCK, TMS, TDI) based on transactions received\n * from the sequencer. Handles JTAG TAP state machine transitions.\n */\n\nclass jtag_driver extends uvm_driver#(jtag_transaction);\n    \n    `uvm_component_utils(jtag_driver)\n    \n    // Virtual interface\n    v"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_driver_enhanced.sv",
+    "title": "jtag_driver_enhanced.sv",
+    "line_count": 459,
+    "preview": "/**\n * Enhanced JTAG Driver (IEEE 1149.1 Compliant)\n * \n * Complete JTAG driver implementation with full TAP state machine support.\n * Converts JTAG transactions to pin-level TCK, TMS, TDI, TDO toggles.\n * \n * TAP State Machine (IEEE 1149.1):\n *   - Test-Logic-Reset (TLR): Reset state, entered when "
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_interface.sv",
+    "title": "jtag_interface.sv",
+    "line_count": 39,
+    "preview": "/**\n * JTAG Interface\n * \n * SystemVerilog interface for JTAG signals.\n * Connects the DUT to the UVM testbench.\n */\n\ninterface jtag_if;\n    \n    // JTAG Signals\n    logic tck;      // JTAG Clock\n    logic tms;      // JTAG Mode Select\n    logic tdi;      // JTAG Data Input\n    logic tdo;      // JT"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_monitor.sv",
+    "title": "jtag_monitor.sv",
+    "line_count": 65,
+    "preview": "/**\n * JTAG Monitor\n * \n * Monitors JTAG interface signals and converts them to transactions.\n * Publishes transactions via analysis port for subscribers.\n */\n\nclass jtag_monitor extends uvm_monitor;\n    \n    `uvm_component_utils(jtag_monitor)\n    \n    // Virtual interface\n    virtual jtag_if vif;\n "
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_monitor_enhanced.sv",
+    "title": "jtag_monitor_enhanced.sv",
+    "line_count": 341,
+    "preview": "/**\n * Enhanced JTAG Monitor (IEEE 1149.1 Compliant)\n * \n * Monitors JTAG interface signals and reconstructs JTAG transactions.\n * Tracks TAP state machine transitions and captures TDI/TDO data.\n * \n * The monitor:\n * 1. Observes TCK, TMS, TDI, TDO signal transitions\n * 2. Tracks TAP state machine s"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_sequences.sv",
+    "title": "jtag_sequences.sv",
+    "line_count": 455,
+    "preview": "/**\n * JTAG Sequences (IEEE 1149.1 Compliant)\n *\n * Complete set of sequences for JTAG TAP controller operations.\n * Implements standard JTAG operations for DFT testing.\n *\n * IMPORTANT: All sequences in this file extend jtag_base_sequence and produce\n * jtag_xtn transactions. They must be run on jt"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_transaction.sv",
+    "title": "jtag_transaction.sv",
+    "line_count": 114,
+    "preview": "/**\n * JTAG Transaction Class\n * \n * Represents a JTAG transaction with TMS, TDI, and expected TDO values.\n * Used for JTAG TAP controller operations and boundary scan testing.\n */\n\nclass jtag_transaction extends uvm_sequence_item;\n    \n    `uvm_object_utils(jtag_transaction)\n    \n    // JTAG Signal"
+  },
+  {
+    "path": "uvm_tb/agents/jtag/jtag_xtn.sv",
+    "title": "jtag_xtn.sv",
+    "line_count": 375,
+    "preview": "/**\n * Enhanced JTAG Transaction Class (IEEE 1149.1 Compliant)\n * \n * Comprehensive transaction class for JTAG TAP controller operations.\n * Supports instruction register (IR) and data register (DR) operations,\n * scan shift sequences, and TDI/TDO verification.\n * \n * Reference: IEEE 1149.1 Standard"
+  },
+  {
+    "path": "uvm_tb/agents/pad/PAD_AGENT_DOCUMENTATION.md",
+    "title": "Pad Agent Documentation",
+    "line_count": 76,
+    "preview": "# Pad Agent Documentation\n\n## Overview\n\nThe Pad Agent provides **Primary I/O Driver and Monitor** functionality for DFT (Design for Test) verification. It controls primary inputs (PI), observes primary outputs (PO), and supports bidirectional pads with configurable timing, drive strength, and respon"
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_agent.sv",
+    "title": "pad_agent.sv",
+    "line_count": 30,
+    "preview": "/**\n * Pad Agent\n * \n * UVM agent for pad interface control.\n */\n\nclass pad_agent extends uvm_agent;\n    \n    `uvm_component_utils(pad_agent)\n    \n    pad_driver driver;\n    test_config cfg;\n    \n    function new(string name = \"pad_agent\", uvm_component parent = null);\n        super.new(name, parent"
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_agent_enhanced.sv",
+    "title": "pad_agent_enhanced.sv",
+    "line_count": 47,
+    "preview": "/**\n * Enhanced Pad Agent\n *\n * Unified agent combining pad_driver_enhanced, pad_monitor_enhanced,\n * optional response_collector, and pad_config for DFT primary I/O control\n * and observation.\n */\n\nclass pad_agent_enhanced extends uvm_agent;\n\n    `uvm_component_utils(pad_agent_enhanced)\n\n    pad_co"
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_config.sv",
+    "title": "pad_config.sv",
+    "line_count": 31,
+    "preview": "/**\n * Pad Agent Configuration\n *\n * Signal list, timing constraints, response matching tolerance, logging level.\n */\n\nclass pad_config extends uvm_object;\n\n    `uvm_object_utils(pad_config)\n\n    int num_primary_inputs = 16;\n    int num_primary_outputs = 16;\n    int num_pads = 32;  // Total pads (PI"
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_driver.sv",
+    "title": "pad_driver.sv",
+    "line_count": 60,
+    "preview": "/**\n * Pad Driver\n * \n * Drives pad interface signals for boundary scan and I/O testing.\n * Handles bidirectional pad control with output enable signals.\n */\n\nclass pad_driver extends uvm_driver#(uvm_sequence_item);\n    \n    `uvm_component_utils(pad_driver)\n    \n    // Virtual interface\n    virtual "
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_driver_enhanced.sv",
+    "title": "pad_driver_enhanced.sv",
+    "line_count": 159,
+    "preview": "/**\n * Enhanced Pad Driver for DFT Primary I/O Control\n *\n * Drives primary inputs with configurable timing, stores expected outputs,\n * supports combinational and sequential stimulus, multi-bit vectors with\n * per-pin timing, drive strength, and activity logging.\n */\n\nclass pad_driver_enhanced exte"
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_interface.sv",
+    "title": "pad_interface.sv",
+    "line_count": 36,
+    "preview": "/**\n * Pad Interface\n * \n * SystemVerilog interface for pad signals.\n * Supports bidirectional pads with output enable control.\n */\n\ninterface pad_if;\n    \n    parameter NUM_PADS = 32;\n    \n    // Reference clock for setup/hold timing (optional, can be driven by testbench)\n    logic clk;\n    \n    //"
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_monitor_enhanced.sv",
+    "title": "pad_monitor_enhanced.sv",
+    "line_count": 212,
+    "preview": "/**\n * Enhanced Pad Monitor for DFT Primary I/O Observation\n *\n * Captures primary output changes, records timing/waveform, compares to expected\n * (immediate or end-of-test), detects X/Z, alerts on unexpected transitions,\n * and provides statistics (transitions per pin, timing variance).\n */\n\nclass"
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_utils.sv",
+    "title": "pad_utils.sv",
+    "line_count": 102,
+    "preview": "/**\n * Pad Driver/Monitor Utilities\n *\n * Converts between logic vectors, integers, and hex strings for pad data.\n */\n\nclass pad_utils;\n    \n    /**\n     * Convert logic vector to integer (up to 64 bits).\n     * @param vec Logic vector (indexed 0 to size-1, LSB = 0)\n     * @return Integer value\n    "
+  },
+  {
+    "path": "uvm_tb/agents/pad/pad_xtn.sv",
+    "title": "pad_xtn.sv",
+    "line_count": 201,
+    "preview": "/**\n * Pad Transaction Class\n *\n * Transaction class for DFT primary input/output control and observation.\n * Supports configurable timing, drive strength, and multi-bit vectors.\n */\n\nclass pad_xtn extends uvm_sequence_item;\n\n    `uvm_object_utils(pad_xtn)\n\n    // ==================================="
+  },
+  {
+    "path": "uvm_tb/agents/pad/response_collector.sv",
+    "title": "response_collector.sv",
+    "line_count": 127,
+    "preview": "/**\n * Response Collector for DFT Pad Agent\n *\n * Aggregates expected outputs from ATPG patterns and compares with\n * monitored primary output signals from pad_monitor_enhanced.\n */\n\ntypedef struct {\n    time t;\n    int pattern_id;\n    logic [63:0] exp;\n    logic [63:0] mask;\n} response_expected_t;\n"
+  },
+  {
+    "path": "uvm_tb/agents/reset/reset_agent.sv",
+    "title": "reset_agent.sv",
+    "line_count": 30,
+    "preview": "/**\n * Reset Agent\n * \n * UVM agent for reset control.\n */\n\nclass reset_agent extends uvm_agent;\n    \n    `uvm_component_utils(reset_agent)\n    \n    reset_driver driver;\n    test_config cfg;\n    \n    function new(string name = \"reset_agent\", uvm_component parent = null);\n        super.new(name, pare"
+  },
+  {
+    "path": "uvm_tb/agents/reset/reset_driver.sv",
+    "title": "reset_driver.sv",
+    "line_count": 76,
+    "preview": "/**\n * Reset Driver\n * \n * Controls reset signal assertion and deassertion based on configuration.\n * Supports both synchronous and asynchronous reset protocols.\n */\n\nclass reset_driver extends uvm_driver#(uvm_sequence_item);\n    \n    `uvm_component_utils(reset_driver)\n    \n    // Virtual interface\n"
+  },
+  {
+    "path": "uvm_tb/agents/reset/reset_driver_enhanced.sv",
+    "title": "reset_driver_enhanced.sv",
+    "line_count": 326,
+    "preview": "/**\n * Enhanced Reset Driver for DFT Test Mode Control\n * \n * Advanced reset driver with support for:\n * - Asynchronous and synchronous resets\n * - Multiple reset pins with sequencing\n * - Glitch prevention during scan mode\n * - Reset status feedback\n * - Precise timing control\n * \n * Timing Constra"
+  },
+  {
+    "path": "uvm_tb/agents/reset/reset_interface.sv",
+    "title": "reset_interface.sv",
+    "line_count": 27,
+    "preview": "/**\n * Reset Interface\n * \n * SystemVerilog interface for reset signals.\n */\n\ninterface reset_if;\n    \n    logic rst_n;\n    logic clk;  // Reference clock for synchronous reset\n    \n    // Clocking block\n    clocking cb @(posedge clk);\n        default input #1step output #2ns;\n        output rst_n;\n"
+  },
+  {
+    "path": "uvm_tb/agents/reset/reset_monitor_enhanced.sv",
+    "title": "reset_monitor_enhanced.sv",
+    "line_count": 143,
+    "preview": "/**\n * Enhanced Reset Monitor\n * \n * Monitors reset assertion/deassertion events and tracks:\n * - Reset assertion times\n * - Reset deassertion times\n * - Reset duration\n * - Reset type (async/sync)\n * - Glitch detection\n */\n\nclass reset_monitor_enhanced extends uvm_monitor;\n    \n    `uvm_component_u"
+  },
+  {
+    "path": "uvm_tb/agents/reset/reset_sequences.sv",
+    "title": "reset_sequences.sv",
+    "line_count": 129,
+    "preview": "/**\n * Reset Sequences\n * \n * Pre-defined sequences for reset control in DFT test mode.\n */\n\nclass reset_base_sequence extends uvm_sequence#(reset_xtn);\n    \n    `uvm_object_utils(reset_base_sequence)\n    \n    test_config cfg;\n    \n    function new(string name = \"reset_base_sequence\");\n        super"
+  },
+  {
+    "path": "uvm_tb/agents/reset/reset_xtn.sv",
+    "title": "reset_xtn.sv",
+    "line_count": 174,
+    "preview": "/**\n * Reset Transaction Class\n * \n * Enhanced transaction class for reset control in DFT test mode.\n * Supports asynchronous and synchronous resets with glitch prevention.\n */\n\nclass reset_xtn extends uvm_sequence_item;\n    \n    `uvm_object_utils(reset_xtn)\n    \n    // ============================="
+  },
+  {
+    "path": "uvm_tb/assertions/README.md",
+    "title": "DFT / JTAG assertion components",
+    "line_count": 23,
+    "preview": "# DFT / JTAG assertion components\n\n| File | Purpose |\n|------|---------|\n| `jtag_tap_formal_sva.sv` | Shadow TAP FSM + `p_tap_step`, TDO known during shift |\n| `scan_chain_connectivity_sva.sv` | Template for scan serial propagation properties |\n| `dft_assertion_macros.svh` | UVM-friendly assertion l"
+  },
+  {
+    "path": "uvm_tb/assertions/jtag_tap_formal_sva.sv",
+    "title": "jtag_tap_formal_sva.sv",
+    "line_count": 109,
+    "preview": "/**\n * JTAG TAP protocol assertions for simulation and formal (IEEE 1149.1).\n *\n * Enum encoding MUST match uvm_tb/agents/jtag/jtag_transaction.sv (jtag_state_t).\n *\n * Usage (example):\n *   jtag_tap_formal_props #(\n *     .REGISTER_TDO_CHECK(1)\n *   ) u_props (\n *     .tck   (jtag_if_inst.tck),\n * "
+  },
+  {
+    "path": "uvm_tb/assertions/scan_chain_connectivity_sva.sv",
+    "title": "scan_chain_connectivity_sva.sv",
+    "line_count": 39,
+    "preview": "/**\n * Scan chain connectivity templates (hierarchy-specific \u2014 adapt signal names).\n *\n * Example proof goals (formal):\n *   - In shift mode with SE asserted, TDI propagates to first flop SI.\n *   - Last flop SO muxes to TDO when in boundary-scan / internal scan mode.\n *\n * Instantiate per design af"
+  },
+  {
+    "path": "uvm_tb/dft_tb_pkg.sv",
+    "title": "dft_tb_pkg.sv",
+    "line_count": 106,
+    "preview": "/**\n * DFT Testbench Package\n * \n * Main package file that includes all UVM testbench components.\n * Import this package in your testbench files.\n */\n\npackage dft_tb_pkg;\n    \n    import uvm_pkg::*;\n    `include \"uvm_macros.svh\"\n    \n    // Includes\n    `include \"uvm_tb/utils/defines.sv\"\n    `includ"
+  },
+  {
+    "path": "uvm_tb/env/dft_env.sv",
+    "title": "dft_env.sv",
+    "line_count": 118,
+    "preview": "/**\n * DFT Environment\n *\n * Integrates all DFT\u2013relevant agents (JTAG, Clock, Reset, Pad)\n * into a single configurable UVM environment.\n *\n * Responsibilities:\n *  - Instantiate and configure agents\n *  - Provide high\u2013level DFT APIs:\n *       run_scan_test(), run_functional_test()\n *  - Coordinate "
+  },
+  {
+    "path": "uvm_tb/env/dft_scoreboard.sv",
+    "title": "dft_scoreboard.sv",
+    "line_count": 295,
+    "preview": "/**\n * DFT Scoreboard\n *\n * Comprehensive scoreboard for DFT\u2013oriented tests. It consumes transactions\n * from the enhanced JTAG driver (which contain both expected and actual TDO)\n * and primary\u2013I/O activity from the pad agent, and produces:\n *\n * - Real\u2013time mismatch logging with full context\n * - "
+  },
+  {
+    "path": "uvm_tb/env/dft_test_config.sv",
+    "title": "dft_test_config.sv",
+    "line_count": 100,
+    "preview": "/**\n * DFT Test Configuration Class\n *\n * Extends the generic test_config with DFT\u2013specific parameters:\n * - Per\u2013agent configuration (JTAG, clock, reset, pad)\n * - DUT scan/DFT parameters\n * - Test mode selection\n * - Pattern file configuration\n * - Logging and coverage controls\n */\n\ntypedef enum {\n"
+  },
+  {
+    "path": "uvm_tb/env/test_config.sv",
+    "title": "test_config.sv",
+    "line_count": 129,
+    "preview": "/**\n * Test Configuration Class\n * \n * Central configuration class for the UVM testbench. Contains all\n * configurable parameters for agents, sequences, and test behavior.\n * \n * This class is used to configure:\n * - Agent behavior (active/passive mode)\n * - Timing parameters\n * - Pattern generation"
+  },
+  {
+    "path": "uvm_tb/env/test_env.sv",
+    "title": "test_env.sv",
+    "line_count": 79,
+    "preview": "/**\n * Test Environment\n * \n * Top-level UVM environment that instantiates and connects all agents,\n * subscribers, and other testbench components.\n */\n\nclass test_env extends uvm_env;\n    \n    `uvm_component_utils(test_env)\n    \n    // Agents\n    jtag_agent jtag_agent_inst;\n    clock_agent clock_ag"
+  },
+  {
+    "path": "uvm_tb/sequences/ATPG_TO_UVM_README.md",
+    "title": "ATPG Pattern to UVM Sequence Converter",
+    "line_count": 73,
+    "preview": "# ATPG Pattern to UVM Sequence Converter\n\nConverts ATPG patterns (`atpg_pattern_t`) into executable UVM sequences for the DFT testbench (JTAG, Clock, Reset, Pad agents).\n\n## Components\n\n### Configuration: `atpg_seq_config`\n- **Scan shift**: `scan_tck_period_ns`, `scan_tck_duty_cycle_pct`, `scan_setu"
+  },
+  {
+    "path": "uvm_tb/sequences/atpg_pattern_to_uvm.sv",
+    "title": "atpg_pattern_to_uvm.sv",
+    "line_count": 351,
+    "preview": "/**\n * ATPG Pattern to UVM Sequence Converter\n *\n * Transforms ATPG patterns (atpg_pattern_t) into executable UVM sequences\n * for JTAG, Clock, Reset, and Pad agents. Implements:\n * - atpg_pattern_seq: three-phase (init, stimulus, response)\n * - scan_shift_with_capture_seq: shift in, capture cycle, "
+  },
+  {
+    "path": "uvm_tb/sequences/base_sequence.sv",
+    "title": "base_sequence.sv",
+    "line_count": 34,
+    "preview": "/**\n * Base Sequence Class\n *\n * Base class for JTAG-oriented test sequences.\n * Uses jtag_transaction as the sequence item type so that it is\n * type-compatible with uvm_sequencer#(jtag_transaction) used by\n * the JTAG agents.\n */\n\nclass base_sequence extends uvm_sequence#(jtag_transaction);\n    \n "
+  },
+  {
+    "path": "uvm_tb/sequences/jtag_sequence.sv",
+    "title": "jtag_sequence.sv",
+    "line_count": 50,
+    "preview": "/**\n * JTAG Sequence Example\n * \n * Example sequence for JTAG operations.\n * Demonstrates how to create sequences for JTAG testing.\n */\n\nclass jtag_sequence extends base_sequence;\n    \n    `uvm_object_utils(jtag_sequence)\n    \n    // Sequence parameters\n    int num_vectors = 10;\n    \n    // Construc"
+  },
+  {
+    "path": "uvm_tb/subscribers/stil/stil_generator.sv",
+    "title": "stil_generator.sv",
+    "line_count": 378,
+    "preview": "/**\n * STIL Generator Subscriber\n *\n * Core IEEE 1450 (STIL) file generator implemented as a UVM subscriber.\n *\n * This component consumes stil_info_transaction objects, collapses\n * concurrent activity into vectors, and emits a standards\u2011compliant\n * STIL file with:\n *   - Header and meta\u2011informati"
+  },
+  {
+    "path": "uvm_tb/subscribers/stil/stil_subscriber.sv",
+    "title": "stil_subscriber.sv",
+    "line_count": 44,
+    "preview": "/**\n * Legacy STIL Subscriber (Adapter)\n *\n * This component remains as the connection point used by the existing\n * environment (`test_env`). It adapts JTAG transactions to the\n * more general `stil_generator` / `stil_info_transaction` API.\n */\n\nclass stil_subscriber extends uvm_subscriber#(jtag_tr"
+  },
+  {
+    "path": "uvm_tb/subscribers/stil/stil_types.sv",
+    "title": "stil_types.sv",
+    "line_count": 265,
+    "preview": "/**\n * STIL (IEEE 1450) Core Data Structures\n *\n * These classes model key STIL concepts used by the generator:\n *  - Signals and their directions/types\n *  - Timing specifications (period, setup/hold, edge)\n *  - Waveforms and vectors\n *  - Procedures and pattern\u2011level information\n *\n * They are UV"
+  },
+  {
+    "path": "uvm_tb/tb_top.sv",
+    "title": "tb_top.sv",
+    "line_count": 117,
+    "preview": "/**\n * UVM Testbench Top Module\n * \n * This is the top-level testbench module that instantiates the DUT\n * and connects it to the UVM testbench environment. It also handles\n * clock generation and global reset.\n * \n * For GPU shader verification context, this testbench can be adapted\n * to verify DF"
+  },
+  {
+    "path": "uvm_tb/tests/atpg_pattern_test.sv",
+    "title": "atpg_pattern_test.sv",
+    "line_count": 28,
+    "preview": "/**\n * atpg_pattern_test\n *\n * Executes ATPG pattern sequences (STIL or similar).\n * Concrete pattern application should be implemented in env.run_scan_test()\n * and associated sequences.\n */\n\nclass atpg_pattern_test extends dft_base_test;\n\n    `uvm_component_utils(atpg_pattern_test)\n\n    function n"
+  },
+  {
+    "path": "uvm_tb/tests/atpg_select_patterns_test.sv",
+    "title": "atpg_select_patterns_test.sv",
+    "line_count": 153,
+    "preview": "/**\n * ATPG Select Patterns Test\n *\n * Example: select 5-10 specific ATPG patterns from a parsed pattern set\n * and execute them via multi_pattern_seq (ATPG-to-UVM converter).\n *\n * Usage:\n *   +UVM_TESTNAME=atpg_select_patterns_test\n *   Optional plusargs: pattern file path, pattern names, count (s"
+  },
+  {
+    "path": "uvm_tb/tests/base_test.sv",
+    "title": "base_test.sv",
+    "line_count": 64,
+    "preview": "/**\n * Base Test Class\n * \n * Base class for all test cases. Provides common test setup and\n * configuration that can be extended by specific test cases.\n */\n\nclass base_test extends uvm_test;\n    \n    `uvm_component_utils(base_test)\n    \n    // Test environment\n    test_env env;\n    \n    // Configu"
+  },
+  {
+    "path": "uvm_tb/tests/dft_base_test.sv",
+    "title": "dft_base_test.sv",
+    "line_count": 73,
+    "preview": "/**\n * DFT Base Test\n *\n * Base class for all DFT\u2013oriented tests. Uses dft_env and dft_test_config\n * and provides common hooks and utilities.\n */\n\nclass dft_base_test extends uvm_test;\n\n    `uvm_component_utils(dft_base_test)\n\n    dft_env        env;\n    dft_test_config cfg;\n\n    function new(strin"
+  },
+  {
+    "path": "uvm_tb/tests/full_regression_test.sv",
+    "title": "full_regression_test.sv",
+    "line_count": 41,
+    "preview": "/**\n * full_regression_test\n *\n * Top\u2013level regression that can sweep multiple DFT modes/pattern sets.\n * For now this simply calls env.run_scan_test() once per configured mode;\n * users can extend it to iterate over external pattern lists.\n */\n\nclass full_regression_test extends dft_base_test;\n\n   "
+  },
+  {
+    "path": "uvm_tb/tests/path_delay_test.sv",
+    "title": "path_delay_test.sv",
+    "line_count": 26,
+    "preview": "/**\n * path_delay_test\n *\n * Critical\u2013path timing (path delay) DFT test.\n */\n\nclass path_delay_test extends dft_base_test;\n\n    `uvm_component_utils(path_delay_test)\n\n    function new(string name = \"path_delay_test\", uvm_component parent = null);\n        super.new(name, parent);\n    endfunction\n\n   "
+  },
+  {
+    "path": "uvm_tb/tests/scan_capture_test.sv",
+    "title": "scan_capture_test.sv",
+    "line_count": 27,
+    "preview": "/**\n * scan_capture_test\n *\n * Scan shift followed by capture cycle.\n */\n\nclass scan_capture_test extends dft_base_test;\n\n    `uvm_component_utils(scan_capture_test)\n\n    function new(string name = \"scan_capture_test\", uvm_component parent = null);\n        super.new(name, parent);\n    endfunction\n\n "
+  },
+  {
+    "path": "uvm_tb/tests/scan_shift_test.sv",
+    "title": "scan_shift_test.sv",
+    "line_count": 26,
+    "preview": "/**\n * scan_shift_test\n *\n * Basic scan\u2013shift\u2013only test (no functional capture).\n */\n\nclass scan_shift_test extends dft_base_test;\n\n    `uvm_component_utils(scan_shift_test)\n\n    function new(string name = \"scan_shift_test\", uvm_component parent = null);\n        super.new(name, parent);\n    endfunct"
+  },
+  {
+    "path": "uvm_tb/tests/simple_jtag_test.sv",
+    "title": "simple_jtag_test.sv",
+    "line_count": 50,
+    "preview": "/**\n * Simple JTAG Test\n * \n * Example test case that demonstrates basic JTAG testing.\n * Extend this test for your specific verification requirements.\n */\n\nclass simple_jtag_test extends base_test;\n    \n    `uvm_component_utils(simple_jtag_test)\n    \n    // Constructor\n    function new(string name "
+  },
+  {
+    "path": "uvm_tb/tests/stuck_at_test.sv",
+    "title": "stuck_at_test.sv",
+    "line_count": 26,
+    "preview": "/**\n * stuck_at_test\n *\n * Stuck\u2013at fault\u2013oriented DFT test.\n */\n\nclass stuck_at_test extends dft_base_test;\n\n    `uvm_component_utils(stuck_at_test)\n\n    function new(string name = \"stuck_at_test\", uvm_component parent = null);\n        super.new(name, parent);\n    endfunction\n\n    virtual function "
+  },
+  {
+    "path": "uvm_tb/tests/transition_delay_test.sv",
+    "title": "transition_delay_test.sv",
+    "line_count": 26,
+    "preview": "/**\n * transition_delay_test\n *\n * At\u2013speed transition delay DFT test.\n */\n\nclass transition_delay_test extends dft_base_test;\n\n    `uvm_component_utils(transition_delay_test)\n\n    function new(string name = \"transition_delay_test\", uvm_component parent = null);\n        super.new(name, parent);\n    "
+  },
+  {
+    "path": "uvm_tb/utils/atpg/ATPG_PARSER_README.md",
+    "title": "ATPG Pattern Parser",
+    "line_count": 154,
+    "preview": "# ATPG Pattern Parser\n\n## Overview\n\nThe ATPG pattern parser reads standard ATPG tool outputs and converts them into `atpg_pattern_t` objects for use in UVM sequences. It supports multiple formats (TetraMAX-style, Fastscan-style, generic ASCII, and STIL-like) and provides validation, statistics, and "
+  },
+  {
+    "path": "uvm_tb/utils/atpg/atpg_parser_config.sv",
+    "title": "atpg_parser_config.sv",
+    "line_count": 56,
+    "preview": "/**\n * ATPG Parser Configuration\n *\n * Input paths, pattern type filter, max count, vector length expectations,\n * fault coverage thresholds, logging and dry-run options.\n */\n\nclass atpg_parser_config extends uvm_object;\n    `uvm_object_utils(atpg_parser_config)\n\n    string input_file_paths[$];\n    "
+  },
+  {
+    "path": "uvm_tb/utils/atpg/atpg_pattern.sv",
+    "title": "atpg_pattern.sv",
+    "line_count": 82,
+    "preview": "/**\n * ATPG Pattern Data Structures\n *\n * Defines pattern type enum, vector representation, and atpg_pattern_t\n * for storing parsed ATPG pattern data (scan in/out, primary I/O, faults, metadata).\n */\n\n// ---------------------------------------------------------------------------\n// Pattern type (te"
+  },
+  {
+    "path": "uvm_tb/utils/atpg/atpg_pattern_exec_logger.sv",
+    "title": "atpg_pattern_exec_logger.sv",
+    "line_count": 118,
+    "preview": "/**\n * ATPG Pattern Execution Logger\n *\n * Logs start/end time per pattern, actual vs expected for failures,\n * coverage statistics, and exports to CSV for post-processing.\n */\n\ntypedef enum {\n    ATPG_PATTERN_PASS,\n    ATPG_PATTERN_FAIL,\n    ATPG_PATTERN_ERROR\n} atpg_pattern_status_e;\n\nclass atpg_p"
+  },
+  {
+    "path": "uvm_tb/utils/atpg/atpg_pattern_parser.sv",
+    "title": "atpg_pattern_parser.sv",
+    "line_count": 326,
+    "preview": "/**\n * ATPG Pattern Parser\n *\n * Reads ATPG tool outputs (TetraMAX, Fastscan, generic ASCII, STIL-like)\n * and converts them to atpg_pattern_t for use in UVM sequences.\n *\n * - parse_atpg_file() dispatches by format\n * - parse_tetramax_file / parse_fastscan_file / parse_generic_ascii\n * - validate_p"
+  },
+  {
+    "path": "uvm_tb/utils/atpg/atpg_seq_config.sv",
+    "title": "atpg_seq_config.sv",
+    "line_count": 61,
+    "preview": "/**\n * ATPG Sequence Configuration\n *\n * Configuration options for converting ATPG patterns into executable UVM sequences:\n * - Scan shift timing (TCK frequency, duty cycle)\n * - Capture edge and primary I/O timing\n * - Pattern execution mode and result checking\n */\n\ntypedef enum {\n    ATPG_CAPTURE_"
+  },
+  {
+    "path": "uvm_tb/utils/defines.sv",
+    "title": "defines.sv",
+    "line_count": 46,
+    "preview": "/**\n * Global Defines\n * \n * Project-wide defines and parameters.\n * Include this file in your testbench files as needed.\n */\n\n`ifndef DFT_DEFINES_SV\n`define DFT_DEFINES_SV\n\n// Number of pads (adjust based on your design)\n`define NUM_PADS 32\n\n// Default clock periods (in nanoseconds)\n`define DEFAULT"
+  },
+  {
+    "path": "uvm_tb/utils/dft_utils.sv",
+    "title": "dft_utils.sv",
+    "line_count": 66,
+    "preview": "/**\n * DFT Utilities\n * \n * Utility functions and helper classes for DFT verification.\n * Includes functions for scan chain manipulation, pattern generation,\n * and test result analysis.\n */\n\npackage dft_utils_pkg;\n    \n    // Scan chain configuration\n    class scan_chain_config;\n        int num_cha"
+  }
+]

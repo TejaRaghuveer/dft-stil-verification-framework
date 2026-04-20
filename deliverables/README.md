@@ -1,4 +1,4 @@
-# Week 3 production deliverables
+# Week 3 Deliverables Guide for Production Validation
 
 The `python/integrated_flow/week3_production.py` flow writes artifacts into this tree:
 
@@ -9,7 +9,7 @@ The `python/integrated_flow/week3_production.py` flow writes artifacts into this
 | **Artifacts/** | Placeholder for golden responses, netlist pointers, TB configs |
 | **Archive/** | Version snapshots (copy tagged release trees here) |
 
-## Generate
+## How I Generate Deliverables
 
 From repository root (Windows PowerShell):
 
@@ -30,7 +30,24 @@ Dry-run (minimal placeholder pattern DB):
 python python/integrated_flow/week3_production.py --dry-run --out deliverables
 ```
 
-## Maintainer
+## What I Changed in This Deliverables Flow
+
+- Consolidated outputs into a predictable structure (`STIL_Patterns`, `Reports`, `Artifacts`, `Archive`).
+- Added support for dry-run and full-result modes using the same flow entry point.
+- Documented command examples for quick local verification and CI usage.
+
+## Difficulties I Faced
+
+- Deliverable artifacts can vary depending on whether real simulation results are available.
+- It was easy to lose track of which report came from which execution mode.
+
+## How I Overcame Them
+
+- I kept one flow (`week3_production.py`) as the single source of artifact generation.
+- I documented both dry-run and results-driven commands so output expectations are clear.
+- I aligned folder naming with report consumption needs for easier review and archiving.
+
+## Maintainer Contact
 
 - **Raghuveer**
 - GitHub / LinkedIn: [https://github.com/TejaRaghuveer](https://github.com/TejaRaghuveer)

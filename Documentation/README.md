@@ -13,6 +13,7 @@ I use this page as the quick map for the long-form technical docs under `Documen
 | [GPU_SHADER_DFT_SPECIALIZATION.md](GPU_SHADER_DFT_SPECIALIZATION.md) | GPU ALU/register/pipeline DFT specialization |
 | [MULTI_CORE_CACHE_INTERCONNECT_DFT.md](MULTI_CORE_CACHE_INTERCONNECT_DFT.md) | Cache coherence and interconnect verification |
 | [ML_PATTERN_OPTIMIZATION.md](ML_PATTERN_OPTIMIZATION.md) | ML-based test pattern optimization and fault prediction |
+| [POST_SILICON_ATE_VALIDATION.md](POST_SILICON_ATE_VALIDATION.md) | ATE conversion, compatibility checks, and post-silicon validation flow |
 
 Project docs also live under `docs/` (architecture, user guide, API, CI/CD).
 

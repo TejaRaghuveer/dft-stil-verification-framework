@@ -1,0 +1,18 @@
+STIL 1.0;
+
+Signals {
+  TCK In;
+  TMS In;
+  TDI In;
+  TDO Out;
+}
+
+PatternBurst "POST_SI_SAMPLE" {
+  Pattern "PATTERN_001" {
+    W "default_wft";
+    V { TCK=0; TMS=1; TDI=0; TDO=0; }
+    V { TCK=1; TMS=0; TDI=1; TDO=1; }
+    V { TCK=0; TMS=0; TDI=1; TDO=1; }
+  }
+}
+

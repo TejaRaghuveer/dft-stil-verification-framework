@@ -1,0 +1,25 @@
+ate_config {
+  tester_type: V93000;
+  test_program_name: "GPU_Shader_DFT.trp";
+  pattern_file: "patterns.stil";
+
+  tester_specs {
+    max_tck_frequency_mhz: 500;
+    num_channels: 128;
+    memory_capacity_gb: 4;
+    max_pattern_rate_mvecs_per_sec: 10;
+  }
+
+  timing_specs {
+    tco_margin_ns: 0.5;
+    setup_margin_ns: 0.3;
+    hold_margin_ns: 0.3;
+  }
+
+  test_program {
+    startup_procedure: "INIT_DUT";
+    test_sequence: "RUN_ALL_PATTERNS";
+    shutdown_procedure: "SHUTDOWN";
+  }
+}
+

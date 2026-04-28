@@ -1,6 +1,6 @@
 # DFT Verification Documentation Index
 
-I use this page as the quick map for the long-form technical docs under `Documentation/`. It helps me and the team jump directly to production flow notes, troubleshooting references, and specialization material without guessing where a topic lives.
+This page is the main navigation map for long-form technical documentation under `Documentation/`, including production flow notes, troubleshooting references, and specialization guides.
 
 | Document | Description |
 |----------|-------------|

@@ -38,11 +38,14 @@ def main() -> int:
         key, value = entry.split("=", 1)
         current[key.strip()] = float(value)
 
+    # Compare degradation against the most recent prior sample, not the oldest run.
+    previous_metrics = history[-1]["metrics"] if history else {}
+
     row = {"timestamp": datetime.now(timezone.utc).isoformat(), "metrics": current}
     history.append(row)
     history_path.write_text(json.dumps(history, indent=2), encoding="utf-8")
 
-    baseline = history[0]["metrics"] if history else {}
+    baseline = previous_metrics
     alerts: list[str] = []
     for key, cur in current.items():
         base = baseline.get(key, cur)

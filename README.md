@@ -336,7 +336,6 @@ endclass
 | [Design Document](docs/DESIGN_DOCUMENT.md) | Technical rationale and maintainability strategy |
 | [Knowledge Base](docs/KNOWLEDGE_BASE.md) | FAQ, snippets, decisions, and lessons learned |
 | [Maintenance Process](docs/MAINTENANCE_PROCESS.md) | Quarterly review, ownership, and update triggers |
-| [CI/CD Pipeline](docs/CI_CD_PIPELINE.md) | Automation flow, sign-off gates, and deployment procedure |
 | [JTAG Agent Docs](uvm_tb/agents/jtag/JTAG_AGENT_DOCUMENTATION.md) | IEEE 1149.1 JTAG agent reference |
 | [Setup Guide](SETUP.md) | Environment setup instructions |
 

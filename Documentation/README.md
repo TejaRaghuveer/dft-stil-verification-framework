@@ -24,6 +24,16 @@ I use this page as the quick map for the long-form technical docs under `Documen
 | [ARCHIVAL_AND_VERSIONING_PLAN.md](ARCHIVAL_AND_VERSIONING_PLAN.md) | Long-term retention, backup, and access policy |
 | [TAPEOUT_PROCEDURES_AND_SIGNOFF_REQUIREMENTS.md](TAPEOUT_PROCEDURES_AND_SIGNOFF_REQUIREMENTS.md) | End-to-end tapeout procedure and sign-off rules |
 | [TAPEOUT_SUMMARY.md](TAPEOUT_SUMMARY.md) | Executive tapeout accomplishments and metrics summary |
+| [PROJECT_RETROSPECTIVE.md](PROJECT_RETROSPECTIVE.md) | Reflection on outcomes, lessons, and process improvements |
+| [CODE_QUALITY_REVIEW.md](CODE_QUALITY_REVIEW.md) | Complexity, maintainability, and bottleneck review |
+| [OPTIMIZATION_PASS_REPORT.md](OPTIMIZATION_PASS_REPORT.md) | Optimization actions and expected performance impact |
+| [TECHNICAL_DEBT_INVENTORY.md](TECHNICAL_DEBT_INVENTORY.md) | Prioritized debt backlog with effort estimates |
+| [NEXT_VERSION_ENHANCEMENTS.md](NEXT_VERSION_ENHANCEMENTS.md) | Planned feature upgrades for next release |
+| [FUTURE_ROADMAP.md](FUTURE_ROADMAP.md) | Versioned roadmap through 2027+ |
+| [BEST_PRACTICES_GUIDE.md](BEST_PRACTICES_GUIDE.md) | Practical do's/don'ts and team guidance |
+| [INDUSTRY_ALIGNMENT_ANALYSIS.md](INDUSTRY_ALIGNMENT_ANALYSIS.md) | Alignment vs industry DFT methodologies |
+| [PORTFOLIO_PROJECT_SUMMARY.md](PORTFOLIO_PROJECT_SUMMARY.md) | Interview-ready technical project summary |
+| [GRADUATION_SUMMARY.md](GRADUATION_SUMMARY.md) | Final closure and transition statement |
 
 Project docs also live under `docs/` (architecture, user guide, API, CI/CD).
 

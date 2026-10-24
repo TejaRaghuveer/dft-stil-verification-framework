@@ -15,15 +15,9 @@ This page is the main navigation map for long-form technical documentation under
 | [ML_PATTERN_OPTIMIZATION.md](ML_PATTERN_OPTIMIZATION.md) | ML-based test pattern optimization and fault prediction |
 | [POST_SILICON_ATE_VALIDATION.md](POST_SILICON_ATE_VALIDATION.md) | ATE conversion, compatibility checks, and post-silicon validation flow |
 | [ADVANCED_ANALYTICS_INTELLIGENCE.md](ADVANCED_ANALYTICS_INTELLIGENCE.md) | Statistical intelligence, optimization, and root-cause analytics |
-| [TAPEOUT_CHECKLIST.md](TAPEOUT_CHECKLIST.md) | Final release gating checklist for tapeout readiness |
-| [FORMAL_SIGN_OFF_DOCUMENT.md](FORMAL_SIGN_OFF_DOCUMENT.md) | Formal DFT sign-off approval document for manufacturing |
-| [MANUFACTURING_HANDOFF_PACKAGE.md](MANUFACTURING_HANDOFF_PACKAGE.md) | Required package contents for manufacturing handoff |
 | [DOCUMENTATION_HANDOFF.md](DOCUMENTATION_HANDOFF.md) | Documentation delivery and ownership transfer procedure |
 | [KNOWLEDGE_TRANSFER_PLAN.md](KNOWLEDGE_TRANSFER_PLAN.md) | Training and onboarding plan for mfg/test teams |
-| [POST_TAPEOUT_SUPPORT.md](POST_TAPEOUT_SUPPORT.md) | Post-release support model and update process |
 | [ARCHIVAL_AND_VERSIONING_PLAN.md](ARCHIVAL_AND_VERSIONING_PLAN.md) | Long-term retention, backup, and access policy |
-| [TAPEOUT_PROCEDURES_AND_SIGNOFF_REQUIREMENTS.md](TAPEOUT_PROCEDURES_AND_SIGNOFF_REQUIREMENTS.md) | End-to-end tapeout procedure and sign-off rules |
-| [TAPEOUT_SUMMARY.md](TAPEOUT_SUMMARY.md) | Executive tapeout accomplishments and metrics summary |
 | [PROJECT_RETROSPECTIVE.md](PROJECT_RETROSPECTIVE.md) | Reflection on outcomes, lessons, and process improvements |
 | [CODE_QUALITY_REVIEW.md](CODE_QUALITY_REVIEW.md) | Complexity, maintainability, and bottleneck review |
 | [OPTIMIZATION_PASS_REPORT.md](OPTIMIZATION_PASS_REPORT.md) | Optimization actions and expected performance impact |
@@ -33,7 +27,6 @@ This page is the main navigation map for long-form technical documentation under
 | [BEST_PRACTICES_GUIDE.md](BEST_PRACTICES_GUIDE.md) | Practical do's/don'ts and team guidance |
 | [INDUSTRY_ALIGNMENT_ANALYSIS.md](INDUSTRY_ALIGNMENT_ANALYSIS.md) | Alignment vs industry DFT methodologies |
 | [PORTFOLIO_PROJECT_SUMMARY.md](PORTFOLIO_PROJECT_SUMMARY.md) | Interview-ready technical project summary |
-| [GRADUATION_SUMMARY.md](GRADUATION_SUMMARY.md) | Final closure and transition statement |
 
 Project docs also live under `docs/` (architecture, user guide, API, CI/CD).
 
